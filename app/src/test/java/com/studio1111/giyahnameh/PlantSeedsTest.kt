@@ -2,7 +2,7 @@ package com.studio1111.giyahnameh
 
 import com.studio1111.giyahnameh.data.PlantCatalogAsia
 import com.studio1111.giyahnameh.data.PlantCatalogAsia2
-import com.studio1111.giyahnameh.data.PlantCatalogAsia3
+import com.studio1111.giyahnameh.data.PlantCatalogAsia3Clean
 import com.studio1111.giyahnameh.data.PlantCatalogAsia4
 import com.studio1111.giyahnameh.data.PlantSeeds
 import org.junit.Assert.assertEquals
@@ -10,7 +10,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PlantSeedsTest {
-    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3.plants + PlantCatalogAsia4.plants
+    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants
 
     @Test fun seedIdsAreUniqueAcrossAllOfflineBatches() {
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.id }.toSet().size)
