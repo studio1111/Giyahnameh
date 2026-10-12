@@ -256,4 +256,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun medicinalTreeAndHerbMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "boswellia-serrata", "commiphora-wightii", "santalum-album",
+            "terminalia-arjuna", "saraca-asoca", "berberis-lycium",
+            "valeriana-jatamansi", "picrorhiza-kurroa", "saussurea-costus",
+            "nardostachys-jatamansi"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
