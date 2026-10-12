@@ -34,6 +34,7 @@ jobs:
           key: giyahnameh-plant-images-${{ github.run_id }}
           restore-keys: |
             giyahnameh-plant-images-
+          save-always: true
       - name: Install image processor
         run: python -m pip install --disable-pip-version-check "Pillow==11.3.0"
       - name: Test plant image source and licence filters
