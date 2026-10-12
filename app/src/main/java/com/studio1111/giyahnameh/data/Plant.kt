@@ -1,5 +1,6 @@
 package com.studio1111.giyahnameh.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -18,9 +19,9 @@ data class Plant(
     val cautions: String,
     val interactions: String,
     val imageUrl: String = "",
-    val imageAttribution: String = "",
-    val imageLicense: String = "",
-    val imageSourceUrl: String = "",
+    @ColumnInfo(defaultValue = "''") val imageAttribution: String = "",
+    @ColumnInfo(defaultValue = "''") val imageLicense: String = "",
+    @ColumnInfo(defaultValue = "''") val imageSourceUrl: String = "",
     val sourceUrl: String = "",
     val isFavorite: Boolean = false,
     val updatedAt: Long = System.currentTimeMillis()
