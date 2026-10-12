@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Plant::class], version = 2, exportSchema = false)
+@Database(entities = [Plant::class], version = 3, exportSchema = false)
 abstract class PlantDatabase : RoomDatabase() {
     abstract fun plantDao(): PlantDao
     companion object {
@@ -18,10 +18,15 @@ abstract class PlantDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE plants ADD COLUMN imageSourceUrl TEXT NOT NULL DEFAULT ''")
             }
         }
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE plants ADD COLUMN imageLocalPath TEXT NOT NULL DEFAULT ''")
+            }
+        }
         @Volatile private var instance: PlantDatabase? = null
         fun get(context: Context): PlantDatabase = instance ?: synchronized(this) {
             instance ?: Room.databaseBuilder(context.applicationContext, PlantDatabase::class.java, "giyahnameh.db")
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .build().also { instance = it }
         }
     }
