@@ -28,7 +28,12 @@ class PlantArticleCatalogTest {
                 "salvia-rosmarinus",
                 "thymus-vulgaris",
                 "lavandula-angustifolia",
-                "panax-ginseng"
+                "panax-ginseng",
+                "ocimum-basilicum",
+                "cinnamomum-verum",
+                "syzygium-aromaticum",
+                "foeniculum-vulgare",
+                "coriandrum-sativum"
             ),
             articles.map { it.plantId }.toSet()
         )
@@ -117,5 +122,25 @@ class PlantArticleCatalogTest {
         val ginseng = PlantArticleCatalog.find("panax-ginseng")!!
         assertTrue(ginseng.sideEffects.contains("بی‌خوابی"))
         assertTrue(ginseng.interactions.contains("وارفارین"))
+
+        val basil = PlantArticleCatalog.find("ocimum-basilicum")!!
+        assertTrue(basil.evidence.contains("استراگول"))
+        assertTrue(basil.references.any { it.url.contains("magiran.com") })
+
+        val cinnamon = PlantArticleCatalog.find("cinnamomum-verum")!!
+        assertTrue(cinnamon.evidence.contains("کومارین"))
+        assertTrue(cinnamon.specialPopulations.contains("بیماری کبدی"))
+
+        val clove = PlantArticleCatalog.find("syzygium-aromaticum")!!
+        assertTrue(clove.sideEffects.contains("مسمومیت"))
+        assertTrue(clove.specialPopulations.contains("کودکان"))
+
+        val fennel = PlantArticleCatalog.find("foeniculum-vulgare")!!
+        assertTrue(fennel.specialPopulations.contains("نوزادان"))
+        assertTrue(fennel.references.any { it.url.contains("ema.europa.eu") })
+
+        val coriander = PlantArticleCatalog.find("coriandrum-sativum")!!
+        assertTrue(coriander.evidence.contains("پیش‌بالینی"))
+        assertTrue(coriander.references.any { it.url.contains("magiran.com") })
     }
 }
