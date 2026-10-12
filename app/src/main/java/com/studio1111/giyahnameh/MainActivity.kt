@@ -262,7 +262,7 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)).background(Leaf), contentAlignment = Alignment.Center) {
                 if (plant.imageUrl.isNotBlank()) {
-                    AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+                    AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize(), contentScale = androidx.compose.ui.layout.ContentScale.Crop)
                 } else {
                     Text("🌿", style = MaterialTheme.typography.displaySmall)
                 }
@@ -315,6 +315,11 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
         InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
         InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
         InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
+        if (plant.partsUsed.isNotBlank()) InfoSection("کدام بخش گیاه استفاده می‌شود؟", plant.partsUsed)
+        if (plant.preparation.isNotBlank()) InfoSection("روش آماده‌سازی و استفاده", plant.preparation)
+        if (plant.specialPopulations.isNotBlank()) InfoSection("بارداری، کودکان و گروه‌های حساس", plant.specialPopulations, warning = true)
+        if (plant.faq.isNotBlank()) InfoSection("پرسش‌های رایج", plant.faq)
+        if (plant.bibliography.isNotBlank()) InfoSection("منابع علمی تکمیلی", plant.bibliography)
         if (plant.imageUrl.isNotBlank()) {
             InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
         }
