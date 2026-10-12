@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 class ImageEnrichmentWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result = try {
         val dao = PlantDatabase.get(applicationContext).plantDao()
-        val repository = PlantRepository(dao)
+        val repository = PlantRepository(dao, applicationContext)
         repository.seedIfNeeded()
         repository.refreshMissingImages()
         Result.success()
