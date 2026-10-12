@@ -399,4 +399,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun northernFruitAndHerbMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "diospyros-lotus", "diospyros-virginiana", "pinus-pinea",
+            "pistacia-terebinthus", "crataegus-azarolus", "berberis-aristata",
+            "schisandra-chinensis", "ginkgo-biloba", "urtica-dioica",
+            "taraxacum-officinale"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
