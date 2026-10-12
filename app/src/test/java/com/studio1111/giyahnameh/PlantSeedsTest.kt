@@ -363,4 +363,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun rareCitrusAndYamMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "citrus-junos", "citrus-australasica", "citrus-ichangensis",
+            "citrus-micrantha", "citrus-medica-var-sarcodactylis",
+            "dioscorea-opposita", "dioscorea-japonica", "citrus-hystrix",
+            "citrus-trifoliata", "piper-sarmentosum"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
