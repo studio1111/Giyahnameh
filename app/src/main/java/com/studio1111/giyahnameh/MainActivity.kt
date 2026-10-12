@@ -222,7 +222,7 @@ private fun GiyahApp(vm: PlantViewModel) {
                     )
                     FilterChip(
                         selected = vm.sortMode == PlantSortMode.POPULARITY,
-                        onClick = { vm.setSortMode(PlantSortMode.POPULARITY) },
+                        onClick = { vm.changeSortMode(PlantSortMode.POPULARITY) },
                         label = { Text(PlantPopularity.label) }
                     )
                 }
