@@ -74,6 +74,8 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
     val plants = queryFlow.flatMapLatest { repo.plants(it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val favorites = repo.favorites().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val cachedImageCount = repo.cachedImageCount().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val totalPlantCount = repo.totalPlantCount().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     init { viewModelScope.launch { repo.seedIfNeeded() } }
 
@@ -134,6 +136,9 @@ private fun GiyahApp(vm: PlantViewModel) {
         else baseList.filter { it.category.contains(vm.selectedCategory, ignoreCase = true) }
     }
     val selected = vm.selectedId
+    val cachedImageCount by vm.cachedImageCount.collectAsState()
+    val totalPlantCount by vm.totalPlantCount.collectAsState()
+    val imageProgress = if (totalPlantCount > 0) (cachedImageCount.toFloat() / totalPlantCount).coerceIn(0f, 1f) else 0f
     Scaffold(
         containerColor = Paper,
         topBar = {
@@ -204,6 +209,30 @@ private fun GiyahApp(vm: PlantViewModel) {
                         Box(Modifier.weight(1f)) {
                             CategoryChip(category, vm.selectedCategory == category) { vm.category(category) }
                         }
+                    }
+                }
+                Surface(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 6.dp),
+                    shape = RoundedCornerShape(15.dp),
+                    color = Color.White,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD8DED5)),
+                    shadowElevation = 0.dp
+                ) {
+                    Column(
+                        Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 9.dp),
+                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("تصاویر آفلاین", fontWeight = FontWeight.Bold, color = ForestDeep, style = MaterialTheme.typography.labelLarge)
+                            Spacer(Modifier.weight(1f))
+                            Text("$cachedImageCount از $totalPlantCount", fontWeight = FontWeight.Bold, color = Forest, style = MaterialTheme.typography.labelMedium)
+                        }
+                        LinearProgressIndicator(progress = imageProgress, modifier = Modifier.fillMaxWidth())
+                        Text(
+                            if (totalPlantCount > 0 && cachedImageCount >= totalPlantCount) "تصاویر دریافت‌شده در حافظهٔ برنامه ثبت شده‌اند." else "با اتصال اینترنت، تصاویر دارای مجوز به‌تدریج دریافت می‌شوند.",
+                            color = Muted,
+                            style = MaterialTheme.typography.bodySmall
+                        )
                     }
                 }
                 Row(
