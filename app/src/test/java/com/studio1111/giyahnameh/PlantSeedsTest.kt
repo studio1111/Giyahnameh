@@ -274,4 +274,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun southAsianTreeMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "ficus-religiosa", "ficus-benghalensis", "ficus-racemosa",
+            "zanthoxylum-armatum", "vachellia-nilotica", "albizia-lebbeck",
+            "bauhinia-variegata", "cassia-fistula", "butea-monosperma",
+            "shorea-robusta"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
