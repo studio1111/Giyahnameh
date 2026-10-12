@@ -22,7 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -79,7 +81,7 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GiyahTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = lightColorScheme(primary = Forest, onPrimary = Color.White, secondary = Color(0xFF587B50), background = Paper, surface = Color.White, onSurface = Color(0xFF202820)), content = content)
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {\n        MaterialTheme(colorScheme = lightColorScheme(primary = Forest, onPrimary = Color.White, secondary = Color(0xFF587B50), background = Paper, surface = Color.White, onSurface = Color(0xFF202820)), content = content)\n    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
