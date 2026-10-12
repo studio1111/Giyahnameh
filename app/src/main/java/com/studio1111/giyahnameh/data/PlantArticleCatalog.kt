@@ -158,7 +158,7 @@ object PlantArticleCatalog {
             images = emptyList()
         )
 
-    private val articles = listOf(spearmintArticle) + PlantArticlesBatch01.articles + PlantArticlesBatch02.articles + PlantArticlesBatch03.articles
+    private val articles = listOf(spearmintArticle) + PlantArticlesBatch01.articles + PlantArticlesBatch02.articles + PlantArticlesBatch03.articles + PlantArticlesBatch04.articles
 
     val curatedArticles: List<PlantArticle> = articles
 
