@@ -6,6 +6,8 @@ import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -13,6 +15,11 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class PlantRepository(private val dao: PlantDao, private val context: Context) {
+    private companion object {
+        const val CATALOG_VERSION = 2
+        val catalogSyncMutex = Mutex()
+    }
+
     fun plants(query: String): Flow<List<Plant>> = if (query.isBlank()) dao.observeAll() else dao.search(query)
     fun plant(id: String): Flow<Plant?> = dao.observeById(id)
     fun favorites(): Flow<List<Plant>> = dao.observeFavorites()
@@ -22,7 +29,39 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
 
     // Seed both the original examples and the curated regional catalogue without overwriting user data.
     suspend fun seedIfNeeded() = withContext(Dispatchers.IO) {
-        dao.insertIfMissing(PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants + PlantCatalogAsia8.plants + PlantCatalogAsia9.plants + PlantCatalogAsia10.plants + PlantCatalogAsia11.plants.filterNot { it.id == "cajanus-cajan-var" }.map { if (it.id == "tal inum-fruticosum") it.copy(id = "talinum-fruticosum") else it } + PlantCatalogAsia12.plants + PlantCatalogAsia13.plants + PlantCatalogAsia14.plants.filterNot { it.id in setOf("citrullus-lanatus", "cucurbita-pepo", "dioscorea-alata", "alpinia-galanga", "eleusine-coracana", "setaria-italica", "panicum-miliaceum") } + PlantCatalogAsia15.plants)
+        catalogSyncMutex.withLock {
+            val seeds = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants + PlantCatalogAsia8.plants + PlantCatalogAsia9.plants + PlantCatalogAsia10.plants + PlantCatalogAsia11.plants.filterNot { it.id == "cajanus-cajan-var" }.map { if (it.id == "tal inum-fruticosum") it.copy(id = "talinum-fruticosum") else it } + PlantCatalogAsia12.plants + PlantCatalogAsia13.plants + PlantCatalogAsia14.plants.filterNot { it.id in setOf("citrullus-lanatus", "cucurbita-pepo", "dioscorea-alata", "alpinia-galanga", "eleusine-coracana", "setaria-italica", "panicum-miliaceum") } + PlantCatalogAsia15.plants
+            dao.insertIfMissing(seeds)
+
+            // Bump this value when bundled editorial content changes. User favorites and cached image metadata are preserved.
+            val preferences = context.getSharedPreferences("giyahnameh_catalog", Context.MODE_PRIVATE)
+            val installedCatalogVersion = preferences.getInt("catalog_version", 0)
+            if (installedCatalogVersion < CATALOG_VERSION) {
+                seeds.forEach { plant ->
+                    dao.updateEditorialFields(
+                        id = plant.id,
+                        persianName = plant.persianName,
+                        scientificName = plant.scientificName,
+                        family = plant.family,
+                        category = plant.category,
+                        description = plant.description,
+                        habitat = plant.habitat,
+                        care = plant.care,
+                        traditionalUses = plant.traditionalUses,
+                        evidence = plant.evidence,
+                        cautions = plant.cautions,
+                        interactions = plant.interactions,
+                        sourceUrl = plant.sourceUrl,
+                        partsUsed = plant.partsUsed,
+                        preparation = plant.preparation,
+                        specialPopulations = plant.specialPopulations,
+                        faq = plant.faq,
+                        bibliography = plant.bibliography
+                    )
+                }
+                preferences.edit().putInt("catalog_version", CATALOG_VERSION).apply()
+            }
+        }
     }
 
     suspend fun refreshMissingImages() {
