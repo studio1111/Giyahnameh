@@ -23,7 +23,12 @@ class PlantArticleCatalogTest {
                 "glycyrrhiza-glabra",
                 "plantago-ovata",
                 "crocus-sativus",
-                "nigella-sativa"
+                "nigella-sativa",
+                "mentha-piperita",
+                "salvia-rosmarinus",
+                "thymus-vulgaris",
+                "lavandula-angustifolia",
+                "panax-ginseng"
             ),
             articles.map { it.plantId }.toSet()
         )
@@ -91,5 +96,26 @@ class PlantArticleCatalogTest {
         val blackSeed = PlantArticleCatalog.find("nigella-sativa")!!
         assertTrue(blackSeed.evidence.contains("۸۵۴ شرکت‌کننده"))
         assertTrue(blackSeed.interactions.contains("فشارخون"))
+
+        val peppermint = PlantArticleCatalog.find("mentha-piperita")!!
+        assertTrue(peppermint.evidence.contains("روکش‌روده‌ای"))
+        assertTrue(peppermint.specialPopulations.contains("کودکان خردسال"))
+        assertTrue(peppermint.references.any { it.url.contains("nccih.nih.gov") })
+
+        val rosemary = PlantArticleCatalog.find("salvia-rosmarinus")!!
+        assertTrue(rosemary.contraindications.contains("سنگ صفرا"))
+        assertTrue(rosemary.specialPopulations.contains("۱۲ سال"))
+
+        val thyme = PlantArticleCatalog.find("thymus-vulgaris")!!
+        assertTrue(thyme.evidence.contains("یک هفته"))
+        assertTrue(thyme.references.any { it.url.contains("jmp.ir") })
+
+        val lavender = PlantArticleCatalog.find("lavandula-angustifolia")!!
+        assertTrue(lavender.specialPopulations.contains("بارداری"))
+        assertTrue(lavender.references.any { it.url.contains("payeshjournal.ir") })
+
+        val ginseng = PlantArticleCatalog.find("panax-ginseng")!!
+        assertTrue(ginseng.sideEffects.contains("بی‌خوابی"))
+        assertTrue(ginseng.interactions.contains("وارفارین"))
     }
 }
