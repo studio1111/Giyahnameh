@@ -16,6 +16,10 @@ class PlantRepository(private val dao: PlantDao) {
 
     suspend fun seedIfNeeded() = withContext(Dispatchers.IO) { dao.insertIfMissing(PlantSeeds.all) }
 
+    suspend fun refreshMissingImages() {
+        dao.missingImages().forEach { plant -> refreshImage(plant) }
+    }
+
     suspend fun refreshImage(plant: Plant): String? = withContext(Dispatchers.IO) {
         if (plant.imageUrl.isNotBlank()) return@withContext plant.imageUrl
         var connection: HttpURLConnection? = null
@@ -33,9 +37,19 @@ class PlantRepository(private val dao: PlantDao) {
             for (i in 0 until results.length()) {
                 val media = results.optJSONObject(i)?.optJSONArray("media") ?: continue
                 for (j in 0 until media.length()) {
-                    val image = media.optJSONObject(j)?.optString("identifier").orEmpty()
-                    if (image.startsWith("https://")) {
-                        dao.updateImage(plant.id, image)
+                    val item = media.optJSONObject(j) ?: continue
+                    val image = item.optString("identifier").orEmpty()
+                    val license = item.optString("license").orEmpty()
+                    val holder = item.optString("rightsHolder").orEmpty()
+                    val source = item.optString("references").ifBlank { image }
+                    val licenseLower = license.lowercase()
+                    val reuseAllowed = licenseLower.contains("cc0") ||
+                        licenseLower.contains("creativecommons.org/licenses/by/") ||
+                        licenseLower.contains("creativecommons.org/licenses/by-sa/") ||
+                        licenseLower.contains("public domain")
+                    val nonCommercialOnly = licenseLower.contains("-nc") || licenseLower.contains("noncommercial")
+                    if (image.startsWith("https://") && license.isNotBlank() && source.startsWith("https://") && reuseAllowed && !nonCommercialOnly) {
+                        dao.updateImage(plant.id, image, holder.ifBlank { "دارنده حقوق در رکورد GBIF مشخص نشده" }, license, source)
                         return@withContext image
                     }
                 }
