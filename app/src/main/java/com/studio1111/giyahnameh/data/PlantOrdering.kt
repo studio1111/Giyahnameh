@@ -17,7 +17,7 @@ object PlantOrdering {
     )
 
     fun sort(plants: List<Plant>, mode: PlantSortMode): List<Plant> = when (mode) {
-        PlantSortMode.ALPHABETICAL -> plants.sortedWith(::compareAlphabetically)
+        PlantSortMode.ALPHABETICAL -> plants.sortedWith(Comparator(::compareAlphabetically))
         PlantSortMode.POPULARITY -> plants.sortedWith { left, right ->
             val score = PlantPopularity.estimatedScore(right).compareTo(PlantPopularity.estimatedScore(left))
             if (score != 0) score else compareAlphabetically(left, right)
