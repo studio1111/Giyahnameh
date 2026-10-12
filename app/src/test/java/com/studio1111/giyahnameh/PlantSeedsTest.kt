@@ -327,4 +327,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun asianVegetableAndTropicalFruitMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "eruca-vesicaria", "cichorium-endivia", "cucurbita-moschata",
+            "cucurbita-maxima", "capsicum-frutescens", "solanum-torvum",
+            "artocarpus-integer", "durio-zibethinus", "lansium-domesticum",
+            "salacca-zalacca"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
