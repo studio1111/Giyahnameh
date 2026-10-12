@@ -88,8 +88,15 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
             val contentType = connection.contentType.orEmpty().substringBefore(';').lowercase()
             if (!contentType.startsWith("image/")) return null
             if (connection.contentLengthLong > 8L * 1024 * 1024) return null
+            val extension = when {
+                contentType.contains("jpeg") -> "jpg"
+                contentType.contains("png") -> "png"
+                contentType.contains("webp") -> "webp"
+                contentType.contains("gif") -> "gif"
+                else -> "img"
+            }
             val folder = File(context.filesDir, "plant-images").apply { mkdirs() }
-            val target = File(folder, "$plantId.img")
+            val target = File(folder, "$plantId.$extension")
             val temporary = File(folder, "$plantId.tmp")
             connection.inputStream.use { input ->
                 FileOutputStream(temporary).use { output ->
