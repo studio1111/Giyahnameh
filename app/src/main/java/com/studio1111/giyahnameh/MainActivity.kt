@@ -291,7 +291,7 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
     ) {
         Box(Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)).background(Leaf), contentAlignment = Alignment.Center) {
             if (plant.imageUrl.isNotBlank()) {
-                AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+                AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
             } else {
                 Text("🌱", style = MaterialTheme.typography.displayLarge)
             }
