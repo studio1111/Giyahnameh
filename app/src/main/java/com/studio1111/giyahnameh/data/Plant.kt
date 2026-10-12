@@ -30,7 +30,7 @@ data class Plant(
     @ColumnInfo(defaultValue = "''") val preparation: String = "",
     @ColumnInfo(defaultValue = "''") val specialPopulations: String = "",
     @ColumnInfo(defaultValue = "''") val faq: String = "",
-    @ColumnInfo(defaultValue = "''") val references: String = ""
+    @ColumnInfo(defaultValue = "''") val bibliography: String = ""
 )
 
 object PlantSeeds {
