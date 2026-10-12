@@ -29,7 +29,7 @@ abstract class PlantDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE plants ADD COLUMN preparation TEXT NOT NULL DEFAULT ''")
                 database.execSQL("ALTER TABLE plants ADD COLUMN specialPopulations TEXT NOT NULL DEFAULT ''")
                 database.execSQL("ALTER TABLE plants ADD COLUMN faq TEXT NOT NULL DEFAULT ''")
-                database.execSQL("ALTER TABLE plants ADD COLUMN references TEXT NOT NULL DEFAULT ''")
+                database.execSQL("ALTER TABLE plants ADD COLUMN bibliography TEXT NOT NULL DEFAULT ''")
             }
         }
         @Volatile private var instance: PlantDatabase? = null
