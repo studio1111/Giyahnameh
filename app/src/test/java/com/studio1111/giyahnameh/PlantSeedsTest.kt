@@ -66,8 +66,8 @@ class PlantSeedsTest {
     }
 
     @Test fun starterMonographsHaveDedicatedReadableArticleSections() {
-        val starters = PlantSeeds.all.filter { it.id in setOf("lavandula-angustifolia", "mentha-spicata") }
-        assertEquals(2, starters.size)
+        val starters = PlantSeeds.all.filter { it.id in setOf("lavandula-angustifolia", "mentha-spicata", "aloe-vera", "ocimum-basilicum", "matricaria-chamomilla", "salvia-rosmarinus") }
+        assertEquals(6, starters.size)
         assertTrue(starters.all {
             it.partsUsed.length >= 100 &&
                 it.preparation.length >= 100 &&
