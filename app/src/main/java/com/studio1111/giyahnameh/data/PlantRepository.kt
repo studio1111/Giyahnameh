@@ -81,7 +81,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
         var connection: HttpURLConnection? = null
         return try {
             val botanicalName = plant.scientificName.substringBefore(" (")
-            val search = java.net.URLEncoder.encode("filetype:bitmap \\\"" + botanicalName + "\\\"", "UTF-8")
+            val search = java.net.URLEncoder.encode("filetype:bitmap \"" + botanicalName + "\"", "UTF-8")
             val api = "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=" + search + "&gsrnamespace=6&gsrlimit=10&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1400&format=json"
             connection = (URL(api).openConnection() as HttpURLConnection).apply {
                 connectTimeout = 8000
