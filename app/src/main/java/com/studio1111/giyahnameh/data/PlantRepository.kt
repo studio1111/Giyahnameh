@@ -104,7 +104,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
                 val artist = metadata?.optJSONObject("Artist")?.optString("value").orEmpty()
                 val licenseLower = license.lowercase()
                 val reusable = licenseLower == "cc0" || licenseLower.contains("public domain") || licenseLower.contains("cc by") || licenseLower.contains("cc-by")
-                val restrictive = licenseLower.contains("nc") || licenseLower.contains("nd") || licenseLower.contains("noncommercial") || licenseLower.contains("no derivatives")
+                val restrictive = licenseLower.contains("by-nc") || licenseLower.contains("by nd") || licenseLower.contains("by-nd") || licenseLower.contains("noncommercial") || licenseLower.contains("no derivatives")
                 if (imageUrl.startsWith("https://") && descriptionUrl.startsWith("https://") && license.isNotBlank() && reusable && !restrictive) {
                     val localPath = downloadImage(imageUrl, plant.id) ?: continue
                     dao.updateImage(plant.id, imageUrl, localPath, artist.ifBlank { "نام عکاس در فراداده مشخص نشده" }, license, descriptionUrl)
