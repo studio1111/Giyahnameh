@@ -328,23 +328,27 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
 
 @Composable
 private fun PlantPhoto(plant: Plant, modifier: Modifier, emoji: String, large: Boolean = false) {
-    var imageFailed by remember(plant.id, plant.imageUrl, plant.imageLocalPath) { mutableStateOf(false) }
+    var useRemoteFallback by remember(plant.id, plant.imageUrl, plant.imageLocalPath) { mutableStateOf(false) }
     val localFile = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File)?.takeIf { it.isFile && it.length() > 0L }
-    val imageModel: Any? = localFile ?: plant.imageUrl.takeIf { it.startsWith("https://") }
+    val remoteUrl = plant.imageUrl.takeIf { it.startsWith("https://") }
+    val imageModel: Any? = if (!useRemoteFallback && localFile != null) localFile else remoteUrl
     Box(modifier.background(Leaf), contentAlignment = Alignment.Center) {
-        if (imageModel != null && !imageFailed) {
+        if (imageModel != null) {
             AsyncImage(
                 model = imageModel,
                 contentDescription = "تصویر ${plant.persianName}",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop,
-                onError = { imageFailed = true },
-                onSuccess = { imageFailed = false }
+                onError = {
+                    if (!useRemoteFallback && localFile != null && remoteUrl != null) useRemoteFallback = true
+                    else useRemoteFallback = true
+                },
+                onSuccess = { }
             )
         } else {
             Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(emoji, style = if (large) MaterialTheme.typography.displayLarge else MaterialTheme.typography.displaySmall)
-                if (large) Text("تصویر این گیاه هنوز در دسترس نیست", color = ForestDeep, style = MaterialTheme.typography.bodySmall)
+                if (large) Text("برای این گیاه هنوز عکس قابل‌نمایشی پیدا نشده است؛ با اتصال اینترنت دوباره تلاش می‌شود.", color = ForestDeep, style = MaterialTheme.typography.bodySmall)
             }
         }
     }
