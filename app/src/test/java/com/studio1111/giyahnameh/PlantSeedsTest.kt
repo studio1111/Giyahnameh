@@ -7,13 +7,14 @@ import com.studio1111.giyahnameh.data.PlantCatalogAsia4
 import com.studio1111.giyahnameh.data.PlantCatalogAsia5
 import com.studio1111.giyahnameh.data.PlantCatalogAsia6
 import com.studio1111.giyahnameh.data.PlantCatalogAsia7
+import com.studio1111.giyahnameh.data.PlantCatalogAsia8
 import com.studio1111.giyahnameh.data.PlantSeeds
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PlantSeedsTest {
-    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants
+    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants + PlantCatalogAsia8.plants
 
     @Test fun seedIdsAreUniqueAcrossAllOfflineBatches() {
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.id }.toSet().size)
@@ -34,7 +35,8 @@ class PlantSeedsTest {
         assertTrue(PlantCatalogAsia5.plants.size >= 30)
         assertTrue(PlantCatalogAsia6.plants.size >= 30)
         assertTrue(PlantCatalogAsia7.plants.size >= 35)
-        assertTrue(allSeedPlants.size >= 210)
+        assertTrue(PlantCatalogAsia8.plants.size >= 45)
+        assertTrue(allSeedPlants.size >= 250)
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.scientificName.lowercase() }.toSet().size)
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "نخود" })
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "گل محمدی" })
