@@ -77,7 +77,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
     }
 
     /** Search Commons as a second source when GBIF has no usable, reusable plant photo. */
-    private fun findAndCacheWikimediaImage(plant: Plant): String? {
+    private suspend fun findAndCacheWikimediaImage(plant: Plant): String? {
         var connection: HttpURLConnection? = null
         return try {
             val botanicalName = plant.scientificName.substringBefore(" (")
