@@ -25,7 +25,12 @@ data class Plant(
     @ColumnInfo(defaultValue = "''") val imageSourceUrl: String = "",
     val sourceUrl: String = "",
     val isFavorite: Boolean = false,
-    val updatedAt: Long = System.currentTimeMillis()
+    val updatedAt: Long = System.currentTimeMillis(),
+    @ColumnInfo(defaultValue = "''") val partsUsed: String = "",
+    @ColumnInfo(defaultValue = "''") val preparation: String = "",
+    @ColumnInfo(defaultValue = "''") val specialPopulations: String = "",
+    @ColumnInfo(defaultValue = "''") val faq: String = "",
+    @ColumnInfo(defaultValue = "''") val references: String = ""
 )
 
 object PlantSeeds {
