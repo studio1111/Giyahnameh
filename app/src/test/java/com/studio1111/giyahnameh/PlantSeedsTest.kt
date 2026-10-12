@@ -35,7 +35,7 @@ class PlantSeedsTest {
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "نخود" })
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "گل محمدی" })
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "اسفرزه" })
-        assertTrue(PlantCatalogAsia3.plants.any { it.persianName == "عناب" })
+        assertTrue(PlantCatalogAsia3Clean.plants.any { it.persianName == "عناب" })
         assertTrue(PlantCatalogAsia3.plants.any { it.persianName == "اسفناج" })
     }
 
