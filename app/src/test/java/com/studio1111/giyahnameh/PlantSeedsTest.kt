@@ -76,4 +76,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun regionalStapleMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "zingiber-officinale", "curcuma-longa", "coriandrum-sativum",
+            "cuminum-cyminum", "crocus-sativus", "elettaria-cardamomum",
+            "syzygium-aromaticum", "cinnamomum-verum", "capsicum-annuum",
+            "solanum-tuberosum", "abelmoschus-esculentus"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(11, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
