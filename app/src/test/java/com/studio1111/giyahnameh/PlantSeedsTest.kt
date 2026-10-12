@@ -130,4 +130,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun vegetableLegumeAndCoffeeMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "beta-vulgaris", "brassica-oleracea", "lactuca-sativa",
+            "solanum-lycopersicum", "momordica-charantia", "cucumis-melo",
+            "phaseolus-vulgaris", "pisum-sativum", "arachis-hypogaea",
+            "coffea-arabica"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
