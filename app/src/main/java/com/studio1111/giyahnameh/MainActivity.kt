@@ -89,7 +89,7 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
         queryFlow.value = ""
         showFavorites = false
     }
-    fun setSortMode(value: PlantSortMode) {
+    fun changeSortMode(value: PlantSortMode) {
         sortMode = value
     }
     fun open(id: String) { selectedId = id }
@@ -208,7 +208,7 @@ private fun GiyahApp(vm: PlantViewModel) {
                     Text("ترتیب نمایش", color = Muted, style = MaterialTheme.typography.labelMedium)
                     FilterChip(
                         selected = vm.sortMode == PlantSortMode.ALPHABETICAL,
-                        onClick = { vm.setSortMode(PlantSortMode.ALPHABETICAL) },
+                        onClick = { vm.changeSortMode(PlantSortMode.ALPHABETICAL) },
                         label = { Text("الفبایی") }
                     )
                     FilterChip(
