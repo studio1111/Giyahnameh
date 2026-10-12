@@ -184,4 +184,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun asianSpiceAndHerbMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "phyllanthus-emblica", "terminalia-chebula", "terminalia-bellirica",
+            "piper-longum", "curcuma-zedoaria", "kaempferia-galanga",
+            "amomum-subulatum", "anethum-graveolens", "carum-carvi",
+            "murraya-koenigii"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
