@@ -166,4 +166,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun asianFruitMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "citrus-aurantiifolia", "citrus-reticulata", "citrus-maxima",
+            "citrus-medica", "prunus-domestica", "prunus-avium",
+            "pyrus-pyrifolia", "morus-nigra", "ziziphus-mauritiana",
+            "syzygium-cumini"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
