@@ -35,7 +35,7 @@ class ImageEnrichmentWorker(context: Context, params: WorkerParameters) : Corout
                 .build()
             manager.enqueueUniqueWork("giyahnameh-image-enrichment", ExistingWorkPolicy.KEEP, initial)
 
-            val periodic = PeriodicWorkRequestBuilder<ImageEnrichmentWorker>(1, TimeUnit.DAYS)
+            val periodic = PeriodicWorkRequestBuilder<ImageEnrichmentWorker>(6, TimeUnit.HOURS)
                 .setConstraints(networkConstraint)
                 .build()
             manager.enqueueUniquePeriodicWork(
