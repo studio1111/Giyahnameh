@@ -166,7 +166,12 @@ private fun GiyahApp(vm: PlantViewModel) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        Icon(Icons.Default.Search, contentDescription = "جست‌وجو", tint = ForestDeep, modifier = Modifier.size(23.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Box(Modifier.size(34.dp).clip(CircleShape).background(Forest), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Default.Spa, contentDescription = "لوگوی گیاه‌نامه", tint = Color(0xFFDDE9D6), modifier = Modifier.size(22.dp))
+                            }
+                            Text("گیاه‌نامه", fontWeight = FontWeight.ExtraBold, color = ForestDeep, style = MaterialTheme.typography.titleSmall)
+                        }
                         Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
                             androidx.compose.foundation.text.BasicTextField(
                                 value = vm.query,
@@ -186,14 +191,7 @@ private fun GiyahApp(vm: PlantViewModel) {
                                 modifier = Modifier.fillMaxWidth()
                             )
                         }
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                            Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(0.dp)) {
-                                Text("گیاه‌نامه", fontWeight = FontWeight.ExtraBold, color = ForestDeep, style = MaterialTheme.typography.titleSmall)
-                            }
-                            Box(Modifier.size(34.dp).clip(CircleShape).background(Forest), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Spa, contentDescription = "لوگوی گیاه‌نامه", tint = Color(0xFFDDE9D6), modifier = Modifier.size(22.dp))
-                            }
-                        }
+                        Icon(Icons.Default.Search, contentDescription = "جست‌وجو", tint = ForestDeep, modifier = Modifier.size(23.dp))
                     }
                 }
                 Row(
