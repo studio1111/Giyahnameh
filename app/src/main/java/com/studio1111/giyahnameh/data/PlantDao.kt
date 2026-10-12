@@ -26,9 +26,9 @@ interface PlantDao {
     @Query("SELECT * FROM plants WHERE isFavorite = 1 ORDER BY persianName")
     fun observeFavorites(): Flow<List<Plant>>
 
-    @Query("SELECT * FROM plants WHERE imageUrl = '' OR imageUrl IS NULL")
+    @Query("SELECT * FROM plants WHERE imageLocalPath = '' OR imageLocalPath IS NULL")
     suspend fun missingImages(): List<Plant>
 
-    @Query("UPDATE plants SET imageUrl = :imageUrl, imageAttribution = :attribution, imageLicense = :license, imageSourceUrl = :sourceUrl, updatedAt = :updatedAt WHERE id = :id")
-    suspend fun updateImage(id: String, imageUrl: String, attribution: String, license: String, sourceUrl: String, updatedAt: Long = System.currentTimeMillis())
+    @Query("UPDATE plants SET imageUrl = :imageUrl, imageLocalPath = :localPath, imageAttribution = :attribution, imageLicense = :license, imageSourceUrl = :sourceUrl, updatedAt = :updatedAt WHERE id = :id")
+    suspend fun updateImage(id: String, imageUrl: String, localPath: String, attribution: String, license: String, sourceUrl: String, updatedAt: Long = System.currentTimeMillis())
 }

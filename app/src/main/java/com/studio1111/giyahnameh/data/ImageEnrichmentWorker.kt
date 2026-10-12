@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 class ImageEnrichmentWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result = try {
         val dao = PlantDatabase.get(applicationContext).plantDao()
-        val repository = PlantRepository(dao)
+        val repository = PlantRepository(dao, applicationContext)
         repository.seedIfNeeded()
         repository.refreshMissingImages()
         Result.success()
@@ -35,7 +35,7 @@ class ImageEnrichmentWorker(context: Context, params: WorkerParameters) : Corout
                 .build()
             manager.enqueueUniqueWork("giyahnameh-image-enrichment", ExistingWorkPolicy.KEEP, initial)
 
-            val periodic = PeriodicWorkRequestBuilder<ImageEnrichmentWorker>(1, TimeUnit.DAYS)
+            val periodic = PeriodicWorkRequestBuilder<ImageEnrichmentWorker>(6, TimeUnit.HOURS)
                 .setConstraints(networkConstraint)
                 .build()
             manager.enqueueUniquePeriodicWork(

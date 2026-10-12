@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
+import java.io.File
 import com.studio1111.giyahnameh.data.*
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapLatest
@@ -50,7 +51,7 @@ private val WarningInk = Color(0xFF8A351D)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repository = PlantRepository(PlantDatabase.get(applicationContext).plantDao())
+        val repository = PlantRepository(PlantDatabase.get(applicationContext).plantDao(), applicationContext)
         ImageEnrichmentWorker.schedule(applicationContext)
         setContent {
             val vm: PlantViewModel = viewModel(factory = PlantViewModel.Factory(repository))
@@ -261,7 +262,7 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)).background(Leaf), contentAlignment = Alignment.Center) {
                 if (plant.imageUrl.isNotBlank()) {
-                    AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+                    AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
                 } else {
                     Text("🌿", style = MaterialTheme.typography.displaySmall)
                 }
@@ -290,7 +291,7 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
     ) {
         Box(Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)).background(Leaf), contentAlignment = Alignment.Center) {
             if (plant.imageUrl.isNotBlank()) {
-                AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+                AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
             } else {
                 Text("🌱", style = MaterialTheme.typography.displayLarge)
             }

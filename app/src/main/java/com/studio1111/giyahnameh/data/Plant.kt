@@ -19,6 +19,7 @@ data class Plant(
     val cautions: String,
     val interactions: String,
     val imageUrl: String = "",
+    @androidx.room.ColumnInfo(defaultValue = "''") val imageLocalPath: String = "",
     @ColumnInfo(defaultValue = "''") val imageAttribution: String = "",
     @ColumnInfo(defaultValue = "''") val imageLicense: String = "",
     @ColumnInfo(defaultValue = "''") val imageSourceUrl: String = "",
