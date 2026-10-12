@@ -35,6 +35,9 @@ interface PlantDao {
     @Query("SELECT * FROM plants WHERE imageLocalPath = '' OR imageLocalPath IS NULL ORDER BY RANDOM()")
     suspend fun missingImages(): List<Plant>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM plants WHERE imageUrl = :imageUrl AND id != :plantId)")
+    suspend fun imageUrlUsedByOtherPlant(imageUrl: String, plantId: String): Boolean
+
     @Query("""
         UPDATE plants SET
             persianName = :persianName,
