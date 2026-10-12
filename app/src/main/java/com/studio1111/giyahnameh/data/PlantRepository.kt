@@ -69,7 +69,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
     }
 
     suspend fun refreshImage(plant: Plant): String? = withContext(Dispatchers.IO) {
-        if (plant.imageUrl.isNotBlank()) {
+        if (plant.imageUrl.isNotBlank() && !dao.imageUrlUsedByOtherPlant(plant.imageUrl, plant.id)) {
             val cached = downloadImage(plant.imageUrl, plant.id)
             if (cached != null) {
                 dao.updateImage(plant.id, plant.imageUrl, cached, plant.imageAttribution, plant.imageLicense, plant.imageSourceUrl)
@@ -104,6 +104,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
                         licenseLower.contains("public domain")
                     val nonCommercialOnly = licenseLower.contains("-nc") || licenseLower.contains("noncommercial")
                     if (image.startsWith("https://") && license.isNotBlank() && source.startsWith("https://") && reuseAllowed && !nonCommercialOnly) {
+                        if (dao.imageUrlUsedByOtherPlant(image, plant.id)) continue
                         val localPath = downloadImage(image, plant.id) ?: continue
                         dao.updateImage(plant.id, image, localPath, holder.ifBlank { "دارنده حقوق در رکورد GBIF مشخص نشده" }, license, source)
                         return@withContext image
@@ -147,6 +148,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
                 val reusable = licenseLower == "cc0" || licenseLower.contains("public domain") || licenseLower.contains("cc by") || licenseLower.contains("cc-by")
                 val restrictive = licenseLower.contains("by-nc") || licenseLower.contains("by nd") || licenseLower.contains("by-nd") || licenseLower.contains("noncommercial") || licenseLower.contains("no derivatives")
                 if (imageUrl.startsWith("https://") && descriptionUrl.startsWith("https://") && license.isNotBlank() && reusable && !restrictive) {
+                    if (dao.imageUrlUsedByOtherPlant(imageUrl, plant.id)) continue
                     val localPath = downloadImage(imageUrl, plant.id) ?: continue
                     dao.updateImage(plant.id, imageUrl, localPath, artist.ifBlank { "نام عکاس در فراداده مشخص نشده" }, license, descriptionUrl)
                     return imageUrl
