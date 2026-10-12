@@ -26,6 +26,12 @@ interface PlantDao {
     @Query("SELECT * FROM plants WHERE isFavorite = 1 ORDER BY persianName")
     fun observeFavorites(): Flow<List<Plant>>
 
+    @Query("SELECT COUNT(*) FROM plants WHERE imageLocalPath != ''")
+    fun observeCachedImageCount(): Flow<Int>
+
+    @Query("SELECT COUNT(*) FROM plants")
+    fun observeTotalPlantCount(): Flow<Int>
+
     @Query("SELECT * FROM plants WHERE imageLocalPath = '' OR imageLocalPath IS NULL ORDER BY RANDOM()")
     suspend fun missingImages(): List<Plant>
 
