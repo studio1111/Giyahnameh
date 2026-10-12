@@ -65,7 +65,7 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
     fun search(value: String) { query = value; queryFlow.value = value; showFavorites = false }
     fun open(id: String) { selectedId = id }
     fun back() { selectedId = null }
-    fun toggleFavorites() { showFavorites = !showFavorites; search("") }
+    fun toggleFavorites() { showFavorites = !showFavorites; query = ""; queryFlow.value = "" }
     fun plant(id: String) = repo.plant(id)
     fun toggleFavorite(plant: Plant) { viewModelScope.launch { repo.favorite(plant.id, !plant.isFavorite) } }
 
