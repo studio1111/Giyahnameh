@@ -30,6 +30,29 @@ USER_AGENT = "Giyahnameh-OfflineBotanicalEncyclopedia/0.1 (open-license educatio
 MAX_IMAGE_BYTES = 20 * 1024 * 1024
 MAX_EDGE = 640
 
+# Taxonomic synonyms and well-established species-specific names used only for
+# image discovery when provider metadata does not use the currently accepted name.
+# Each alias is kept narrow to avoid substituting a visually similar species.
+IMAGE_NAME_ALIASES = {
+    "curcuma heyneana": ("Curcuma heyneana", "temu giring"),
+    "ribes nigrum": ("Ribes nigrum", "blackcurrant", "black currant"),
+    "malus sieversii": ("Malus sieversii", "Sievers apple", "Kazakhstan apple"),
+    "eleutherococcus senticosus": ("Eleutherococcus senticosus", "Acanthopanax senticosus"),
+    "polygonum multiflorum": (
+        "Polygonum multiflorum", "Fallopia multiflora", "Reynoutria multiflora",
+        "Pleuropterus multiflorus", "fo-ti"
+    ),
+    "manilkara zapota": (
+        "Manilkara zapota", "Achras zapota", "Manilkara achras", "sapodilla", "chikoo", "chiku"
+    ),
+}
+
+
+def image_name_phrases(scientific_name: str) -> tuple[str, ...]:
+    accepted = taxon_phrase(scientific_name)
+    aliases = IMAGE_NAME_ALIASES.get(normalized_phrase(accepted), (accepted,))
+    return tuple(dict.fromkeys(str(item).strip() for item in aliases if str(item).strip()))
+
 
 def http_bytes(url: str, timeout: int = 20, retries: int = 3) -> bytes:
     last_error: Exception | None = None
@@ -127,56 +150,62 @@ def gbif_candidates(scientific_name: str) -> list[dict[str, str]]:
 
 
 def commons_candidates(scientific_name: str) -> list[dict[str, str]]:
-    phrase = taxon_phrase(scientific_name)
-    query = urlencode({
-        "action": "query",
-        "format": "json",
-        "generator": "search",
-        "gsrsearch": f'"{phrase}"',
-        "gsrnamespace": "6",
-        "gsrlimit": "15",
-        "prop": "imageinfo",
-        "iiprop": "url|extmetadata",
-        "iiurlwidth": str(MAX_EDGE),
-    })
-    data = json.loads(http_bytes("https://commons.wikimedia.org/w/api.php?" + query).decode("utf-8"))
-    pages = (data.get("query") or {}).get("pages") or {}
     candidates: list[dict[str, str]] = []
-    phrase_normalized = normalized_phrase(phrase)
-    for page in pages.values():
-        title = str(page.get("title") or "")
-        info_list = page.get("imageinfo") or []
-        if not info_list:
-            continue
-        info = info_list[0]
-        metadata = info.get("extmetadata") or {}
-        description = clean_html((metadata.get("ImageDescription") or {}).get("value", ""))
-        if phrase_normalized not in normalized_phrase(title + " " + description):
-            continue
-        license_value = clean_html((metadata.get("LicenseShortName") or {}).get("value", ""))
-        license_url = clean_html((metadata.get("LicenseUrl") or {}).get("value", ""))
-        creator = clean_html((metadata.get("Artist") or {}).get("value", "")) or clean_html(
-            (metadata.get("Attribution") or {}).get("value", "")
-        )
-        if not image_license_allowed(license_value + " " + license_url, creator):
-            continue
-        image_url = str(info.get("thumburl") or info.get("url") or "").strip()
-        if not image_url.startswith("https://"):
-            continue
-        page_url = "https://commons.wikimedia.org/wiki/" + quote(title.replace(" ", "_"), safe=":_()")
-        candidates.append({
-            "imageUrl": image_url,
-            "sourceUrl": page_url,
-            "license": license_value + (f" ({license_url})" if license_url else ""),
-            "creator": creator or "خالق اثر در فرادادهٔ فایل مشخص نشده",
-            "source": "Wikimedia Commons",
-            "recordScientificName": phrase,
+    seen_pages: set[str] = set()
+    phrases = image_name_phrases(scientific_name)
+    for phrase in phrases:
+        query = urlencode({
+            "action": "query",
+            "format": "json",
+            "generator": "search",
+            "gsrsearch": f'"{phrase}"',
+            "gsrnamespace": "6",
+            "gsrlimit": "15",
+            "prop": "imageinfo",
+            "iiprop": "url|extmetadata",
+            "iiurlwidth": str(MAX_EDGE),
         })
+        data = json.loads(http_bytes("https://commons.wikimedia.org/w/api.php?" + query).decode("utf-8"))
+        pages = (data.get("query") or {}).get("pages") or {}
+        normalized_phrases = tuple(normalized_phrase(item) for item in phrases)
+        for page in pages.values():
+            title = str(page.get("title") or "")
+            if title in seen_pages:
+                continue
+            info_list = page.get("imageinfo") or []
+            if not info_list:
+                continue
+            info = info_list[0]
+            metadata = info.get("extmetadata") or {}
+            description = clean_html((metadata.get("ImageDescription") or {}).get("value", ""))
+            image_text = normalized_phrase(title + " " + description)
+            if not any(alias in image_text for alias in normalized_phrases):
+                continue
+            license_value = clean_html((metadata.get("LicenseShortName") or {}).get("value", ""))
+            license_url = clean_html((metadata.get("LicenseUrl") or {}).get("value", ""))
+            creator = clean_html((metadata.get("Artist") or {}).get("value", "")) or clean_html(
+                (metadata.get("Attribution") or {}).get("value", "")
+            )
+            if not image_license_allowed(license_value + " " + license_url, creator):
+                continue
+            image_url = str(info.get("thumburl") or info.get("url") or "").strip()
+            if not image_url.startswith("https://"):
+                continue
+            page_url = "https://commons.wikimedia.org/wiki/" + quote(title.replace(" ", "_"), safe=":_()")
+            seen_pages.add(title)
+            matched_name = next((item for item in phrases if normalized_phrase(item) in image_text), phrase)
+            candidates.append({
+                "imageUrl": image_url,
+                "sourceUrl": page_url,
+                "license": license_value + (f" ({license_url})" if license_url else ""),
+                "creator": creator or "خالق اثر در فرادادهٔ فایل مشخص نشده",
+                "source": "Wikimedia Commons",
+                "recordScientificName": matched_name,
+            })
     return candidates
 
 
 def openverse_record_matches_taxon(record: dict[str, Any], scientific_name: str) -> bool:
-    phrase = normalized_phrase(taxon_phrase(scientific_name))
     tags = record.get("tags") or []
     tag_text = " ".join(
         str(tag.get("name", "")) if isinstance(tag, dict) else str(tag)
@@ -186,42 +215,60 @@ def openverse_record_matches_taxon(record: dict[str, Any], scientific_name: str)
         str(record.get("title", "")) + " " +
         str(record.get("description", "")) + " " + tag_text
     )
-    return bool(phrase) and phrase in title_and_tags
+    return any(
+        normalized_phrase(alias) in title_and_tags
+        for alias in image_name_phrases(scientific_name)
+    )
 
 
 def openverse_candidates(scientific_name: str) -> list[dict[str, str]]:
     """Find additional openly licensed images when GBIF/Commons have no usable photo."""
-    phrase = taxon_phrase(scientific_name)
-    query = urlencode({
-        "q": f'"{phrase}"',
-        "license": "cc0,by,by-sa,pdm",
-        "license_type": "commercial,modification",
-        "page_size": "20",
-        "mature": "false",
-    })
-    data = json.loads(http_bytes("https://api.openverse.org/v1/images/?" + query).decode("utf-8"))
     candidates: list[dict[str, str]] = []
-    for record in data.get("results", []):
-        if not openverse_record_matches_taxon(record, scientific_name):
-            continue
-        image_url = str(record.get("url") or "").strip()
-        source_url = str(record.get("foreign_landing_url") or "").strip()
-        license_code = str(record.get("license") or "").strip().casefold()
-        license_url = str(record.get("license_url") or "").strip()
-        creator = clean_html(record.get("creator") or "")
-        license_value = f"{license_code} ({license_url})".strip()
-        if not image_url.startswith("https://") or not source_url.startswith("https://"):
-            continue
-        if not image_license_allowed(license_value, creator):
-            continue
-        candidates.append({
-            "imageUrl": image_url,
-            "sourceUrl": source_url,
-            "license": license_value,
-            "creator": creator or "خالق اثر در فرادادهٔ مجوز CC0/مالکیت عمومی مشخص نشده",
-            "source": f"Openverse / {record.get('provider') or 'provider نامشخص'}",
-            "recordScientificName": phrase,
+    seen_urls: set[str] = set()
+    for phrase in image_name_phrases(scientific_name):
+        query = urlencode({
+            "q": f'"{phrase}"',
+            "license": "cc0,by,by-sa,pdm",
+            "license_type": "commercial,modification",
+            "page_size": "20",
+            "mature": "false",
         })
+        data = json.loads(http_bytes("https://api.openverse.org/v1/images/?" + query).decode("utf-8"))
+        for record in data.get("results", []):
+            if not openverse_record_matches_taxon(record, scientific_name):
+                continue
+            image_url = str(record.get("url") or "").strip()
+            source_url = str(record.get("foreign_landing_url") or "").strip()
+            license_code = str(record.get("license") or "").strip().casefold()
+            license_url = str(record.get("license_url") or "").strip()
+            creator = clean_html(record.get("creator") or "")
+            license_value = f"{license_code} ({license_url})".strip()
+            if not image_url.startswith("https://") or not source_url.startswith("https://"):
+                continue
+            if not image_license_allowed(license_value, creator) or image_url in seen_urls:
+                continue
+            seen_urls.add(image_url)
+            matched_name = next(
+                (alias for alias in image_name_phrases(scientific_name)
+                 if normalized_phrase(alias) in normalized_phrase(
+                     str(record.get("title", "")) + " " + str(record.get("description", "")) + " " +
+                     " ".join(str(tag.get("name", "")) if isinstance(tag, dict) else str(tag)
+                              for tag in (record.get("tags") or []))
+                 )),
+                phrase
+            )
+            candidates.append({
+                "imageUrl": image_url,
+                "sourceUrl": source_url,
+                "license": license_value,
+                "creator": creator or "خالق اثر در فرادادهٔ مجوز CC0/مالکیت عمومی مشخص نشده",
+                "source": f"Openverse / {record.get('provider') or 'provider نامشخص'}",
+                "recordScientificName": matched_name,
+            })
+        if candidates:
+            # Keep image search bounded; later source records have no priority over
+            # the first valid, exact/synonym query and may add ambiguity.
+            break
     return candidates
 
 
