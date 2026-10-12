@@ -16,6 +16,8 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
     fun plants(query: String): Flow<List<Plant>> = if (query.isBlank()) dao.observeAll() else dao.search(query)
     fun plant(id: String): Flow<Plant?> = dao.observeById(id)
     fun favorites(): Flow<List<Plant>> = dao.observeFavorites()
+    fun cachedImageCount(): Flow<Int> = dao.observeCachedImageCount()
+    fun totalPlantCount(): Flow<Int> = dao.observeTotalPlantCount()
     suspend fun favorite(id: String, enabled: Boolean) = dao.setFavorite(id, enabled)
 
     // Seed both the original examples and the curated regional catalogue without overwriting user data.
