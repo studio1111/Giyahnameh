@@ -202,4 +202,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun legumeHerbAndTropicalFruitMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "vigna-unguiculata", "cajanus-cajan", "vigna-mungo",
+            "vigna-angularis", "lablab-purpureus", "petroselinum-crispum",
+            "apium-graveolens", "citrus-japonica", "diospyros-kaki",
+            "litchi-chinensis"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
