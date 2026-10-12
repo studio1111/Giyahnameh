@@ -1,6 +1,10 @@
 package com.studio1111.giyahnameh.data
 
+import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.Log
+import java.io.File
+import java.io.FileOutputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -8,7 +12,7 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 
-class PlantRepository(private val dao: PlantDao) {
+class PlantRepository(private val dao: PlantDao, private val context: Context) {
     fun plants(query: String): Flow<List<Plant>> = if (query.isBlank()) dao.observeAll() else dao.search(query)
     fun plant(id: String): Flow<Plant?> = dao.observeById(id)
     fun favorites(): Flow<List<Plant>> = dao.observeFavorites()
@@ -24,7 +28,13 @@ class PlantRepository(private val dao: PlantDao) {
     }
 
     suspend fun refreshImage(plant: Plant): String? = withContext(Dispatchers.IO) {
-        if (plant.imageUrl.isNotBlank()) return@withContext plant.imageUrl
+        if (plant.imageUrl.isNotBlank()) {
+            val cached = downloadImage(plant.imageUrl, plant.id)
+            if (cached != null) {
+                dao.updateImage(plant.id, plant.imageUrl, cached, plant.imageAttribution, plant.imageLicense, plant.imageSourceUrl)
+            }
+            return@withContext plant.imageUrl
+        }
         var connection: HttpURLConnection? = null
         try {
             val encoded = java.net.URLEncoder.encode(plant.scientificName.substringBefore(" ("), "UTF-8")
@@ -52,7 +62,8 @@ class PlantRepository(private val dao: PlantDao) {
                         licenseLower.contains("public domain")
                     val nonCommercialOnly = licenseLower.contains("-nc") || licenseLower.contains("noncommercial")
                     if (image.startsWith("https://") && license.isNotBlank() && source.startsWith("https://") && reuseAllowed && !nonCommercialOnly) {
-                        dao.updateImage(plant.id, image, holder.ifBlank { "دارنده حقوق در رکورد GBIF مشخص نشده" }, license, source)
+                        val localPath = downloadImage(image, plant.id) ?: continue
+                        dao.updateImage(plant.id, image, localPath, holder.ifBlank { "دارنده حقوق در رکورد GBIF مشخص نشده" }, license, source)
                         return@withContext image
                     }
                 }
@@ -62,5 +73,57 @@ class PlantRepository(private val dao: PlantDao) {
             Log.w("Giyahnameh", "Image enrichment unavailable: ${e.javaClass.simpleName}")
             null
         } finally { connection?.disconnect() }
+    }
+
+    private fun downloadImage(imageUrl: String, plantId: String): String? {
+        var connection: HttpURLConnection? = null
+        return try {
+            connection = (URL(imageUrl).openConnection() as HttpURLConnection).apply {
+                connectTimeout = 8000
+                readTimeout = 10000
+                instanceFollowRedirects = true
+                requestMethod = "GET"
+            }
+            if (connection.responseCode !in 200..299) return null
+            val contentType = connection.contentType.orEmpty().substringBefore(';').lowercase()
+            if (!contentType.startsWith("image/")) return null
+            if (connection.contentLengthLong > 8L * 1024 * 1024) return null
+            val folder = File(context.filesDir, "plant-images").apply { mkdirs() }
+            val target = File(folder, "$plantId.img")
+            val temporary = File(folder, "$plantId.tmp")
+            connection.inputStream.use { input ->
+                FileOutputStream(temporary).use { output ->
+                    val buffer = ByteArray(8192)
+                    var total = 0L
+                    while (true) {
+                        val count = input.read(buffer)
+                        if (count < 0) break
+                        total += count
+                        if (total > 8L * 1024 * 1024) {
+                            temporary.delete()
+                            return null
+                        }
+                        output.write(buffer, 0, count)
+                    }
+                }
+            }
+            val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            BitmapFactory.decodeFile(temporary.absolutePath, options)
+            if (options.outWidth <= 0 || options.outHeight <= 0) {
+                temporary.delete()
+                return null
+            }
+            if (target.exists()) target.delete()
+            if (!temporary.renameTo(target)) {
+                temporary.copyTo(target, overwrite = true)
+                temporary.delete()
+            }
+            target.absolutePath
+        } catch (e: Exception) {
+            Log.w("Giyahnameh", "Offline image cache unavailable: ${e.javaClass.simpleName}")
+            null
+        } finally {
+            connection?.disconnect()
+        }
     }
 }
