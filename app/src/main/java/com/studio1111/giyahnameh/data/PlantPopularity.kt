@@ -58,7 +58,7 @@ object PlantPopularity {
         "musa-acuminata" to 55,
         "cicer-arietinum" to 54,
         "sesamum-indicum" to 53,
-        "olea-europaea" to 52,
+        "origanum-vulgare" to 52,
         "cymbopogon-citratus" to 51
     )
 
