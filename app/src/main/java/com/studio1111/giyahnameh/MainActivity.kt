@@ -135,31 +135,17 @@ private fun GiyahApp(vm: PlantViewModel) {
     Scaffold(
         containerColor = Paper,
         topBar = {
-            TopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(38.dp).clip(CircleShape).background(Forest), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.Spa, contentDescription = null, tint = Color.White, modifier = Modifier.size(22.dp))
+            if (selected != null) {
+                TopAppBar(
+                    title = { Text("پروندهٔ گیاه", fontWeight = FontWeight.Bold, color = Color(0xFF202820)) },
+                    navigationIcon = {
+                        IconButton(onClick = vm::back) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "بازگشت", tint = ForestDeep)
                         }
-                        Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
-                            Text(if (selected == null) "گیاه‌نامه" else "پرونده گیاه", fontWeight = FontWeight.Bold)
-                            if (selected == null) Text("دانشنامه گیاهان جهان", style = MaterialTheme.typography.labelSmall, color = Muted)
-                        }
-                    }
-                },
-                navigationIcon = {
-                    if (selected != null) IconButton(onClick = vm::back) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "بازگشت")
-                    }
-                },
-                actions = {
-                    if (selected == null) IconButton(onClick = vm::toggleFavorites) {
-                        Icon(if (vm.showFavorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                            contentDescription = "علاقه‌مندی‌ها", tint = Forest)
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Paper)
-            )
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Paper, titleContentColor = Color(0xFF202820))
+                )
+            }
         }
     ) { padding ->
         if (selected != null) {
@@ -168,45 +154,66 @@ private fun GiyahApp(vm: PlantViewModel) {
             else Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         } else {
             Column(Modifier.fillMaxSize().padding(padding)) {
-                if (!vm.showFavorites && vm.query.isBlank() && vm.selectedCategory == "همه") {
-                    WelcomePanel()
+                Surface(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 8.dp),
+                    shape = RoundedCornerShape(17.dp),
+                    color = Color.White,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD8DED5)),
+                    shadowElevation = 0.dp
+                ) {
+                    Row(
+                        modifier = Modifier.height(58.dp).padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Box(Modifier.size(34.dp).clip(CircleShape).background(Forest), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Default.Spa, contentDescription = "لوگوی گیاه‌نامه", tint = Color(0xFFDDE9D6), modifier = Modifier.size(22.dp))
+                            }
+                            Text("گیاه‌نامه", fontWeight = FontWeight.ExtraBold, color = ForestDeep, style = MaterialTheme.typography.titleSmall)
+                        }
+                        Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                            androidx.compose.foundation.text.BasicTextField(
+                                value = vm.query,
+                                onValueChange = vm::search,
+                                singleLine = true,
+                                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                                    color = Color(0xFF202820),
+                                    fontWeight = FontWeight.SemiBold,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Start
+                                ),
+                                decorationBox = { inner ->
+                                    Box {
+                                        if (vm.query.isEmpty()) Text("جست‌وجوی گیاه...", color = Color(0xFF667067), fontWeight = FontWeight.Medium)
+                                        inner()
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                        Icon(Icons.Default.Search, contentDescription = "جست‌وجو", tint = ForestDeep, modifier = Modifier.size(23.dp))
+                    }
                 }
-                OutlinedTextField(
-                    value = vm.query,
-                    onValueChange = vm::search,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp),
-                    placeholder = { Text("جست‌وجوی نام فارسی یا علمی") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                    singleLine = true,
-                    shape = RoundedCornerShape(18.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Forest,
-                        unfocusedBorderColor = Color(0xFFD8DED5),
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White
-                    )
-                )
                 Row(
-                    Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 2.dp),
+                    horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
                     listOf("همه", "دارویی", "خوراکی", "زینتی").forEach { category ->
-                        CategoryChip(category, vm.selectedCategory == category) { vm.category(category) }
+                        Box(Modifier.weight(1f)) {
+                            CategoryChip(category, vm.selectedCategory == category) { vm.category(category) }
+                        }
                     }
                 }
                 Row(
-                    Modifier.fillMaxWidth().padding(start = 18.dp, end = 16.dp, top = 18.dp, bottom = 10.dp),
+                    Modifier.fillMaxWidth().padding(start = 18.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(Modifier.weight(1f)) {
-                        Text(
-                            if (vm.showFavorites) "گیاهان ذخیره‌شده" else if (vm.query.isNotBlank()) "نتایج جست‌وجو" else "گیاهان را کشف کن",
-                            style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = ForestDeep
-                        )
-                        Text("${list.size} پرونده گیاهی", style = MaterialTheme.typography.bodySmall, color = Muted)
-                    }
-                    Text("آفلاین‌خوان", style = MaterialTheme.typography.labelSmall, color = Forest,
-                        modifier = Modifier.clip(RoundedCornerShape(50)).background(Leaf).padding(horizontal = 10.dp, vertical = 6.dp))
+                    Text(
+                        if (vm.showFavorites) "گیاهان ذخیره‌شده" else if (vm.query.isNotBlank()) "نتایج جست‌وجو" else "همهٔ گیاهان",
+                        style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.ExtraBold, color = Color(0xFF202820)
+                    )
+                    Spacer(Modifier.weight(1f))
+                    Text("${list.size} گونه", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold, color = Color(0xFF465047))
                 }
                 if (list.isEmpty()) {
                     Box(Modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
@@ -230,23 +237,6 @@ private fun GiyahApp(vm: PlantViewModel) {
 }
 
 @Composable
-private fun WelcomePanel() {
-    Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp).clip(RoundedCornerShape(24.dp)).background(ForestDeep).padding(18.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-            Text("از ریشه تا شناخت", color = Color(0xFFCFE2C4), style = MaterialTheme.typography.labelMedium)
-            Text("جهان سبز را\nورق بزن", color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-            Text("شناخت علمی، روش نگهداری و نکات ایمنی", color = Color(0xFFE0E8DD), style = MaterialTheme.typography.bodySmall)
-        }
-        Box(Modifier.size(84.dp).clip(RoundedCornerShape(22.dp)).background(Color(0xFF315C43)), contentAlignment = Alignment.Center) {
-            Text("🌿", style = MaterialTheme.typography.displayMedium)
-        }
-    }
-}
-
-@Composable
 private fun CategoryChip(label: String, selected: Boolean, onClick: () -> Unit) {
     Surface(
         onClick = onClick,
@@ -255,7 +245,7 @@ private fun CategoryChip(label: String, selected: Boolean, onClick: () -> Unit) 
         contentColor = if (selected) Color.White else Forest,
         border = if (selected) null else androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFDCE2D8))
     ) {
-        Text(label, modifier = Modifier.padding(horizontal = 13.dp, vertical = 9.dp), style = MaterialTheme.typography.labelMedium)
+        Text(label, modifier = Modifier.padding(horizontal = 7.dp, vertical = 9.dp), style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), maxLines = 1)
     }
 }
 
@@ -278,15 +268,15 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
             }
             Spacer(Modifier.width(13.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                Text(plant.persianName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = ForestDeep)
-                Text(plant.scientificName, style = MaterialTheme.typography.bodySmall, color = Muted, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(plant.persianName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = Color(0xFF202820))
+                Text(plant.scientificName, style = MaterialTheme.typography.bodySmall, color = Color(0xFF465047), maxLines = 2, overflow = TextOverflow.Ellipsis)
                 Text(
                     plant.category,
                     style = MaterialTheme.typography.labelSmall,
                     color = Forest,
                     modifier = Modifier.clip(RoundedCornerShape(50)).background(Leaf).padding(horizontal = 9.dp, vertical = 4.dp)
                 )
-                Text(plant.description, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = Color(0xFF46544A))
+                Text(plant.description, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium), color = Color(0xFF303830))
             }
         }
     }
@@ -349,8 +339,8 @@ private fun InfoSection(title: String, body: String, warning: Boolean = false) {
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-            Text(title, fontWeight = FontWeight.Bold, color = if (warning) WarningInk else Forest)
-            Text(body, style = MaterialTheme.typography.bodyMedium, color = Color(0xFF2E382F))
+            Text(title, fontWeight = FontWeight.Bold, color = if (warning) WarningInk else Color(0xFF202820))
+            Text(body, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium), color = Color(0xFF202820))
         }
     }
 }
