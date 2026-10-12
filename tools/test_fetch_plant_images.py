@@ -2,6 +2,7 @@ import unittest
 
 from tools.fetch_plant_images import (
     image_license_allowed,
+    image_name_phrases,
     matching_taxon,
     normalized_phrase,
     openverse_record_matches_taxon,
@@ -53,6 +54,31 @@ class PlantImageCollectorTests(unittest.TestCase):
         license_value = "by (https://creativecommons.org/licenses/by/4.0/)"
         self.assertTrue(image_license_allowed(license_value, "Photographer"))
         self.assertFalse(image_license_allowed(license_value, ""))
+
+    def test_image_discovery_has_only_curated_taxon_specific_aliases(self):
+        self.assertIn("Acanthopanax senticosus", image_name_phrases("Eleutherococcus senticosus"))
+        self.assertIn("Fallopia multiflora", image_name_phrases("Polygonum multiflorum"))
+        self.assertIn("sapodilla", image_name_phrases("Manilkara zapota"))
+        self.assertEqual(("Mentha spicata",), image_name_phrases("Mentha spicata"))
+        self.assertFalse(
+            any("Citrus hystrix" in phrase for phrase in image_name_phrases("Citrus micrantha"))
+        )
+
+    def test_openverse_alias_support_does_not_match_an_unrelated_species(self):
+        from tools.fetch_plant_images import openverse_record_matches_taxon
+
+        synonym = {
+            "title": "Acanthopanax senticosus flowers",
+            "description": "Siberian plant",
+            "tags": [{"name": "Acanthopanax senticosus"}],
+        }
+        unrelated = {
+            "title": "Panax ginseng",
+            "description": "Korean ginseng root",
+            "tags": [{"name": "Panax ginseng"}],
+        }
+        self.assertTrue(openverse_record_matches_taxon(synonym, "Eleutherococcus senticosus"))
+        self.assertFalse(openverse_record_matches_taxon(unrelated, "Eleutherococcus senticosus"))
 
     def test_normalization_is_whitespace_insensitive(self):
         self.assertEqual(normalized_phrase("Mentha   spicata"), normalized_phrase("Mentha spicata"))
