@@ -292,4 +292,21 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun mountainHerbAndTemperateTreeMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "plectranthus-amboinicus", "coleus-forskohlii", "alpinia-officinarum",
+            "catharanthus-roseus", "dactylorhiza-hatagirea", "rheum-australe",
+            "cedrus-deodara", "platanus-orientalis", "salix-alba", "populus-nigra"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
