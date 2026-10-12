@@ -14,7 +14,10 @@ class PlantRepository(private val dao: PlantDao) {
     fun favorites(): Flow<List<Plant>> = dao.observeFavorites()
     suspend fun favorite(id: String, enabled: Boolean) = dao.setFavorite(id, enabled)
 
-    suspend fun seedIfNeeded() = withContext(Dispatchers.IO) { dao.insertIfMissing(PlantSeeds.all) }
+    // Seed both the original examples and the curated regional catalogue without overwriting user data.
+    suspend fun seedIfNeeded() = withContext(Dispatchers.IO) {
+        dao.insertIfMissing(PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants + PlantCatalogAsia8.plants + PlantCatalogAsia9.plants + PlantCatalogAsia10.plants + PlantCatalogAsia11.plants.filterNot { it.id == "cajanus-cajan-var" }.map { if (it.id == "tal inum-fruticosum") it.copy(id = "talinum-fruticosum") else it } + PlantCatalogAsia12.plants + PlantCatalogAsia13.plants + PlantCatalogAsia14.plants.filterNot { it.id in setOf("citrullus-lanatus", "cucurbita-pepo", "dioscorea-alata", "alpinia-galanga", "eleusine-coracana", "setaria-italica", "panicum-miliaceum") } + PlantCatalogAsia15.plants)
+    }
 
     suspend fun refreshMissingImages() {
         dao.missingImages().forEach { plant -> refreshImage(plant) }

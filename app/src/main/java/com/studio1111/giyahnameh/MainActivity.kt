@@ -237,8 +237,7 @@ private fun WelcomePanel() {
     ) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)) {
             Text("از ریشه تا شناخت", color = Color(0xFFCFE2C4), style = MaterialTheme.typography.labelMedium)
-            Text("جهان سبز را
-ورق بزن", color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+            Text("جهان سبز را\nورق بزن", color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
             Text("شناخت علمی، روش نگهداری و نکات ایمنی", color = Color(0xFFE0E8DD), style = MaterialTheme.typography.bodySmall)
         }
         Box(Modifier.size(84.dp).clip(RoundedCornerShape(22.dp)).background(Color(0xFF315C43)), contentAlignment = Alignment.Center) {
