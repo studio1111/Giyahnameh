@@ -74,7 +74,7 @@ class PlantArticleCatalogTest {
 
         val licorice = PlantArticleCatalog.find("glycyrrhiza-glabra")!!
         assertTrue(licorice.sideEffects.contains("فشارخون"))
-        assertTrue(licorice.specialPopulations.contains("بیماری قلبی"))
+        assertTrue(licorice.specialPopulations.contains("قلبی"))
 
         val aloe = PlantArticleCatalog.find("aloe-vera")!!
         assertTrue(aloe.varieties.contains("لاتکس"))
