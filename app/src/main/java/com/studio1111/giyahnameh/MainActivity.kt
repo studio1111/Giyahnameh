@@ -68,6 +68,8 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
         private set
     var selectedCategory by mutableStateOf("همه")
         private set
+    var sortMode by mutableStateOf(PlantSortMode.ALPHABETICAL)
+        private set
     private val queryFlow = kotlinx.coroutines.flow.MutableStateFlow("")
     val plants = queryFlow.flatMapLatest { repo.plants(it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -86,6 +88,9 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
         query = ""
         queryFlow.value = ""
         showFavorites = false
+    }
+    fun setSortMode(value: PlantSortMode) {
+        sortMode = value
     }
     fun open(id: String) { selectedId = id }
     fun back() { selectedId = null }
@@ -127,9 +132,10 @@ private fun GiyahTheme(content: @Composable () -> Unit) {
 @Composable
 private fun GiyahApp(vm: PlantViewModel) {
     val baseList by (if (vm.showFavorites) vm.favorites else vm.plants).collectAsState()
-    val list = remember(baseList, vm.selectedCategory) {
-        if (vm.selectedCategory == "همه") baseList
+    val list = remember(baseList, vm.selectedCategory, vm.sortMode) {
+        val filtered = if (vm.selectedCategory == "همه") baseList
         else baseList.filter { it.category.contains(vm.selectedCategory, ignoreCase = true) }
+        PlantOrdering.sort(filtered, vm.sortMode)
     }
     val selected = vm.selectedId
     Scaffold(
@@ -193,6 +199,31 @@ private fun GiyahApp(vm: PlantViewModel) {
                     listOf("همه", "دارویی", "خوراکی", "زینتی").forEach { category ->
                         CategoryChip(category, vm.selectedCategory == category) { vm.category(category) }
                     }
+                }
+                Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 9.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("ترتیب نمایش", color = Muted, style = MaterialTheme.typography.labelMedium)
+                    FilterChip(
+                        selected = vm.sortMode == PlantSortMode.ALPHABETICAL,
+                        onClick = { vm.setSortMode(PlantSortMode.ALPHABETICAL) },
+                        label = { Text("الفبایی") }
+                    )
+                    FilterChip(
+                        selected = vm.sortMode == PlantSortMode.POPULARITY,
+                        onClick = { vm.setSortMode(PlantSortMode.POPULARITY) },
+                        label = { Text(PlantPopularity.label) }
+                    )
+                }
+                if (vm.sortMode == PlantSortMode.POPULARITY) {
+                    Text(
+                        PlantPopularity.explanation,
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 2.dp),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Muted
+                    )
                 }
                 Row(
                     Modifier.fillMaxWidth().padding(start = 18.dp, end = 16.dp, top = 18.dp, bottom = 10.dp),
@@ -294,6 +325,7 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
 
 @Composable
 private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -> Unit) {
+    val article = PlantArticleCatalog.find(plant.id)
     Column(
         modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -317,13 +349,54 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
                     contentDescription = "ذخیره در علاقه‌مندی‌ها", tint = Forest)
             }
         }
-        InfoSection("معرفی و ویژگی‌ها", plant.description)
-        InfoSection("زیستگاه و پراکندگی", plant.habitat)
-        InfoSection("پرورش و نگهداری", plant.care)
-        InfoSection("کاربردهای سنتی و شکل‌های رایج", plant.traditionalUses)
-        InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
-        InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
-        InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
+        if (article != null) {
+            InfoSection("معرفی کوتاه", article.overview)
+            InfoSection("شناسایی و ویژگی‌های گیاه", article.identification)
+            InfoSection("گونه‌ها و تفاوت با گیاهان مشابه", article.varieties)
+            InfoSection("خاستگاه و پراکندگی", article.origin)
+            InfoSection("کاربردهای روزمره", article.practicalUses)
+            InfoSection("کاربردهای سنتی", article.traditionalUses)
+            InfoSection("شواهد علمی و محدودیت دانسته‌ها", article.evidence)
+            InfoSection("روش‌های استفاده", article.preparation)
+            InfoSection("مقدار مصرف و حدود اطلاعات معتبر", article.dosage)
+            InfoSection("عوارض احتمالی", article.sideEffects, warning = true)
+            InfoSection("موارد احتیاط و منع مصرف", article.contraindications, warning = true)
+            InfoSection("تداخلات دارویی", article.interactions, warning = true)
+            InfoSection("توصیه برای بارداری، شیردهی، کودکان و بیماران", article.specialPopulations, warning = true)
+            InfoSection("کاشت و نگهداری", article.cultivation)
+            InfoSection("تکثیر، برداشت و نگهداری", article.propagationHarvestStorage)
+            article.faqs.forEach { question ->
+                InfoSection(question.question, question.answer)
+            }
+            Text("آخرین بازبینی محتوای این مقاله: ${article.reviewDate}", color = Muted, style = MaterialTheme.typography.labelSmall)
+            Text("منابع بررسی‌شده", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = ForestDeep)
+            article.references.forEach { reference ->
+                Column(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(Color.White).padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(reference.title, color = Forest, fontWeight = FontWeight.SemiBold)
+                    Text(reference.sourceType, color = Muted, style = MaterialTheme.typography.labelSmall)
+                    Text(reference.relevanceNote, color = Color(0xFF46544A), style = MaterialTheme.typography.bodySmall)
+                    Text(reference.url, color = Forest, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+            if (article.images.isEmpty()) {
+                Text(
+                    "تصویر اختصاصی آفلاین این مقاله هنوز تأیید و بسته‌بندی نشده است.",
+                    color = WarningInk,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+        } else {
+            InfoSection("معرفی و ویژگی‌ها", plant.description)
+            InfoSection("زیستگاه و پراکندگی", plant.habitat)
+            InfoSection("پرورش و نگهداری", plant.care)
+            InfoSection("کاربردهای سنتی و شکل‌های رایج", plant.traditionalUses)
+            InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
+            InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
+            InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
+        }
         if (plant.imageUrl.isNotBlank()) {
             InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
         }
