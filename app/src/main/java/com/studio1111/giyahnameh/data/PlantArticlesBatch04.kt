@@ -182,7 +182,8 @@ object PlantArticlesBatch04 {
             ),
             references = listOf(
                 PlantReference("Kew Science — Cinnamomum verum", "https://powo.science.kew.org/results?q=Cinnamomum%20verum", "گیاه‌شناسی", "برای نام علمی دارچین سیلان و تمایز از گونه‌های نزدیک."),
-                PlantReference("NCCIH — Cinnamon: Usefulness and Safety", "https://www.nccih.nih.gov/health/cinnamon", "مرجع رسمی سلامت", "برای شواهد متناقض قند خون و ایمنی کومارین در کاسیا در مقایسه با دارچین سیلان.")
+                PlantReference("NCCIH — Cinnamon: Usefulness and Safety", "https://www.nccih.nih.gov/health/cinnamon", "مرجع رسمی سلامت", "برای شواهد متناقض قند خون و ایمنی کومارین در کاسیا در مقایسه با دارچین سیلان."),
+                PlantReference("Cinnamon: Potential Role in the Prevention of Insulin Resistance, Metabolic Syndrome, and Type 2 Diabetes", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3767714/", "مرور پژوهشی", "برای مرور شواهد متابولیک و محدودیت تبدیل نتایج اولیه به توصیهٔ درمانی.")
             ),
             reviewDate = "2026-10-12"
         ),
