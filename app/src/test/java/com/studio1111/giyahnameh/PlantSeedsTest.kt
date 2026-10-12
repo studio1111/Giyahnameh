@@ -148,4 +148,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun grainAndOilCropMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "luffa-aegyptiaca", "lagenaria-siceraria", "avena-sativa",
+            "fagopyrum-esculentum", "chenopodium-quinoa", "amaranthus-tricolor",
+            "brassica-nigra", "carthamus-tinctorius", "helianthus-annuus",
+            "theobroma-cacao"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
