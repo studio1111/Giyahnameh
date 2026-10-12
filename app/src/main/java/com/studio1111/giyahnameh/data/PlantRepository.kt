@@ -71,8 +71,8 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
             }
             findAndCacheWikimediaImage(plant)
         } catch (e: Exception) {
-            Log.w("Giyahnameh", "Image enrichment unavailable: ${e.javaClass.simpleName}")
-            null
+            Log.w("Giyahnameh", "GBIF image search unavailable; trying Wikimedia Commons: " + e.javaClass.simpleName)
+            findAndCacheWikimediaImage(plant)
         } finally { connection?.disconnect() }
     }
 
