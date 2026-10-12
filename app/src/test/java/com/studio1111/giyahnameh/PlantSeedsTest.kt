@@ -3,13 +3,14 @@ package com.studio1111.giyahnameh
 import com.studio1111.giyahnameh.data.PlantCatalogAsia
 import com.studio1111.giyahnameh.data.PlantCatalogAsia2
 import com.studio1111.giyahnameh.data.PlantCatalogAsia3
+import com.studio1111.giyahnameh.data.PlantCatalogAsia4
 import com.studio1111.giyahnameh.data.PlantSeeds
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PlantSeedsTest {
-    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3.plants
+    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3.plants + PlantCatalogAsia4.plants
 
     @Test fun seedIdsAreUniqueAcrossAllOfflineBatches() {
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.id }.toSet().size)
@@ -26,7 +27,8 @@ class PlantSeedsTest {
     @Test fun secondBatchHasBroadRegionalCoverageWithoutDuplicateSpecies() {
         assertTrue(PlantCatalogAsia2.plants.size >= 25)
         assertTrue(PlantCatalogAsia3.plants.size >= 30)
-        assertTrue(allSeedPlants.size >= 80)
+        assertTrue(PlantCatalogAsia4.plants.size >= 25)
+        assertTrue(allSeedPlants.size >= 100)
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.scientificName.lowercase() }.toSet().size)
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "نخود" })
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "گل محمدی" })
