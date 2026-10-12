@@ -4,6 +4,7 @@ from tools.fetch_plant_images import (
     image_license_allowed,
     matching_taxon,
     normalized_phrase,
+    openverse_record_matches_taxon,
     taxon_phrase,
 )
 
@@ -33,6 +34,25 @@ class PlantImageCollectorTests(unittest.TestCase):
     def test_scientific_inventory_names_drop_parenthetical_old_name(self):
         self.assertEqual("Salvia rosmarinus", taxon_phrase("Salvia rosmarinus (نام قدیمی: Rosmarinus officinalis)"))
         self.assertEqual("Citrus sinensis", taxon_phrase("Citrus × sinensis"))
+
+    def test_openverse_requires_species_name_in_title_or_tags(self):
+        matching = {
+            "title": "Mentha spicata leaves",
+            "description": "Fresh green spearmint plant",
+            "tags": [{"name": "Mentha spicata"}, {"name": "garden"}],
+        }
+        wrong_species = {
+            "title": "Mentha × piperita",
+            "description": "Peppermint leaf",
+            "tags": [{"name": "Mentha piperita"}],
+        }
+        self.assertTrue(openverse_record_matches_taxon(matching, "Mentha spicata"))
+        self.assertFalse(openverse_record_matches_taxon(wrong_species, "Mentha spicata"))
+
+    def test_accepts_openverse_cc_by_metadata_with_creator_and_rejects_no_creator(self):
+        license_value = "by (https://creativecommons.org/licenses/by/4.0/)"
+        self.assertTrue(image_license_allowed(license_value, "Photographer"))
+        self.assertFalse(image_license_allowed(license_value, ""))
 
     def test_normalization_is_whitespace_insensitive(self):
         self.assertEqual(normalized_phrase("Mentha   spicata"), normalized_phrase("Mentha spicata"))

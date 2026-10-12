@@ -1,6 +1,7 @@
 package com.studio1111.giyahnameh
 
 import com.studio1111.giyahnameh.data.PlantArticleCatalog
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -8,33 +9,87 @@ import org.junit.Test
 
 class PlantArticleCatalogTest {
     @Test
-    fun spearmintHasPlantSpecificLongFormSectionsAndDirectSources() {
-        val article = PlantArticleCatalog.find("mentha-spicata")
-        assertNotNull("The spearmint article must be bundled in the app", article)
-        article!!
-
-        assertTrue(article.missingRequiredSections().toString(), article.missingRequiredSections().isEmpty())
-        assertTrue("At least three relevant references are required", article.references.size >= 3)
-        assertTrue(
-            "Every reference must be a direct HTTPS page",
-            article.references.all { it.url.startsWith("https://") && it.relevanceNote.isNotBlank() }
+    fun allElevenCuratedArticlesHaveCompleteLongFormSectionsAndDirectReferences() {
+        val articles = PlantArticleCatalog.curatedArticles
+        assertEquals(
+            setOf(
+                "mentha-spicata",
+                "zingiber-officinale",
+                "curcuma-longa",
+                "allium-sativum",
+                "matricaria-chamomilla",
+                "senna-alexandrina",
+                "aloe-vera",
+                "glycyrrhiza-glabra",
+                "plantago-ovata",
+                "crocus-sativus",
+                "nigella-sativa"
+            ),
+            articles.map { it.plantId }.toSet()
         )
-        assertTrue("The dosage section must not invent a medicinal dose", article.dosage.contains("دوز درمانی"))
-        assertTrue("Evidence must distinguish spearmint and peppermint", article.evidence.contains("نعناع فلفلی"))
-        assertTrue("Special populations must be discussed", article.specialPopulations.contains("بارداری"))
-        assertTrue("Questions and answers should be present", article.faqs.size >= 3)
+
+        articles.forEach { article ->
+            assertTrue("${article.plantId}: ${article.missingRequiredSections()}", article.missingRequiredSections().isEmpty())
+            assertTrue("${article.plantId}: too few references", article.references.size >= 3)
+            assertTrue("${article.plantId}: article too short (${article.wordCount} words)", article.wordCount >= 350)
+            assertTrue("${article.plantId}: invalid review date", article.reviewDate.matches(Regex("\\d{4}-\\d{2}-\\d{2}")))
+            assertTrue(
+                "${article.plantId}: source links need a relevance note",
+                article.references.all { it.url.startsWith("https://") && it.relevanceNote.isNotBlank() && it.sourceType.isNotBlank() }
+            )
+            assertFalse(
+                "${article.plantId}: placeholder source found",
+                article.references.any { it.url.contains("example.com") || it.url.endsWith("://") }
+            )
+        }
     }
 
     @Test
-    fun noReferenceMayBeAPlaceholderOrAHomePageWithoutClaimContext() {
-        val articles = PlantArticleCatalog.curatedArticles
-        assertFalse("The initial curated catalogue must not be empty", articles.isEmpty())
+    fun spearmintSeparatesSpearmintEvidenceFromPeppermintOilTrials() {
+        val article = PlantArticleCatalog.find("mentha-spicata")
+        assertNotNull(article)
+        article!!
+        assertTrue(article.dosage.contains("دوز درمانی"))
+        assertTrue(article.evidence.contains("نعناع فلفلی"))
+        assertTrue(article.specialPopulations.contains("بارداری"))
+        assertTrue(article.faqs.size >= 3)
+        assertTrue(article.references.any { it.url.contains("jm.um.ac.ir") })
+        assertTrue(article.references.any { it.url.contains("journal.bums.ac.ir") })
+    }
 
-        articles.forEach { article ->
-            assertTrue(article.plantId.isNotBlank())
-            assertFalse(article.references.any { it.url.endsWith("://") || it.url.contains("example.com") })
-            assertTrue(article.references.all { it.relevanceNote.isNotBlank() })
-            assertTrue(article.reviewDate.matches(Regex("\\d{4}-\\d{2}-\\d{2}")))
-        }
+    @Test
+    fun clinicallySensitivePlantsHaveSpeciesSpecificRiskGuidance() {
+        val senna = PlantArticleCatalog.find("senna-alexandrina")!!
+        assertTrue(senna.dosage.contains("۱۲ سال"))
+        assertTrue(senna.dosage.contains("یک هفته"))
+        assertTrue(senna.interactions.contains("پتاسیم"))
+
+        val garlic = PlantArticleCatalog.find("allium-sativum")!!
+        assertTrue(garlic.interactions.contains("ضدانعقاد"))
+        assertTrue(garlic.specialPopulations.contains("بارداری"))
+
+        val turmeric = PlantArticleCatalog.find("curcuma-longa")!!
+        assertTrue(turmeric.sideEffects.contains("کبد"))
+        assertTrue(turmeric.specialPopulations.contains("بارداری"))
+
+        val licorice = PlantArticleCatalog.find("glycyrrhiza-glabra")!!
+        assertTrue(licorice.sideEffects.contains("فشارخون"))
+        assertTrue(licorice.specialPopulations.contains("بیماری قلبی"))
+
+        val aloe = PlantArticleCatalog.find("aloe-vera")!!
+        assertTrue(aloe.varieties.contains("لاتکس"))
+        assertTrue(aloe.specialPopulations.contains("دیابت"))
+
+        val psyllium = PlantArticleCatalog.find("plantago-ovata")!!
+        assertTrue(psyllium.preparation.contains("مایع"))
+        assertTrue(psyllium.interactions.contains("دیگوکسین"))
+
+        val saffron = PlantArticleCatalog.find("crocus-sativus")!!
+        assertTrue(saffron.specialPopulations.contains("بارداری"))
+        assertTrue(saffron.evidence.contains("۳۰ بیمار"))
+
+        val blackSeed = PlantArticleCatalog.find("nigella-sativa")!!
+        assertTrue(blackSeed.evidence.contains("۸۵۴ شرکت‌کننده"))
+        assertTrue(blackSeed.interactions.contains("فشارخون"))
     }
 }

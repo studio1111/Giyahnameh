@@ -76,7 +76,8 @@ def image_license_allowed(license_value: str, creator: str) -> bool:
     if any(term in value for term in ("-nc", "noncommercial", "non-commercial", "-nd", "no-derivatives")):
         return False
     public_domain = any(term in value for term in (
-        "public domain", "publicdomain/zero", "creativecommons.org/publicdomain/zero", "cc0", "cc zero"
+        "public domain", "publicdomain/zero", "creativecommons.org/publicdomain/zero",
+        "publicdomain/mark", "creativecommons.org/publicdomain/mark", "cc0", "cc zero", "pdm"
     ))
     attribution_license = any(term in value for term in (
         "creativecommons.org/licenses/by/", "creativecommons.org/licenses/by-sa/", "cc by ", "cc by-sa"
@@ -174,6 +175,56 @@ def commons_candidates(scientific_name: str) -> list[dict[str, str]]:
     return candidates
 
 
+def openverse_record_matches_taxon(record: dict[str, Any], scientific_name: str) -> bool:
+    phrase = normalized_phrase(taxon_phrase(scientific_name))
+    tags = record.get("tags") or []
+    tag_text = " ".join(
+        str(tag.get("name", "")) if isinstance(tag, dict) else str(tag)
+        for tag in tags
+    )
+    title_and_tags = normalized_phrase(
+        str(record.get("title", "")) + " " +
+        str(record.get("description", "")) + " " + tag_text
+    )
+    return bool(phrase) and phrase in title_and_tags
+
+
+def openverse_candidates(scientific_name: str) -> list[dict[str, str]]:
+    """Find additional openly licensed images when GBIF/Commons have no usable photo."""
+    phrase = taxon_phrase(scientific_name)
+    query = urlencode({
+        "q": f'"{phrase}"',
+        "license": "cc0,by,by-sa,pdm",
+        "license_type": "commercial,modification",
+        "page_size": "20",
+        "mature": "false",
+    })
+    data = json.loads(http_bytes("https://api.openverse.org/v1/images/?" + query).decode("utf-8"))
+    candidates: list[dict[str, str]] = []
+    for record in data.get("results", []):
+        if not openverse_record_matches_taxon(record, scientific_name):
+            continue
+        image_url = str(record.get("url") or "").strip()
+        source_url = str(record.get("foreign_landing_url") or "").strip()
+        license_code = str(record.get("license") or "").strip().casefold()
+        license_url = str(record.get("license_url") or "").strip()
+        creator = clean_html(record.get("creator") or "")
+        license_value = f"{license_code} ({license_url})".strip()
+        if not image_url.startswith("https://") or not source_url.startswith("https://"):
+            continue
+        if not image_license_allowed(license_value, creator):
+            continue
+        candidates.append({
+            "imageUrl": image_url,
+            "sourceUrl": source_url,
+            "license": license_value,
+            "creator": creator or "خالق اثر در فرادادهٔ مجوز CC0/مالکیت عمومی مشخص نشده",
+            "source": f"Openverse / {record.get('provider') or 'provider نامشخص'}",
+            "recordScientificName": phrase,
+        })
+    return candidates
+
+
 def normalize_image(body: bytes, output_path: Path) -> tuple[int, int, int]:
     try:
         with Image.open(io.BytesIO(body)) as source:
@@ -207,42 +258,44 @@ def process_plant(
         return plant_id, old
 
     scientific_name = plant["scientificName"]
-    candidates: list[dict[str, str]] = []
     errors: list[str] = []
-    try:
-        candidates = gbif_candidates(scientific_name)
-    except Exception as exc:
-        errors.append(f"GBIF: {type(exc).__name__}")
-    if not candidates:
-        try:
-            candidates = commons_candidates(scientific_name)
-        except Exception as exc:
-            errors.append(f"Commons: {type(exc).__name__}")
+    providers = [
+        ("GBIF", gbif_candidates),
+        ("Wikimedia Commons", commons_candidates),
+        ("Openverse", openverse_candidates),
+    ]
 
-    for candidate in candidates:
+    for source_name, candidate_provider in providers:
         try:
-            body = http_bytes(candidate["imageUrl"], timeout=25)
-            width, height, size = normalize_image(body, asset_path)
-            return plant_id, {
-                "plantId": plant_id,
-                "persianName": plant["persianName"],
-                "scientificName": scientific_name,
-                "assetPath": asset_rel,
-                "altTextFa": f"تصویر {plant['persianName']} ({scientific_name})",
-                "creator": candidate["creator"],
-                "license": candidate["license"],
-                "licenseVerified": True,
-                "source": candidate["source"],
-                "sourcePageUrl": candidate["sourceUrl"],
-                "recordScientificName": candidate["recordScientificName"],
-                "width": width,
-                "height": height,
-                "bytes": size,
-                "imageAdjusted": "اندازه برای نمایش کوچک شده و فایل به WebP تبدیل شده است",
-            }
+            candidates = candidate_provider(scientific_name)
         except Exception as exc:
-            errors.append(f"image: {type(exc).__name__}")
-            asset_path.unlink(missing_ok=True)
+            errors.append(f"{source_name}: {type(exc).__name__}")
+            continue
+
+        for candidate in candidates:
+            try:
+                body = http_bytes(candidate["imageUrl"], timeout=25)
+                width, height, size = normalize_image(body, asset_path)
+                return plant_id, {
+                    "plantId": plant_id,
+                    "persianName": plant["persianName"],
+                    "scientificName": scientific_name,
+                    "assetPath": asset_rel,
+                    "altTextFa": f"تصویر {plant['persianName']} ({scientific_name})",
+                    "creator": candidate["creator"],
+                    "license": candidate["license"],
+                    "licenseVerified": True,
+                    "source": candidate["source"],
+                    "sourcePageUrl": candidate["sourceUrl"],
+                    "recordScientificName": candidate["recordScientificName"],
+                    "width": width,
+                    "height": height,
+                    "bytes": size,
+                    "imageAdjusted": "اندازه برای نمایش کوچک شده و فایل به WebP تبدیل شده است",
+                }
+            except Exception as exc:
+                errors.append(f"{source_name} image: {type(exc).__name__}")
+                asset_path.unlink(missing_ok=True)
 
     return plant_id, {
         "plantId": plant_id,
