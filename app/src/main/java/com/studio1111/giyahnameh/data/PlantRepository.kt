@@ -16,7 +16,7 @@ class PlantRepository(private val dao: PlantDao) {
 
     // Seed both the original examples and the curated regional catalogue without overwriting user data.
     suspend fun seedIfNeeded() = withContext(Dispatchers.IO) {
-        dao.insertIfMissing(PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants)
+        dao.insertIfMissing(PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3.plants)
     }
 
     suspend fun refreshMissingImages() {
