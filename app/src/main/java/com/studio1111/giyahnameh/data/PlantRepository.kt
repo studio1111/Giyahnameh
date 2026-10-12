@@ -32,8 +32,9 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
             val cached = downloadImage(plant.imageUrl, plant.id)
             if (cached != null) {
                 dao.updateImage(plant.id, plant.imageUrl, cached, plant.imageAttribution, plant.imageLicense, plant.imageSourceUrl)
+                return@withContext plant.imageUrl
             }
-            return@withContext plant.imageUrl
+            // A saved URL may have expired. Continue to fresh sources.
         }
         var connection: HttpURLConnection? = null
         try {
@@ -68,13 +69,56 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
                     }
                 }
             }
-            null
+            findAndCacheWikimediaImage(plant)
         } catch (e: Exception) {
             Log.w("Giyahnameh", "Image enrichment unavailable: ${e.javaClass.simpleName}")
             null
         } finally { connection?.disconnect() }
     }
 
+    /** Search Commons as a second source when GBIF has no usable, reusable plant photo. */
+    private fun findAndCacheWikimediaImage(plant: Plant): String? {
+        var connection: HttpURLConnection? = null
+        return try {
+            val botanicalName = plant.scientificName.substringBefore(" (")
+            val search = java.net.URLEncoder.encode("filetype:bitmap \\\"" + botanicalName + "\\\"", "UTF-8")
+            val api = "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=" + search + "&gsrnamespace=6&gsrlimit=10&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1400&format=json"
+            connection = (URL(api).openConnection() as HttpURLConnection).apply {
+                connectTimeout = 8000
+                readTimeout = 10000
+                requestMethod = "GET"
+                setRequestProperty("Accept", "application/json")
+                setRequestProperty("User-Agent", "GiyahnamehAndroid/1.0")
+            }
+            if (connection.responseCode !in 200..299) return null
+            val json = JSONObject(connection.inputStream.bufferedReader().use { it.readText() })
+            val pages = json.optJSONObject("query")?.optJSONObject("pages") ?: return null
+            val keys = pages.keys()
+            while (keys.hasNext()) {
+                val page = pages.optJSONObject(keys.next()) ?: continue
+                val imageInfo = page.optJSONArray("imageinfo")?.optJSONObject(0) ?: continue
+                val imageUrl = imageInfo.optString("thumburl").ifBlank { imageInfo.optString("url") }
+                val descriptionUrl = imageInfo.optString("descriptionurl")
+                val metadata = imageInfo.optJSONObject("extmetadata")
+                val license = metadata?.optJSONObject("LicenseShortName")?.optString("value").orEmpty()
+                val artist = metadata?.optJSONObject("Artist")?.optString("value").orEmpty()
+                val licenseLower = license.lowercase()
+                val reusable = licenseLower == "cc0" || licenseLower.contains("public domain") || licenseLower.contains("cc by") || licenseLower.contains("cc-by")
+                val restrictive = licenseLower.contains("nc") || licenseLower.contains("nd") || licenseLower.contains("noncommercial") || licenseLower.contains("no derivatives")
+                if (imageUrl.startsWith("https://") && descriptionUrl.startsWith("https://") && license.isNotBlank() && reusable && !restrictive) {
+                    val localPath = downloadImage(imageUrl, plant.id) ?: continue
+                    dao.updateImage(plant.id, imageUrl, localPath, artist.ifBlank { "نام عکاس در فراداده مشخص نشده" }, license, descriptionUrl)
+                    return imageUrl
+                }
+            }
+            null
+        } catch (e: Exception) {
+            Log.w("Giyahnameh", "Wikimedia image search unavailable: " + e.javaClass.simpleName)
+            null
+        } finally {
+            connection?.disconnect()
+        }
+    }
     private fun downloadImage(imageUrl: String, plantId: String): String? {
         var connection: HttpURLConnection? = null
         return try {
