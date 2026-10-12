@@ -163,6 +163,9 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
         InfoSection("شواهد علمی", plant.evidence)
         InfoSection("عوارض و هشدارها", plant.cautions, warning = true)
         InfoSection("تداخلات و احتیاط‌ها", plant.interactions, warning = true)
+        if (plant.imageUrl.isNotBlank()) {
+            InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
+        }
         if (plant.sourceUrl.isNotBlank()) { Text("منبع پیشنهادی برای مطالعه بیشتر", fontWeight = FontWeight.Bold); Text(plant.sourceUrl, color = Forest, style = MaterialTheme.typography.bodySmall) }
         Text("یادآوری: محتوای آموزشی است و جایگزین نظر پزشک یا داروساز نیست.", style = MaterialTheme.typography.bodySmall, color = Color(0xFF76512A), modifier = Modifier.padding(bottom = 24.dp))
     }
