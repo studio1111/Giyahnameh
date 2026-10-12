@@ -18,6 +18,9 @@ data class Plant(
     val cautions: String,
     val interactions: String,
     val imageUrl: String = "",
+    val imageAttribution: String = "",
+    val imageLicense: String = "",
+    val imageSourceUrl: String = "",
     val sourceUrl: String = "",
     val isFavorite: Boolean = false,
     val updatedAt: Long = System.currentTimeMillis()
