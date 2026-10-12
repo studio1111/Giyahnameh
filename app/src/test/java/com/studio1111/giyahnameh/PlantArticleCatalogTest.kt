@@ -9,7 +9,7 @@ import org.junit.Test
 
 class PlantArticleCatalogTest {
     @Test
-    fun allSixCuratedArticlesHaveCompleteLongFormSectionsAndDirectReferences() {
+    fun allElevenCuratedArticlesHaveCompleteLongFormSectionsAndDirectReferences() {
         val articles = PlantArticleCatalog.curatedArticles
         assertEquals(
             setOf(
@@ -18,7 +18,12 @@ class PlantArticleCatalogTest {
                 "curcuma-longa",
                 "allium-sativum",
                 "matricaria-chamomilla",
-                "senna-alexandrina"
+                "senna-alexandrina",
+                "aloe-vera",
+                "glycyrrhiza-glabra",
+                "plantago-ovata",
+                "crocus-sativus",
+                "nigella-sativa"
             ),
             articles.map { it.plantId }.toSet()
         )
@@ -60,11 +65,31 @@ class PlantArticleCatalogTest {
         assertTrue(senna.interactions.contains("پتاسیم"))
 
         val garlic = PlantArticleCatalog.find("allium-sativum")!!
-        assertTrue(garlic.interactions.contains("ضدانعقاد") || garlic.interactions.contains("ضدانعقاد"))
+        assertTrue(garlic.interactions.contains("ضدانعقاد"))
         assertTrue(garlic.specialPopulations.contains("بارداری"))
 
         val turmeric = PlantArticleCatalog.find("curcuma-longa")!!
         assertTrue(turmeric.sideEffects.contains("کبد"))
         assertTrue(turmeric.specialPopulations.contains("بارداری"))
+
+        val licorice = PlantArticleCatalog.find("glycyrrhiza-glabra")!!
+        assertTrue(licorice.sideEffects.contains("فشارخون"))
+        assertTrue(licorice.specialPopulations.contains("بیماری قلبی"))
+
+        val aloe = PlantArticleCatalog.find("aloe-vera")!!
+        assertTrue(aloe.varieties.contains("لاتکس"))
+        assertTrue(aloe.specialPopulations.contains("دیابت"))
+
+        val psyllium = PlantArticleCatalog.find("plantago-ovata")!!
+        assertTrue(psyllium.preparation.contains("مایع"))
+        assertTrue(psyllium.interactions.contains("دیگوکسین"))
+
+        val saffron = PlantArticleCatalog.find("crocus-sativus")!!
+        assertTrue(saffron.specialPopulations.contains("بارداری"))
+        assertTrue(saffron.evidence.contains("۳۰ بیمار"))
+
+        val blackSeed = PlantArticleCatalog.find("nigella-sativa")!!
+        assertTrue(blackSeed.evidence.contains("۸۵۴ شرکت‌کننده"))
+        assertTrue(blackSeed.interactions.contains("فشارخون"))
     }
 }
