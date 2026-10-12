@@ -24,7 +24,7 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
     }
 
     suspend fun refreshMissingImages() {
-        dao.missingImages().forEach { plant -> refreshImage(plant) }
+        dao.missingImages().take(20).forEach { plant -> refreshImage(plant) }
     }
 
     suspend fun refreshImage(plant: Plant): String? = withContext(Dispatchers.IO) {
