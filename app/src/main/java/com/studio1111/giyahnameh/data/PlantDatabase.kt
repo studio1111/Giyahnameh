@@ -21,6 +21,7 @@ abstract class PlantDatabase : RoomDatabase() {
         @Volatile private var instance: PlantDatabase? = null
         fun get(context: Context): PlantDatabase = instance ?: synchronized(this) {
             instance ?: Room.databaseBuilder(context.applicationContext, PlantDatabase::class.java, "giyahnameh.db")
+                .addMigrations(MIGRATION_1_2)
                 .build().also { instance = it }
         }
     }
