@@ -64,4 +64,16 @@ class PlantSeedsTest {
         assertTrue(PlantCatalogAsia.plants.any { it.persianName == "سیاه‌دانه" })
         assertTrue(PlantCatalogAsia.plants.any { it.persianName == "زنجبیل" })
     }
+
+    @Test fun starterMonographsHaveDedicatedReadableArticleSections() {
+        val starters = PlantSeeds.all.filter { it.id in setOf("lavandula-angustifolia", "mentha-spicata") }
+        assertEquals(2, starters.size)
+        assertTrue(starters.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
