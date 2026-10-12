@@ -5,8 +5,7 @@ package com.studio1111.giyahnameh.data
  * Articles stay bundled with the app so reading them does not depend on network access.
  */
 object PlantArticleCatalog {
-    private val articles = listOf(
-        PlantArticle(
+    private val spearmintArticle = PlantArticle(
             plantId = "mentha-spicata",
             overview = """
                 نعناع سبز با نام علمی Mentha spicata L. گیاهی علفی، معطر و چندساله از خانوادهٔ نعناعیان است. برگ‌های آن در آشپزی ایرانی و بسیاری از غذاهای خاورمیانه کاربرد فراوان دارند و معمولاً تازه یا خشک مصرف می‌شوند. بوی آشنای نعناع از ترکیبی از مواد معطر گیاه به وجود می‌آید؛ اما شدت بو، مزه و ترکیب اسانس می‌تواند با رقم، آب‌وهوا، سن گیاه، زمان برداشت و روش خشک‌کردن تغییر کند. نام عمومی «نعناع» برای چند گونه به کار می‌رود؛ پس همهٔ پژوهش‌ها، فرآورده‌ها و توصیه‌های درمانی مربوط به نعناع را نمی‌توان به یک گونه نسبت داد.
@@ -158,7 +157,8 @@ object PlantArticleCatalog {
             reviewDate = "2026-10-12",
             images = emptyList()
         )
-    )
+
+    private val articles = listOf(spearmintArticle) + PlantArticlesBatch01.articles
 
     val curatedArticles: List<PlantArticle> = articles
 
