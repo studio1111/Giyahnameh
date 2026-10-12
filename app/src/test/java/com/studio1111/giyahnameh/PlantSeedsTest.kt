@@ -238,4 +238,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun berryHerbAndRootVegetableMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "actinidia-deliciosa", "vaccinium-corymbosum", "rubus-fruticosus",
+            "allium-porrum", "allium-schoenoprasum", "portulaca-oleracea",
+            "hibiscus-sabdariffa", "cynara-cardunculus", "pastinaca-sativa",
+            "lupinus-albus"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
