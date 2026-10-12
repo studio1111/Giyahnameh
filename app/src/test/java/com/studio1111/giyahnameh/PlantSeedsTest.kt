@@ -309,4 +309,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun asianSpiceMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "zanthoxylum-bungeanum", "illicium-verum", "pimpinella-anisum",
+            "myristica-fragrans", "piper-cubeba", "curcuma-aromatica",
+            "kaempferia-parviflora", "alpinia-zerumbet", "zingiber-mioga",
+            "allium-tuberosum"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
