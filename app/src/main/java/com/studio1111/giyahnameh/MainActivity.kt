@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
@@ -260,13 +261,7 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-                if (plant.imageUrl.isNotBlank()) {
-                    AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
-                } else {
-                    Text("🌿", style = MaterialTheme.typography.displaySmall)
-                }
-            }
+            PlantPhoto(plant = plant, modifier = Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)), emoji = "🌿")
             Spacer(Modifier.width(13.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(plant.persianName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = Color(0xFF202820))
@@ -289,13 +284,7 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
         modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Box(Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-            if (plant.imageUrl.isNotBlank()) {
-                AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
-            } else {
-                Text("🌱", style = MaterialTheme.typography.displayLarge)
-            }
-        }
+        PlantPhoto(plant = plant, modifier = Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)), emoji = "🌱", large = true)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(plant.persianName, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = ForestDeep)
@@ -308,13 +297,18 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
                     contentDescription = "ذخیره در علاقه‌مندی‌ها", tint = Forest)
             }
         }
-        InfoSection("معرفی و ویژگی‌ها", plant.description)
-        InfoSection("زیستگاه و پراکندگی", plant.habitat)
-        InfoSection("پرورش و نگهداری", plant.care)
-        InfoSection("کاربردهای سنتی و شکل‌های رایج", plant.traditionalUses)
-        InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
-        InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
-        InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
+        InfoSection("۱. معرفی و ویژگی‌های گیاه", plant.description)
+        InfoSection("۲. نام علمی، خانواده و شناسایی درست", "نام علمی ثبت‌شده برای این گیاه «${plant.scientificName}» و خانوادهٔ گیاهی آن «${plant.family}» است. نام‌های محلی گاهی برای چند گیاه متفاوت به کار می‌روند؛ بنابراین برای شناسایی مطمئن، تنها به نام فارسی یا عکس اکتفا نکنید. شکل برگ، ساقه، گل، میوه، بوی گیاه و محل رویش باید در کنار هم بررسی شوند. اگر قرار است گیاه برای خوردن یا مصرف دارویی استفاده شود، در صورت تردید از کارشناس گیاه‌شناسی یا داروساز کمک بگیرید.")
+        InfoSection("۳. زیستگاه و پراکندگی", plant.habitat)
+        InfoSection("۴. شرایط رشد و نگهداری", plant.care + "\n\nبرای نگهداری بهتر، تغییرات گیاه را در طول زمان بررسی کنید: وضعیت برگ‌ها، رشد تازه، زهکشی خاک و نشانه‌های آفت یا پوسیدگی را ببینید. نیاز واقعی گیاه به نور و آب به اقلیم، فصل، گلدان و بافت خاک هم وابسته است؛ برنامهٔ آبیاری ثابت برای همهٔ گیاهان مناسب نیست. از ماندن آب در زیرگلدانی و تغییر ناگهانی شرایط محیطی پرهیز کنید.")
+        InfoSection("۵. بخش‌های مورد استفاده و کاربردهای سنتی", plant.traditionalUses + "\n\nدر منابع گیاهان دارویی، «کاربرد سنتی» به معنای استفاده‌ای است که در یک فرهنگ یا نظام درمانی رواج داشته؛ این عبارت به‌تنهایی ثابت نمی‌کند که آن کاربرد مؤثر یا بی‌خطر است. برگ، گل، ریشه، پوست، دانه و اسانس یک گیاه می‌توانند ترکیب و خطرهای متفاوتی داشته باشند. اطلاعات مربوط به یک بخش گیاه یا یک فرآورده را نباید خودکار به بخش‌ها و فرآورده‌های دیگر تعمیم داد.")
+        InfoSection("۶. روش استفاده و آماده‌سازی", "روش مصرف باید دقیقاً با گونه، بخش گیاه و فرآوردهٔ مورد بررسی هماهنگ باشد. در پروندهٔ فعلی، اطلاعات مستند و اختصاصی دربارهٔ مقدار مصرف، مدت مصرف و روش آماده‌سازی برای همهٔ کاربردها ثبت نشده است؛ به همین دلیل مقدار یا دستور ساخت خانگی پیشنهاد نمی‌شود. دمنوش، پودر، عصاره، کپسول، ژل موضعی و اسانس غلیظ از نظر قدرت و ایمنی یکسان نیستند. برای مصرف دارویی، دستور فرآوردهٔ معتبر و نظر پزشک یا داروساز را ملاک قرار دهید.")
+        InfoSection("۷. شواهد علمی و میزان اطمینان", plant.evidence + "\n\nوجود ترکیبات شیمیایی یا نتیجهٔ یک آزمایش آزمایشگاهی، به‌تنهایی اثربخشی در انسان را ثابت نمی‌کند. ارزیابی علمی به نوع مطالعه، تعداد شرکت‌کنندگان، کیفیت فرآورده، مقدار مصرف و تکرار نتایج وابسته است. نتیجهٔ مربوط به یک گونه یا محصول را نمی‌توان بدون بررسی به گونهٔ مشابه یا محصول دیگر تعمیم داد.")
+        InfoSection("۸. عوارض، هشدارها و زمان مراجعه", plant.cautions + "\n\nدر صورت بروز علائم شدید یا سریع مانند دشواری تنفس، تورم زبان یا گلو، غش، تشنج، استفراغ مداوم یا واکنش حساسیتی گسترده، مصرف را متوقف کنید و فوراً کمک پزشکی بگیرید. اگر پس از تماس یا مصرف گیاه علائم غیرعادی ایجاد شد، نام گیاه و شکل فرآورده را نگه دارید تا بررسی آن آسان‌تر شود.", warning = true)
+        InfoSection("۹. تداخلات دارویی", plant.interactions + "\n\nتداخل فقط به قرص‌ها محدود نیست و می‌تواند با مکمل‌ها، گیاهان دیگر و داروهای بیهوشی یا آرام‌بخش هم مطرح شود. پیش از مصرف دارویی، فهرست داروها و مکمل‌های خود را با پزشک یا داروساز مرور کنید؛ به‌ویژه اگر داروی منظم مصرف می‌کنید یا قرار است جراحی انجام دهید.", warning = true)
+        InfoSection("۱۰. کودکان، بارداری، شیردهی و سالمندان", "ایمنی این گیاه برای همهٔ گروه‌های حساس از روی اطلاعات عمومی قابل نتیجه‌گیری نیست. کودکان ممکن است نسبت به مقدار یکسان از فرآورده حساس‌تر باشند؛ در بارداری و شیردهی نیز داده‌های ایمنی بسیاری از گیاهان و مکمل‌ها ناکافی است. سالمندان و افراد دارای بیماری کبدی، کلیوی، قلبی یا چند داروی هم‌زمان نیز باید احتیاط بیشتری داشته باشند. تا زمانی که منبع معتبر و اختصاصی، ایمنی و روش مصرف را تأیید نکرده است، مصرف دارویی یا اسانس غلیظ را خودسرانه آغاز نکنید.", warning = true)
+        InfoSection("۱۱. نگهداری و کیفیت فرآورده", "برای گیاه خوراکی یا دارویی، هویت گونه و کیفیت محصول اهمیت زیادی دارد. از گیاه ناشناس، کپک‌زده، آلوده یا جمع‌آوری‌شده از کنار جاده و محل‌های آلوده استفاده نکنید. فرآورده را طبق برچسب و دور از دسترس کودکان نگه دارید. خشک‌کردن یا نگهداری نامناسب می‌تواند کیفیت گیاه را تغییر دهد و ظاهر سالم به‌تنهایی تضمین‌کنندهٔ ایمنی نیست.")
+        InfoSection("۱۲. پرسش‌های پرتکرار", "آیا این گیاه درمان قطعی بیماری است؟ خیر؛ در این پرونده فقط سطح شواهد ذکرشده ملاک است و ادعای درمان قطعی مطرح نمی‌شود.\n\nآیا مصرف طبیعی همیشه بی‌خطر است؟ خیر؛ گیاهان نیز می‌توانند عارضه، حساسیت یا تداخل دارویی داشته باشند.\n\nآیا می‌توان مقدار مصرف را از روی تجربهٔ دیگران تعیین کرد؟ خیر؛ گونه، بخش گیاه، غلظت فرآورده، سن و وضعیت سلامت افراد متفاوت است.\n\nچطور از درستی شناسایی مطمئن شوم؟ نام علمی، ویژگی‌های ظاهری و منبع معتبر را با هم بررسی کنید و در صورت تردید از متخصص کمک بگیرید.")
         if (plant.imageUrl.isNotBlank()) {
             InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
         }
@@ -329,6 +323,30 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
             )
         }
         Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun PlantPhoto(plant: Plant, modifier: Modifier, emoji: String, large: Boolean = false) {
+    var imageFailed by remember(plant.id, plant.imageUrl, plant.imageLocalPath) { mutableStateOf(false) }
+    val localFile = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File)?.takeIf { it.isFile && it.length() > 0L }
+    val imageModel: Any? = localFile ?: plant.imageUrl.takeIf { it.startsWith("https://") }
+    Box(modifier.background(Leaf), contentAlignment = Alignment.Center) {
+        if (imageModel != null && !imageFailed) {
+            AsyncImage(
+                model = imageModel,
+                contentDescription = "تصویر ${plant.persianName}",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                onError = { imageFailed = true },
+                onSuccess = { imageFailed = false }
+            )
+        } else {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(emoji, style = if (large) MaterialTheme.typography.displayLarge else MaterialTheme.typography.displaySmall)
+                if (large) Text("تصویر این گیاه هنوز در دسترس نیست", color = ForestDeep, style = MaterialTheme.typography.bodySmall)
+            }
+        }
     }
 }
 
