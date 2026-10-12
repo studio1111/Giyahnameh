@@ -81,7 +81,9 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GiyahTheme(content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {\n        MaterialTheme(colorScheme = lightColorScheme(primary = Forest, onPrimary = Color.White, secondary = Color(0xFF587B50), background = Paper, surface = Color.White, onSurface = Color(0xFF202820)), content = content)\n    }
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        MaterialTheme(colorScheme = lightColorScheme(primary = Forest, onPrimary = Color.White, secondary = Color(0xFF587B50), background = Paper, surface = Color.White, onSurface = Color(0xFF202820)), content = content)
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -166,7 +168,9 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
         InfoSection("عوارض و هشدارها", plant.cautions, warning = true)
         InfoSection("تداخلات و احتیاط‌ها", plant.interactions, warning = true)
         if (plant.imageUrl.isNotBlank()) {
-            InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
+            InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}
+مجوز: ${plant.imageLicense}
+منبع تصویر: ${plant.imageSourceUrl}")
         }
         if (plant.sourceUrl.isNotBlank()) { Text("منبع پیشنهادی برای مطالعه بیشتر", fontWeight = FontWeight.Bold); Text(plant.sourceUrl, color = Forest, style = MaterialTheme.typography.bodySmall) }
         Text("یادآوری: محتوای آموزشی است و جایگزین نظر پزشک یا داروساز نیست.", style = MaterialTheme.typography.bodySmall, color = Color(0xFF76512A), modifier = Modifier.padding(bottom = 24.dp))
