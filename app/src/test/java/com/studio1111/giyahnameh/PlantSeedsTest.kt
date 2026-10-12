@@ -94,4 +94,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun fruitAndHerbMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "citrus-limon", "malus-domestica", "pyrus-communis",
+            "ziziphus-jujuba", "berberis-vulgaris", "salvia-officinalis",
+            "thymus-vulgaris", "origanum-vulgare", "mentha-piperita",
+            "cymbopogon-citratus"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
