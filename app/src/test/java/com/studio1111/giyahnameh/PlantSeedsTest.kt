@@ -26,7 +26,7 @@ class PlantSeedsTest {
 
     @Test fun secondBatchHasBroadRegionalCoverageWithoutDuplicateSpecies() {
         assertTrue(PlantCatalogAsia2.plants.size >= 25)
-        assertTrue(PlantCatalogAsia3.plants.size >= 30)
+        assertTrue(PlantCatalogAsia3Clean.plants.size >= 30)
         assertTrue(PlantCatalogAsia4.plants.size >= 25)
         assertTrue(allSeedPlants.size >= 100)
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.scientificName.lowercase() }.toSet().size)
