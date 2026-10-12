@@ -40,7 +40,7 @@ class ImageEnrichmentWorker(context: Context, params: WorkerParameters) : Corout
                 .build()
             manager.enqueueUniquePeriodicWork(
                 "giyahnameh-image-refresh",
-                ExistingPeriodicWorkPolicy.KEEP,
+                ExistingPeriodicWorkPolicy.UPDATE,
                 periodic
             )
         }
