@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -131,6 +132,8 @@ private fun GiyahTheme(content: @Composable () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GiyahApp(vm: PlantViewModel) {
+    val context = LocalContext.current
+    val imageCredits = remember(context) { PlantImageAssetCatalog.loadVerifiedCredits(context) }
     val baseList by (if (vm.showFavorites) vm.favorites else vm.plants).collectAsState()
     val list = remember(baseList, vm.selectedCategory, vm.sortMode) {
         val filtered = if (vm.selectedCategory == "همه") baseList
@@ -170,7 +173,13 @@ private fun GiyahApp(vm: PlantViewModel) {
     ) { padding ->
         if (selected != null) {
             val plant by remember(selected) { vm.plant(selected) }.collectAsState(initial = null)
-            if (plant != null) PlantDetails(plant!!, Modifier.padding(padding), vm::toggleFavorite)
+            if (plant != null) PlantDetails(
+                plant = plant!!,
+                localImageAvailable = plant!!.id in imageCredits,
+                imageCredit = imageCredits[plant!!.id],
+                modifier = Modifier.padding(padding),
+                onFavorite = vm::toggleFavorite
+            )
             else Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         } else {
             Column(Modifier.fillMaxSize().padding(padding)) {
@@ -252,7 +261,13 @@ private fun GiyahApp(vm: PlantViewModel) {
                         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 28.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        items(list, key = { it.id }) { plant -> PlantCard(plant) { vm.open(plant.id) } }
+                        items(list, key = { it.id }) { plant ->
+                            PlantCard(
+                                plant = plant,
+                                localImageAvailable = plant.id in imageCredits,
+                                onClick = { vm.open(plant.id) }
+                            )
+                        }
                     }
                 }
             }
@@ -291,7 +306,7 @@ private fun CategoryChip(label: String, selected: Boolean, onClick: () -> Unit) 
 }
 
 @Composable
-private fun PlantCard(plant: Plant, onClick: () -> Unit) {
+private fun PlantCard(plant: Plant, localImageAvailable: Boolean, onClick: () -> Unit) {
     Card(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
@@ -301,8 +316,9 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-                if (plant.imageUrl.isNotBlank()) {
-                    AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+                val imageModel = if (localImageAvailable) "file:///android_asset/plants/${plant.id}.webp" else plant.imageUrl
+                if (imageModel.isNotBlank()) {
+                    AsyncImage(model = imageModel, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
                 } else {
                     Text("🌿", style = MaterialTheme.typography.displaySmall)
                 }
@@ -324,15 +340,22 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
 }
 
 @Composable
-private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -> Unit) {
+private fun PlantDetails(
+    plant: Plant,
+    localImageAvailable: Boolean,
+    imageCredit: PlantImageCredit?,
+    modifier: Modifier,
+    onFavorite: (Plant) -> Unit
+) {
     val article = PlantArticleCatalog.find(plant.id)
     Column(
         modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-            if (plant.imageUrl.isNotBlank()) {
-                AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+            val imageModel = if (localImageAvailable) "file:///android_asset/plants/${plant.id}.webp" else plant.imageUrl
+            if (imageModel.isNotBlank()) {
+                AsyncImage(model = imageModel, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
             } else {
                 Text("🌱", style = MaterialTheme.typography.displayLarge)
             }
@@ -381,7 +404,7 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
                     Text(reference.url, color = Forest, style = MaterialTheme.typography.bodySmall)
                 }
             }
-            if (article.images.isEmpty()) {
+            if (article.images.isEmpty() && !localImageAvailable) {
                 Text(
                     "تصویر اختصاصی آفلاین این مقاله هنوز تأیید و بسته‌بندی نشده است.",
                     color = WarningInk,
@@ -397,8 +420,13 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
             InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
             InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
         }
-        if (plant.imageUrl.isNotBlank()) {
-            InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
+        if (imageCredit != null) {
+            InfoSection(
+                "اعتبار تصویر آفلاین",
+                "پدیدآورنده/دارنده حقوق: ${imageCredit.creator}\nمجوز: ${imageCredit.license}\nمنبع: ${imageCredit.source}\nصفحهٔ اصلی: ${imageCredit.sourcePageUrl}"
+            )
+        } else if (plant.imageUrl.isNotBlank()) {
+            InfoSection("اعتبار تصویر آنلاین", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
         }
         if (plant.sourceUrl.isNotBlank()) {
             Text("منبع پیشنهادی برای مطالعه بیشتر", fontWeight = FontWeight.Bold, color = ForestDeep)
