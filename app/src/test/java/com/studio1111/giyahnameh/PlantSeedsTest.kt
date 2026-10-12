@@ -112,4 +112,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun vegetableAndGrainMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "citrus-sinensis", "cucumis-sativus", "daucus-carota",
+            "spinacia-oleracea", "zea-mays", "ipomoea-batatas",
+            "sorghum-bicolor", "triticum-durum", "brassica-juncea",
+            "raphanus-sativus"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
