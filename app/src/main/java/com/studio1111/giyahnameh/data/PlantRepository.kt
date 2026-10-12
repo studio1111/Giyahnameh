@@ -45,9 +45,9 @@ class PlantRepository(private val dao: PlantDao, private val context: Context) {
                 requestMethod = "GET"
                 setRequestProperty("Accept", "application/json")
             }
-            if (connection.responseCode !in 200..299) return@withContext null
+            if (connection.responseCode !in 200..299) return@withContext findAndCacheWikimediaImage(plant)
             val json = JSONObject(connection.inputStream.bufferedReader().use { it.readText() })
-            val results = json.optJSONArray("results") ?: return@withContext null
+            val results = json.optJSONArray("results") ?: return@withContext findAndCacheWikimediaImage(plant)
             for (i in 0 until results.length()) {
                 val media = results.optJSONObject(i)?.optJSONArray("media") ?: continue
                 for (j in 0 until media.length()) {
