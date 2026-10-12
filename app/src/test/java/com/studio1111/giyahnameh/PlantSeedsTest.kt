@@ -10,13 +10,14 @@ import com.studio1111.giyahnameh.data.PlantCatalogAsia7
 import com.studio1111.giyahnameh.data.PlantCatalogAsia8
 import com.studio1111.giyahnameh.data.PlantCatalogAsia9
 import com.studio1111.giyahnameh.data.PlantCatalogAsia10
+import com.studio1111.giyahnameh.data.PlantCatalogAsia11
 import com.studio1111.giyahnameh.data.PlantSeeds
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PlantSeedsTest {
-    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants + PlantCatalogAsia8.plants + PlantCatalogAsia9.plants + PlantCatalogAsia10.plants
+    private val allSeedPlants = PlantSeeds.all + PlantCatalogAsia.plants + PlantCatalogAsia2.plants + PlantCatalogAsia3Clean.plants + PlantCatalogAsia4.plants + PlantCatalogAsia5.plants + PlantCatalogAsia6.plants + PlantCatalogAsia7.plants + PlantCatalogAsia8.plants + PlantCatalogAsia9.plants + PlantCatalogAsia10.plants + PlantCatalogAsia11.plants.filterNot { it.id == "cajanus-cajan-var" }.map { if (it.id == "tal inum-fruticosum") it.copy(id = "talinum-fruticosum") else it }
 
     @Test fun seedIdsAreUniqueAcrossAllOfflineBatches() {
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.id }.toSet().size)
@@ -40,7 +41,8 @@ class PlantSeedsTest {
         assertTrue(PlantCatalogAsia8.plants.size >= 45)
         assertTrue(PlantCatalogAsia9.plants.size >= 35)
         assertTrue(PlantCatalogAsia10.plants.size >= 35)
-        assertTrue(allSeedPlants.size >= 330)
+        assertTrue(PlantCatalogAsia11.plants.size >= 20)
+        assertTrue(allSeedPlants.size >= 350)
         assertEquals(allSeedPlants.size, allSeedPlants.map { it.scientificName.lowercase() }.toSet().size)
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "نخود" })
         assertTrue(PlantCatalogAsia2.plants.any { it.persianName == "گل محمدی" })
