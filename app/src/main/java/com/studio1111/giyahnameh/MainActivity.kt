@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repository = PlantRepository(PlantDatabase.get(applicationContext).plantDao())
+        ImageEnrichmentWorker.schedule(applicationContext)
         setContent {
             val vm: PlantViewModel = viewModel(factory = PlantViewModel.Factory(repository))
             GiyahTheme { GiyahApp(vm) }
