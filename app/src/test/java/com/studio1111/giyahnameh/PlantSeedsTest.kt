@@ -381,4 +381,22 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test fun berryNutAndTraditionalFruitMonographsHaveDedicatedSections() {
+        val ids = setOf(
+            "lycium-barbarum", "hippophae-rhamnoides", "cydonia-oblonga",
+            "eriobotrya-japonica", "corylus-avellana", "castanea-sativa",
+            "pistacia-atlantica", "crataegus-monogyna", "rosa-canina",
+            "sambucus-nigra"
+        )
+        val entries = allSeedPlants.filter { it.id in ids }
+        assertEquals(10, entries.size)
+        assertTrue(entries.all {
+            it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+    }
 }
