@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -68,6 +69,8 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
         private set
     var selectedCategory by mutableStateOf("همه")
         private set
+    var sortMode by mutableStateOf(PlantSortMode.ALPHABETICAL)
+        private set
     private val queryFlow = kotlinx.coroutines.flow.MutableStateFlow("")
     val plants = queryFlow.flatMapLatest { repo.plants(it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -86,6 +89,9 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
         query = ""
         queryFlow.value = ""
         showFavorites = false
+    }
+    fun changeSortMode(value: PlantSortMode) {
+        sortMode = value
     }
     fun open(id: String) { selectedId = id }
     fun back() { selectedId = null }
@@ -126,10 +132,13 @@ private fun GiyahTheme(content: @Composable () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GiyahApp(vm: PlantViewModel) {
+    val context = LocalContext.current
+    val imageCredits = remember(context) { PlantImageAssetCatalog.loadVerifiedCredits(context) }
     val baseList by (if (vm.showFavorites) vm.favorites else vm.plants).collectAsState()
-    val list = remember(baseList, vm.selectedCategory) {
-        if (vm.selectedCategory == "همه") baseList
+    val list = remember(baseList, vm.selectedCategory, vm.sortMode) {
+        val filtered = if (vm.selectedCategory == "همه") baseList
         else baseList.filter { it.category.contains(vm.selectedCategory, ignoreCase = true) }
+        PlantOrdering.sort(filtered, vm.sortMode)
     }
     val selected = vm.selectedId
     Scaffold(
@@ -164,7 +173,13 @@ private fun GiyahApp(vm: PlantViewModel) {
     ) { padding ->
         if (selected != null) {
             val plant by remember(selected) { vm.plant(selected) }.collectAsState(initial = null)
-            if (plant != null) PlantDetails(plant!!, Modifier.padding(padding), vm::toggleFavorite)
+            if (plant != null) PlantDetails(
+                plant = plant!!,
+                localImageAvailable = plant!!.id in imageCredits,
+                imageCredit = imageCredits[plant!!.id],
+                modifier = Modifier.padding(padding),
+                onFavorite = vm::toggleFavorite
+            )
             else Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         } else {
             Column(Modifier.fillMaxSize().padding(padding)) {
@@ -195,6 +210,31 @@ private fun GiyahApp(vm: PlantViewModel) {
                     }
                 }
                 Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 9.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("ترتیب نمایش", color = Muted, style = MaterialTheme.typography.labelMedium)
+                    FilterChip(
+                        selected = vm.sortMode == PlantSortMode.ALPHABETICAL,
+                        onClick = { vm.changeSortMode(PlantSortMode.ALPHABETICAL) },
+                        label = { Text("الفبایی") }
+                    )
+                    FilterChip(
+                        selected = vm.sortMode == PlantSortMode.POPULARITY,
+                        onClick = { vm.changeSortMode(PlantSortMode.POPULARITY) },
+                        label = { Text(PlantPopularity.label) }
+                    )
+                }
+                if (vm.sortMode == PlantSortMode.POPULARITY) {
+                    Text(
+                        PlantPopularity.explanation,
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 2.dp),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Muted
+                    )
+                }
+                Row(
                     Modifier.fillMaxWidth().padding(start = 18.dp, end = 16.dp, top = 18.dp, bottom = 10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -221,7 +261,13 @@ private fun GiyahApp(vm: PlantViewModel) {
                         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 28.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        items(list, key = { it.id }) { plant -> PlantCard(plant) { vm.open(plant.id) } }
+                        items(list, key = { it.id }) { plant ->
+                            PlantCard(
+                                plant = plant,
+                                localImageAvailable = plant.id in imageCredits,
+                                onClick = { vm.open(plant.id) }
+                            )
+                        }
                     }
                 }
             }
@@ -260,7 +306,7 @@ private fun CategoryChip(label: String, selected: Boolean, onClick: () -> Unit) 
 }
 
 @Composable
-private fun PlantCard(plant: Plant, onClick: () -> Unit) {
+private fun PlantCard(plant: Plant, localImageAvailable: Boolean, onClick: () -> Unit) {
     Card(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
@@ -270,8 +316,9 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-                if (plant.imageUrl.isNotBlank()) {
-                    AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+                val imageModel = if (localImageAvailable) "file:///android_asset/plants/${plant.id}.webp" else plant.imageUrl
+                if (imageModel.isNotBlank()) {
+                    AsyncImage(model = imageModel, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
                 } else {
                     Text("🌿", style = MaterialTheme.typography.displaySmall)
                 }
@@ -293,14 +340,22 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
 }
 
 @Composable
-private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -> Unit) {
+private fun PlantDetails(
+    plant: Plant,
+    localImageAvailable: Boolean,
+    imageCredit: PlantImageCredit?,
+    modifier: Modifier,
+    onFavorite: (Plant) -> Unit
+) {
+    val article = PlantArticleCatalog.find(plant.id)
     Column(
         modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-            if (plant.imageUrl.isNotBlank()) {
-                AsyncImage(model = plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
+            val imageModel = if (localImageAvailable) "file:///android_asset/plants/${plant.id}.webp" else plant.imageUrl
+            if (imageModel.isNotBlank()) {
+                AsyncImage(model = imageModel, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
             } else {
                 Text("🌱", style = MaterialTheme.typography.displayLarge)
             }
@@ -317,15 +372,61 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
                     contentDescription = "ذخیره در علاقه‌مندی‌ها", tint = Forest)
             }
         }
-        InfoSection("معرفی و ویژگی‌ها", plant.description)
-        InfoSection("زیستگاه و پراکندگی", plant.habitat)
-        InfoSection("پرورش و نگهداری", plant.care)
-        InfoSection("کاربردهای سنتی و شکل‌های رایج", plant.traditionalUses)
-        InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
-        InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
-        InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
-        if (plant.imageUrl.isNotBlank()) {
-            InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
+        if (article != null) {
+            InfoSection("معرفی کوتاه", article.overview)
+            InfoSection("شناسایی و ویژگی‌های گیاه", article.identification)
+            InfoSection("گونه‌ها و تفاوت با گیاهان مشابه", article.varieties)
+            InfoSection("خاستگاه و پراکندگی", article.origin)
+            InfoSection("کاربردهای روزمره", article.practicalUses)
+            InfoSection("کاربردهای سنتی", article.traditionalUses)
+            InfoSection("شواهد علمی و محدودیت دانسته‌ها", article.evidence)
+            InfoSection("روش‌های استفاده", article.preparation)
+            InfoSection("مقدار مصرف و حدود اطلاعات معتبر", article.dosage)
+            InfoSection("عوارض احتمالی", article.sideEffects, warning = true)
+            InfoSection("موارد احتیاط و منع مصرف", article.contraindications, warning = true)
+            InfoSection("تداخلات دارویی", article.interactions, warning = true)
+            InfoSection("توصیه برای بارداری، شیردهی، کودکان و بیماران", article.specialPopulations, warning = true)
+            InfoSection("کاشت و نگهداری", article.cultivation)
+            InfoSection("تکثیر، برداشت و نگهداری", article.propagationHarvestStorage)
+            article.faqs.forEach { question ->
+                InfoSection(question.question, question.answer)
+            }
+            Text("آخرین بازبینی محتوای این مقاله: ${article.reviewDate}", color = Muted, style = MaterialTheme.typography.labelSmall)
+            Text("منابع بررسی‌شده", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = ForestDeep)
+            article.references.forEach { reference ->
+                Column(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(Color.White).padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(reference.title, color = Forest, fontWeight = FontWeight.SemiBold)
+                    Text(reference.sourceType, color = Muted, style = MaterialTheme.typography.labelSmall)
+                    Text(reference.relevanceNote, color = Color(0xFF46544A), style = MaterialTheme.typography.bodySmall)
+                    Text(reference.url, color = Forest, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+            if (article.images.isEmpty() && !localImageAvailable) {
+                Text(
+                    "تصویر اختصاصی آفلاین این مقاله هنوز تأیید و بسته‌بندی نشده است.",
+                    color = WarningInk,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+        } else {
+            InfoSection("معرفی و ویژگی‌ها", plant.description)
+            InfoSection("زیستگاه و پراکندگی", plant.habitat)
+            InfoSection("پرورش و نگهداری", plant.care)
+            InfoSection("کاربردهای سنتی و شکل‌های رایج", plant.traditionalUses)
+            InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
+            InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
+            InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
+        }
+        if (imageCredit != null) {
+            InfoSection(
+                "اعتبار تصویر آفلاین",
+                "پدیدآورنده/دارنده حقوق: ${imageCredit.creator}\nمجوز: ${imageCredit.license}\nمنبع: ${imageCredit.source}\nصفحهٔ اصلی: ${imageCredit.sourcePageUrl}"
+            )
+        } else if (plant.imageUrl.isNotBlank()) {
+            InfoSection("اعتبار تصویر آنلاین", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
         }
         if (plant.sourceUrl.isNotBlank()) {
             Text("منبع پیشنهادی برای مطالعه بیشتر", fontWeight = FontWeight.Bold, color = ForestDeep)

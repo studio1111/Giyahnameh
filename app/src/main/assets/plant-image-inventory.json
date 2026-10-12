@@ -1,0 +1,2502 @@
+[
+  {
+    "id": "lavandula-angustifolia",
+    "persianName": "اسطوخودوس",
+    "scientificName": "Lavandula angustifolia"
+  },
+  {
+    "id": "mentha-spicata",
+    "persianName": "نعناع سبز",
+    "scientificName": "Mentha spicata"
+  },
+  {
+    "id": "aloe-vera",
+    "persianName": "آلوئه‌ورا",
+    "scientificName": "Aloe vera"
+  },
+  {
+    "id": "ocimum-basilicum",
+    "persianName": "ریحان",
+    "scientificName": "Ocimum basilicum"
+  },
+  {
+    "id": "matricaria-chamomilla",
+    "persianName": "بابونه آلمانی",
+    "scientificName": "Matricaria chamomilla"
+  },
+  {
+    "id": "salvia-rosmarinus",
+    "persianName": "رزماری",
+    "scientificName": "Salvia rosmarinus"
+  },
+  {
+    "id": "zingiber-officinale",
+    "persianName": "زنجبیل",
+    "scientificName": "Zingiber officinale"
+  },
+  {
+    "id": "curcuma-longa",
+    "persianName": "زردچوبه",
+    "scientificName": "Curcuma longa"
+  },
+  {
+    "id": "coriandrum-sativum",
+    "persianName": "گشنیز",
+    "scientificName": "Coriandrum sativum"
+  },
+  {
+    "id": "cuminum-cyminum",
+    "persianName": "زیرهٔ سبز",
+    "scientificName": "Cuminum cyminum"
+  },
+  {
+    "id": "foeniculum-vulgare",
+    "persianName": "رازیانه",
+    "scientificName": "Foeniculum vulgare"
+  },
+  {
+    "id": "trigonella-foenum-graecum",
+    "persianName": "شنبلیله",
+    "scientificName": "Trigonella foenum-graecum"
+  },
+  {
+    "id": "nigella-sativa",
+    "persianName": "سیاه‌دانه",
+    "scientificName": "Nigella sativa"
+  },
+  {
+    "id": "allium-sativum",
+    "persianName": "سیر",
+    "scientificName": "Allium sativum"
+  },
+  {
+    "id": "allium-cepa",
+    "persianName": "پیاز",
+    "scientificName": "Allium cepa"
+  },
+  {
+    "id": "punica-granatum",
+    "persianName": "انار",
+    "scientificName": "Punica granatum"
+  },
+  {
+    "id": "crocus-sativus",
+    "persianName": "زعفران",
+    "scientificName": "Crocus sativus"
+  },
+  {
+    "id": "piper-nigrum",
+    "persianName": "فلفل سیاه",
+    "scientificName": "Piper nigrum"
+  },
+  {
+    "id": "camellia-sinensis",
+    "persianName": "چای",
+    "scientificName": "Camellia sinensis"
+  },
+  {
+    "id": "oryza-sativa",
+    "persianName": "برنج",
+    "scientificName": "Oryza sativa"
+  },
+  {
+    "id": "triticum-aestivum",
+    "persianName": "گندم نان",
+    "scientificName": "Triticum aestivum"
+  },
+  {
+    "id": "sesamum-indicum",
+    "persianName": "کنجد",
+    "scientificName": "Sesamum indicum"
+  },
+  {
+    "id": "linum-usitatissimum",
+    "persianName": "کتان",
+    "scientificName": "Linum usitatissimum"
+  },
+  {
+    "id": "azadirachta-indica",
+    "persianName": "نیم",
+    "scientificName": "Azadirachta indica"
+  },
+  {
+    "id": "moringa-oleifera",
+    "persianName": "مورینگا",
+    "scientificName": "Moringa oleifera"
+  },
+  {
+    "id": "psidium-guajava",
+    "persianName": "گواوا",
+    "scientificName": "Psidium guajava"
+  },
+  {
+    "id": "mangifera-indica",
+    "persianName": "انبه",
+    "scientificName": "Mangifera indica"
+  },
+  {
+    "id": "eucalyptus-globulus",
+    "persianName": "اکالیپتوس آبی",
+    "scientificName": "Eucalyptus globulus"
+  },
+  {
+    "id": "elettaria-cardamomum",
+    "persianName": "هل سبز",
+    "scientificName": "Elettaria cardamomum"
+  },
+  {
+    "id": "syzygium-aromaticum",
+    "persianName": "میخک",
+    "scientificName": "Syzygium aromaticum"
+  },
+  {
+    "id": "cinnamomum-verum",
+    "persianName": "دارچین سیلان",
+    "scientificName": "Cinnamomum verum"
+  },
+  {
+    "id": "capsicum-annuum",
+    "persianName": "فلفل شیرین و تند",
+    "scientificName": "Capsicum annuum"
+  },
+  {
+    "id": "solanum-melongena",
+    "persianName": "بادنجان",
+    "scientificName": "Solanum melongena"
+  },
+  {
+    "id": "solanum-tuberosum",
+    "persianName": "سیب‌زمینی",
+    "scientificName": "Solanum tuberosum"
+  },
+  {
+    "id": "abelmoschus-esculentus",
+    "persianName": "بامیه",
+    "scientificName": "Abelmoschus esculentus"
+  },
+  {
+    "id": "cicer-arietinum",
+    "persianName": "نخود",
+    "scientificName": "Cicer arietinum"
+  },
+  {
+    "id": "lens-culinaris",
+    "persianName": "عدس",
+    "scientificName": "Lens culinaris"
+  },
+  {
+    "id": "vigna-radiata",
+    "persianName": "ماش",
+    "scientificName": "Vigna radiata"
+  },
+  {
+    "id": "glycine-max",
+    "persianName": "سویا",
+    "scientificName": "Glycine max"
+  },
+  {
+    "id": "tamarindus-indica",
+    "persianName": "تمر هندی",
+    "scientificName": "Tamarindus indica"
+  },
+  {
+    "id": "cocos-nucifera",
+    "persianName": "نارگیل",
+    "scientificName": "Cocos nucifera"
+  },
+  {
+    "id": "musa-acuminata",
+    "persianName": "موز",
+    "scientificName": "Musa acuminata"
+  },
+  {
+    "id": "phoenix-dactylifera",
+    "persianName": "خرما",
+    "scientificName": "Phoenix dactylifera"
+  },
+  {
+    "id": "olea-europaea",
+    "persianName": "زیتون",
+    "scientificName": "Olea europaea"
+  },
+  {
+    "id": "vitis-vinifera",
+    "persianName": "انگور",
+    "scientificName": "Vitis vinifera"
+  },
+  {
+    "id": "prunus-armeniaca",
+    "persianName": "زردآلو",
+    "scientificName": "Prunus armeniaca"
+  },
+  {
+    "id": "prunus-persica",
+    "persianName": "هلو",
+    "scientificName": "Prunus persica"
+  },
+  {
+    "id": "pistacia-vera",
+    "persianName": "پسته",
+    "scientificName": "Pistacia vera"
+  },
+  {
+    "id": "juglans-regia",
+    "persianName": "گردو",
+    "scientificName": "Juglans regia"
+  },
+  {
+    "id": "prunus-amygdalus",
+    "persianName": "بادام",
+    "scientificName": "Prunus amygdalus"
+  },
+  {
+    "id": "ficus-carica",
+    "persianName": "انجیر",
+    "scientificName": "Ficus carica"
+  },
+  {
+    "id": "morus-alba",
+    "persianName": "توت سفید",
+    "scientificName": "Morus alba"
+  },
+  {
+    "id": "rosa-damascena",
+    "persianName": "گل محمدی",
+    "scientificName": "Rosa × damascena"
+  },
+  {
+    "id": "glycyrrhiza-glabra",
+    "persianName": "شیرین‌بیان",
+    "scientificName": "Glycyrrhiza glabra"
+  },
+  {
+    "id": "senna-alexandrina",
+    "persianName": "سنا",
+    "scientificName": "Senna alexandrina"
+  },
+  {
+    "id": "plantago-ovata",
+    "persianName": "اسفرزه",
+    "scientificName": "Plantago ovata"
+  },
+  {
+    "id": "withania-somnifera",
+    "persianName": "آشواگاندا",
+    "scientificName": "Withania somnifera"
+  },
+  {
+    "id": "ocimum-tenuiflorum",
+    "persianName": "تولسی یا ریحان مقدس",
+    "scientificName": "Ocimum tenuiflorum"
+  },
+  {
+    "id": "centella-asiatica",
+    "persianName": "گوتو کولا",
+    "scientificName": "Centella asiatica"
+  },
+  {
+    "id": "panax-ginseng",
+    "persianName": "جینسینگ آسیایی",
+    "scientificName": "Panax ginseng"
+  },
+  {
+    "id": "papaver-somniferum",
+    "persianName": "خشخاش",
+    "scientificName": "Papaver somniferum"
+  },
+  {
+    "id": "citrus-limon",
+    "persianName": "لیموترش",
+    "scientificName": "Citrus limon"
+  },
+  {
+    "id": "citrus-sinensis",
+    "persianName": "پرتقال شیرین",
+    "scientificName": "Citrus × sinensis"
+  },
+  {
+    "id": "malus-domestica",
+    "persianName": "سیب",
+    "scientificName": "Malus domestica"
+  },
+  {
+    "id": "pyrus-communis",
+    "persianName": "گلابی",
+    "scientificName": "Pyrus communis"
+  },
+  {
+    "id": "ziziphus-jujuba",
+    "persianName": "عناب",
+    "scientificName": "Ziziphus jujuba"
+  },
+  {
+    "id": "berberis-vulgaris",
+    "persianName": "زرشک",
+    "scientificName": "Berberis vulgaris"
+  },
+  {
+    "id": "salvia-officinalis",
+    "persianName": "مریم‌گلی",
+    "scientificName": "Salvia officinalis"
+  },
+  {
+    "id": "thymus-vulgaris",
+    "persianName": "آویشن باغی",
+    "scientificName": "Thymus vulgaris"
+  },
+  {
+    "id": "origanum-vulgare",
+    "persianName": "پونهٔ کوهی",
+    "scientificName": "Origanum vulgare"
+  },
+  {
+    "id": "mentha-piperita",
+    "persianName": "نعناع فلفلی",
+    "scientificName": "Mentha × piperita"
+  },
+  {
+    "id": "alpinia-galanga",
+    "persianName": "خولنجان یا گالانگال",
+    "scientificName": "Alpinia galanga"
+  },
+  {
+    "id": "cymbopogon-citratus",
+    "persianName": "علف لیمو",
+    "scientificName": "Cymbopogon citratus"
+  },
+  {
+    "id": "colocasia-esculenta",
+    "persianName": "تارو",
+    "scientificName": "Colocasia esculenta"
+  },
+  {
+    "id": "dioscorea-alata",
+    "persianName": "یام بنفش",
+    "scientificName": "Dioscorea alata"
+  },
+  {
+    "id": "ipomoea-batatas",
+    "persianName": "سیب‌زمینی شیرین",
+    "scientificName": "Ipomoea batatas"
+  },
+  {
+    "id": "zea-mays",
+    "persianName": "ذرت",
+    "scientificName": "Zea mays"
+  },
+  {
+    "id": "hordeum-vulgare",
+    "persianName": "جو",
+    "scientificName": "Hordeum vulgare"
+  },
+  {
+    "id": "panicum-miliaceum",
+    "persianName": "ارزن معمولی",
+    "scientificName": "Panicum miliaceum"
+  },
+  {
+    "id": "setaria-italica",
+    "persianName": "ارزن دم‌روباهی",
+    "scientificName": "Setaria italica"
+  },
+  {
+    "id": "sorghum-bicolor",
+    "persianName": "سورگوم",
+    "scientificName": "Sorghum bicolor"
+  },
+  {
+    "id": "eleusine-coracana",
+    "persianName": "ارزن انگشتی",
+    "scientificName": "Eleusine coracana"
+  },
+  {
+    "id": "triticum-durum",
+    "persianName": "گندم دوروم",
+    "scientificName": "Triticum durum"
+  },
+  {
+    "id": "brassica-juncea",
+    "persianName": "خردل هندی",
+    "scientificName": "Brassica juncea"
+  },
+  {
+    "id": "brassica-rapa",
+    "persianName": "شلغم و کلزاهای خویشاوند",
+    "scientificName": "Brassica rapa"
+  },
+  {
+    "id": "raphanus-sativus",
+    "persianName": "تربچه و ترب",
+    "scientificName": "Raphanus sativus"
+  },
+  {
+    "id": "daucus-carota",
+    "persianName": "هویج",
+    "scientificName": "Daucus carota"
+  },
+  {
+    "id": "spinacia-oleracea",
+    "persianName": "اسفناج",
+    "scientificName": "Spinacia oleracea"
+  },
+  {
+    "id": "cucumis-sativus",
+    "persianName": "خیار",
+    "scientificName": "Cucumis sativus"
+  },
+  {
+    "id": "citrullus-lanatus",
+    "persianName": "هندوانه",
+    "scientificName": "Citrullus lanatus"
+  },
+  {
+    "id": "cucurbita-pepo",
+    "persianName": "کدو سبز و کدو تنبل",
+    "scientificName": "Cucurbita pepo"
+  },
+  {
+    "id": "allium-fistulosum",
+    "persianName": "پیازچه",
+    "scientificName": "Allium fistulosum"
+  },
+  {
+    "id": "beta-vulgaris",
+    "persianName": "چغندر و لبو",
+    "scientificName": "Beta vulgaris"
+  },
+  {
+    "id": "brassica-oleracea",
+    "persianName": "کلم و کلم‌پیچ",
+    "scientificName": "Brassica oleracea"
+  },
+  {
+    "id": "lactuca-sativa",
+    "persianName": "کاهو",
+    "scientificName": "Lactuca sativa"
+  },
+  {
+    "id": "solanum-lycopersicum",
+    "persianName": "گوجه‌فرنگی",
+    "scientificName": "Solanum lycopersicum"
+  },
+  {
+    "id": "luffa-aegyptiaca",
+    "persianName": "لیف گیاهی",
+    "scientificName": "Luffa aegyptiaca"
+  },
+  {
+    "id": "momordica-charantia",
+    "persianName": "خربزهٔ تلخ",
+    "scientificName": "Momordica charantia"
+  },
+  {
+    "id": "cucumis-melo",
+    "persianName": "خربزه و طالبی",
+    "scientificName": "Cucumis melo"
+  },
+  {
+    "id": "lagenaria-siceraria",
+    "persianName": "کدوی بطری",
+    "scientificName": "Lagenaria siceraria"
+  },
+  {
+    "id": "phaseolus-vulgaris",
+    "persianName": "لوبیا",
+    "scientificName": "Phaseolus vulgaris"
+  },
+  {
+    "id": "pisum-sativum",
+    "persianName": "نخودفرنگی",
+    "scientificName": "Pisum sativum"
+  },
+  {
+    "id": "arachis-hypogaea",
+    "persianName": "بادام‌زمینی",
+    "scientificName": "Arachis hypogaea"
+  },
+  {
+    "id": "avena-sativa",
+    "persianName": "جو دوسر",
+    "scientificName": "Avena sativa"
+  },
+  {
+    "id": "fagopyrum-esculentum",
+    "persianName": "گندم سیاه",
+    "scientificName": "Fagopyrum esculentum"
+  },
+  {
+    "id": "chenopodium-quinoa",
+    "persianName": "کینوا",
+    "scientificName": "Chenopodium quinoa"
+  },
+  {
+    "id": "amaranthus-tricolor",
+    "persianName": "تاج‌خروس خوراکی",
+    "scientificName": "Amaranthus tricolor"
+  },
+  {
+    "id": "brassica-nigra",
+    "persianName": "خردل سیاه",
+    "scientificName": "Brassica nigra"
+  },
+  {
+    "id": "carthamus-tinctorius",
+    "persianName": "گلرنگ",
+    "scientificName": "Carthamus tinctorius"
+  },
+  {
+    "id": "helianthus-annuus",
+    "persianName": "آفتابگردان",
+    "scientificName": "Helianthus annuus"
+  },
+  {
+    "id": "coffea-arabica",
+    "persianName": "قهوهٔ عربیکا",
+    "scientificName": "Coffea arabica"
+  },
+  {
+    "id": "theobroma-cacao",
+    "persianName": "کاکائو",
+    "scientificName": "Theobroma cacao"
+  },
+  {
+    "id": "carica-papaya",
+    "persianName": "پاپایا",
+    "scientificName": "Carica papaya"
+  },
+  {
+    "id": "artocarpus-heterophyllus",
+    "persianName": "جک‌فروت",
+    "scientificName": "Artocarpus heterophyllus"
+  },
+  {
+    "id": "ananas-comosus",
+    "persianName": "آناناس",
+    "scientificName": "Ananas comosus"
+  },
+  {
+    "id": "nephelium-lappaceum",
+    "persianName": "رامبوتان",
+    "scientificName": "Nephelium lappaceum"
+  },
+  {
+    "id": "garcinia-mangostana",
+    "persianName": "منگوستین",
+    "scientificName": "Garcinia mangostana"
+  },
+  {
+    "id": "vanilla-planifolia",
+    "persianName": "وانیل",
+    "scientificName": "Vanilla planifolia"
+  },
+  {
+    "id": "piper-betle",
+    "persianName": "برگ بتل",
+    "scientificName": "Piper betle"
+  },
+  {
+    "id": "citrus-aurantiifolia",
+    "persianName": "لایم یا لیموترش سبز",
+    "scientificName": "Citrus × aurantiifolia"
+  },
+  {
+    "id": "citrus-reticulata",
+    "persianName": "نارنگی",
+    "scientificName": "Citrus reticulata"
+  },
+  {
+    "id": "citrus-maxima",
+    "persianName": "دارابی یا پوملو",
+    "scientificName": "Citrus maxima"
+  },
+  {
+    "id": "citrus-medica",
+    "persianName": "بالنگ",
+    "scientificName": "Citrus medica"
+  },
+  {
+    "id": "prunus-domestica",
+    "persianName": "آلو",
+    "scientificName": "Prunus domestica"
+  },
+  {
+    "id": "prunus-avium",
+    "persianName": "گیلاس",
+    "scientificName": "Prunus avium"
+  },
+  {
+    "id": "pyrus-pyrifolia",
+    "persianName": "گلابی آسیایی",
+    "scientificName": "Pyrus pyrifolia"
+  },
+  {
+    "id": "morus-nigra",
+    "persianName": "توت سیاه",
+    "scientificName": "Morus nigra"
+  },
+  {
+    "id": "ziziphus-mauritiana",
+    "persianName": "عناب هندی",
+    "scientificName": "Ziziphus mauritiana"
+  },
+  {
+    "id": "syzygium-cumini",
+    "persianName": "جامون یا آلو هندی",
+    "scientificName": "Syzygium cumini"
+  },
+  {
+    "id": "phyllanthus-emblica",
+    "persianName": "آملا یا انگورفرنگی هندی",
+    "scientificName": "Phyllanthus emblica"
+  },
+  {
+    "id": "terminalia-chebula",
+    "persianName": "هلیلهٔ سیاه",
+    "scientificName": "Terminalia chebula"
+  },
+  {
+    "id": "terminalia-bellirica",
+    "persianName": "بهیتره یا بلیل",
+    "scientificName": "Terminalia bellirica"
+  },
+  {
+    "id": "piper-longum",
+    "persianName": "فلفل دراز",
+    "scientificName": "Piper longum"
+  },
+  {
+    "id": "curcuma-zedoaria",
+    "persianName": "زدوار یا زردچوبهٔ سفید",
+    "scientificName": "Curcuma zedoaria"
+  },
+  {
+    "id": "kaempferia-galanga",
+    "persianName": "کچول یا گالانگال کوچک",
+    "scientificName": "Kaempferia galanga"
+  },
+  {
+    "id": "amomum-subulatum",
+    "persianName": "هل سیاه",
+    "scientificName": "Amomum subulatum"
+  },
+  {
+    "id": "anethum-graveolens",
+    "persianName": "شوید",
+    "scientificName": "Anethum graveolens"
+  },
+  {
+    "id": "carum-carvi",
+    "persianName": "زیرهٔ سیاه اروپایی",
+    "scientificName": "Carum carvi"
+  },
+  {
+    "id": "murraya-koenigii",
+    "persianName": "برگ کاری",
+    "scientificName": "Murraya koenigii"
+  },
+  {
+    "id": "pandanus-amaryllifolius",
+    "persianName": "پاندان معطر",
+    "scientificName": "Pandanus amaryllifolius"
+  },
+  {
+    "id": "cinnamomum-cassia",
+    "persianName": "دارچین کاسیا",
+    "scientificName": "Cinnamomum cassia"
+  },
+  {
+    "id": "bambusa-vulgaris",
+    "persianName": "بامبوی معمولی",
+    "scientificName": "Bambusa vulgaris"
+  },
+  {
+    "id": "dalbergia-sissoo",
+    "persianName": "شی‌شم یا شیشم",
+    "scientificName": "Dalbergia sissoo"
+  },
+  {
+    "id": "tectona-grandis",
+    "persianName": "ساج",
+    "scientificName": "Tectona grandis"
+  },
+  {
+    "id": "asparagus-racemosus",
+    "persianName": "شاتاواری",
+    "scientificName": "Asparagus racemosus"
+  },
+  {
+    "id": "bacopa-monnieri",
+    "persianName": "براهمی یا باکوپا",
+    "scientificName": "Bacopa monnieri"
+  },
+  {
+    "id": "andrographis-paniculata",
+    "persianName": "آندروگرافیس",
+    "scientificName": "Andrographis paniculata"
+  },
+  {
+    "id": "tinospora-cordifolia",
+    "persianName": "گودوچی یا گیلوی",
+    "scientificName": "Tinospora cordifolia"
+  },
+  {
+    "id": "artemisia-annua",
+    "persianName": "افسنطین شیرین",
+    "scientificName": "Artemisia annua"
+  },
+  {
+    "id": "vigna-unguiculata",
+    "persianName": "لوبیا چشم‌بلبلی",
+    "scientificName": "Vigna unguiculata"
+  },
+  {
+    "id": "cajanus-cajan",
+    "persianName": "نخود کفتری",
+    "scientificName": "Cajanus cajan"
+  },
+  {
+    "id": "vigna-mungo",
+    "persianName": "ماش سیاه یا اوراد",
+    "scientificName": "Vigna mungo"
+  },
+  {
+    "id": "vigna-angularis",
+    "persianName": "لوبیای آزوکی",
+    "scientificName": "Vigna angularis"
+  },
+  {
+    "id": "lablab-purpureus",
+    "persianName": "لوبیای سنبل",
+    "scientificName": "Lablab purpureus"
+  },
+  {
+    "id": "cichorium-intybus",
+    "persianName": "کاسنی",
+    "scientificName": "Cichorium intybus"
+  },
+  {
+    "id": "petroselinum-crispum",
+    "persianName": "جعفری",
+    "scientificName": "Petroselinum crispum"
+  },
+  {
+    "id": "apium-graveolens",
+    "persianName": "کرفس",
+    "scientificName": "Apium graveolens"
+  },
+  {
+    "id": "citrus-japonica",
+    "persianName": "کامکوات",
+    "scientificName": "Citrus japonica"
+  },
+  {
+    "id": "diospyros-kaki",
+    "persianName": "خرمالو",
+    "scientificName": "Diospyros kaki"
+  },
+  {
+    "id": "litchi-chinensis",
+    "persianName": "لیچی",
+    "scientificName": "Litchi chinensis"
+  },
+  {
+    "id": "dimocarpus-longan",
+    "persianName": "لونگان",
+    "scientificName": "Dimocarpus longan"
+  },
+  {
+    "id": "annona-squamosa",
+    "persianName": "شیرین‌چشمه یا سیب‌شکری",
+    "scientificName": "Annona squamosa"
+  },
+  {
+    "id": "artocarpus-altilis",
+    "persianName": "نان‌درخت",
+    "scientificName": "Artocarpus altilis"
+  },
+  {
+    "id": "morinda-citrifolia",
+    "persianName": "نونی",
+    "scientificName": "Morinda citrifolia"
+  },
+  {
+    "id": "spondias-dulcis",
+    "persianName": "آمبارلا یا آلو زرد گرمسیری",
+    "scientificName": "Spondias dulcis"
+  },
+  {
+    "id": "elaeis-guineensis",
+    "persianName": "نخل روغنی آفریقایی",
+    "scientificName": "Elaeis guineensis"
+  },
+  {
+    "id": "persea-americana",
+    "persianName": "آووکادو",
+    "scientificName": "Persea americana"
+  },
+  {
+    "id": "passiflora-edulis",
+    "persianName": "پشن‌فروت",
+    "scientificName": "Passiflora edulis"
+  },
+  {
+    "id": "fragaria-ananassa",
+    "persianName": "توت‌فرنگی",
+    "scientificName": "Fragaria × ananassa"
+  },
+  {
+    "id": "rubus-idaeus",
+    "persianName": "تمشک قرمز",
+    "scientificName": "Rubus idaeus"
+  },
+  {
+    "id": "prunus-cerasus",
+    "persianName": "آلبالو",
+    "scientificName": "Prunus cerasus"
+  },
+  {
+    "id": "prunus-mume",
+    "persianName": "آلوچهٔ ژاپنی یا اومه",
+    "scientificName": "Prunus mume"
+  },
+  {
+    "id": "portulaca-oleracea",
+    "persianName": "خرفه",
+    "scientificName": "Portulaca oleracea"
+  },
+  {
+    "id": "hibiscus-sabdariffa",
+    "persianName": "چای ترش",
+    "scientificName": "Hibiscus sabdariffa"
+  },
+  {
+    "id": "cynara-cardunculus",
+    "persianName": "کنگر فرنگی",
+    "scientificName": "Cynara cardunculus"
+  },
+  {
+    "id": "pastinaca-sativa",
+    "persianName": "پاسترناک یا هویجک",
+    "scientificName": "Pastinaca sativa"
+  },
+  {
+    "id": "allium-porrum",
+    "persianName": "تره‌فرنگی",
+    "scientificName": "Allium porrum"
+  },
+  {
+    "id": "allium-schoenoprasum",
+    "persianName": "پیازچهٔ باریک یا چایوز",
+    "scientificName": "Allium schoenoprasum"
+  },
+  {
+    "id": "lupinus-albus",
+    "persianName": "لوپین سفید",
+    "scientificName": "Lupinus albus"
+  },
+  {
+    "id": "hibiscus-rosa-sinensis",
+    "persianName": "چای ترش زینتی یا ختمی چینی",
+    "scientificName": "Hibiscus rosa-sinensis"
+  },
+  {
+    "id": "actinidia-deliciosa",
+    "persianName": "کیوی",
+    "scientificName": "Actinidia deliciosa"
+  },
+  {
+    "id": "vaccinium-corymbosum",
+    "persianName": "بلوبری",
+    "scientificName": "Vaccinium corymbosum"
+  },
+  {
+    "id": "rubus-fruticosus",
+    "persianName": "شاه‌توت وحشی یا بلک‌بری",
+    "scientificName": "Rubus fruticosus"
+  },
+  {
+    "id": "ficus-religiosa",
+    "persianName": "انجیر مقدس یا پیپل",
+    "scientificName": "Ficus religiosa"
+  },
+  {
+    "id": "ficus-benghalensis",
+    "persianName": "درخت بانیان",
+    "scientificName": "Ficus benghalensis"
+  },
+  {
+    "id": "ficus-racemosa",
+    "persianName": "انجیر خوشه‌ای",
+    "scientificName": "Ficus racemosa"
+  },
+  {
+    "id": "boswellia-serrata",
+    "persianName": "کندر هندی",
+    "scientificName": "Boswellia serrata"
+  },
+  {
+    "id": "commiphora-wightii",
+    "persianName": "گُگُل",
+    "scientificName": "Commiphora wightii"
+  },
+  {
+    "id": "santalum-album",
+    "persianName": "چوب صندل سفید",
+    "scientificName": "Santalum album"
+  },
+  {
+    "id": "zanthoxylum-armatum",
+    "persianName": "تیمور یا فلفل سیچوان هیمالیایی",
+    "scientificName": "Zanthoxylum armatum"
+  },
+  {
+    "id": "vachellia-nilotica",
+    "persianName": "اقاقیای نیل",
+    "scientificName": "Vachellia nilotica"
+  },
+  {
+    "id": "albizia-lebbeck",
+    "persianName": "آلبیزیا یا درخت سیرس",
+    "scientificName": "Albizia lebbeck"
+  },
+  {
+    "id": "bauhinia-variegata",
+    "persianName": "ارغوان هندی یا کچنار",
+    "scientificName": "Bauhinia variegata"
+  },
+  {
+    "id": "cassia-fistula",
+    "persianName": "درخت باران طلایی",
+    "scientificName": "Cassia fistula"
+  },
+  {
+    "id": "terminalia-arjuna",
+    "persianName": "آرجونا",
+    "scientificName": "Terminalia arjuna"
+  },
+  {
+    "id": "saraca-asoca",
+    "persianName": "آشوکا",
+    "scientificName": "Saraca asoca"
+  },
+  {
+    "id": "butea-monosperma",
+    "persianName": "پالاش یا شعلهٔ جنگل",
+    "scientificName": "Butea monosperma"
+  },
+  {
+    "id": "shorea-robusta",
+    "persianName": "سال یا شال",
+    "scientificName": "Shorea robusta"
+  },
+  {
+    "id": "pinus-roxburghii",
+    "persianName": "کاج چیر",
+    "scientificName": "Pinus roxburghii"
+  },
+  {
+    "id": "cedrus-deodara",
+    "persianName": "سدر هیمالیایی یا دئودار",
+    "scientificName": "Cedrus deodara"
+  },
+  {
+    "id": "platanus-orientalis",
+    "persianName": "چنار شرقی",
+    "scientificName": "Platanus orientalis"
+  },
+  {
+    "id": "salix-alba",
+    "persianName": "بید سفید",
+    "scientificName": "Salix alba"
+  },
+  {
+    "id": "populus-nigra",
+    "persianName": "صنوبر سیاه",
+    "scientificName": "Populus nigra"
+  },
+  {
+    "id": "juniperus-communis",
+    "persianName": "ارس معمولی",
+    "scientificName": "Juniperus communis"
+  },
+  {
+    "id": "juniperus-excelsa",
+    "persianName": "ارس بلند",
+    "scientificName": "Juniperus excelsa"
+  },
+  {
+    "id": "berberis-lycium",
+    "persianName": "زرشک هیمالیایی",
+    "scientificName": "Berberis lycium"
+  },
+  {
+    "id": "tamarix-aphylla",
+    "persianName": "گز",
+    "scientificName": "Tamarix aphylla"
+  },
+  {
+    "id": "phoenix-sylvestris",
+    "persianName": "نخل خرمای وحشی",
+    "scientificName": "Phoenix sylvestris"
+  },
+  {
+    "id": "pterocarpus-santalinus",
+    "persianName": "صندل سرخ",
+    "scientificName": "Pterocarpus santalinus"
+  },
+  {
+    "id": "cinnamomum-tamala",
+    "persianName": "برگ بو هندی",
+    "scientificName": "Cinnamomum tamala"
+  },
+  {
+    "id": "valeriana-jatamansi",
+    "persianName": "والریانا هیمالیایی",
+    "scientificName": "Valeriana jatamansi"
+  },
+  {
+    "id": "picrorhiza-kurroa",
+    "persianName": "کوتکی",
+    "scientificName": "Picrorhiza kurroa"
+  },
+  {
+    "id": "saussurea-costus",
+    "persianName": "قسط هندی",
+    "scientificName": "Saussurea costus"
+  },
+  {
+    "id": "rheum-australe",
+    "persianName": "ریواس هیمالیایی",
+    "scientificName": "Rheum australe"
+  },
+  {
+    "id": "dactylorhiza-hatagirea",
+    "persianName": "سالام‌پنجا",
+    "scientificName": "Dactylorhiza hatagirea"
+  },
+  {
+    "id": "plectranthus-amboinicus",
+    "persianName": "پونهٔ مکزیکی یا اورگانو هندی",
+    "scientificName": "Plectranthus amboinicus"
+  },
+  {
+    "id": "coleus-forskohlii",
+    "persianName": "کولئوس فورسکولین",
+    "scientificName": "Coleus forskohlii"
+  },
+  {
+    "id": "nardostachys-jatamansi",
+    "persianName": "سنبل هندی",
+    "scientificName": "Nardostachys jatamansi"
+  },
+  {
+    "id": "alpinia-officinarum",
+    "persianName": "خولنجان کوچک",
+    "scientificName": "Alpinia officinarum"
+  },
+  {
+    "id": "catharanthus-roseus",
+    "persianName": "پریوش",
+    "scientificName": "Catharanthus roseus"
+  },
+  {
+    "id": "zanthoxylum-bungeanum",
+    "persianName": "فلفل سیچوان",
+    "scientificName": "Zanthoxylum bungeanum"
+  },
+  {
+    "id": "illicium-verum",
+    "persianName": "بادیان ختایی یا انیسون ستاره‌ای",
+    "scientificName": "Illicium verum"
+  },
+  {
+    "id": "pimpinella-anisum",
+    "persianName": "انیسون",
+    "scientificName": "Pimpinella anisum"
+  },
+  {
+    "id": "myristica-fragrans",
+    "persianName": "جوز هندی",
+    "scientificName": "Myristica fragrans"
+  },
+  {
+    "id": "piper-cubeba",
+    "persianName": "فلفل دم‌دار",
+    "scientificName": "Piper cubeba"
+  },
+  {
+    "id": "piper-retrofractum",
+    "persianName": "فلفل جاوه‌ای",
+    "scientificName": "Piper retrofractum"
+  },
+  {
+    "id": "curcuma-aromatica",
+    "persianName": "زردچوبهٔ وحشی معطر",
+    "scientificName": "Curcuma aromatica"
+  },
+  {
+    "id": "kaempferia-parviflora",
+    "persianName": "زنجبیل سیاه",
+    "scientificName": "Kaempferia parviflora"
+  },
+  {
+    "id": "alpinia-zerumbet",
+    "persianName": "گل صدفی",
+    "scientificName": "Alpinia zerumbet"
+  },
+  {
+    "id": "zingiber-mioga",
+    "persianName": "زنجبیل ژاپنی",
+    "scientificName": "Zingiber mioga"
+  },
+  {
+    "id": "allium-tuberosum",
+    "persianName": "سیرچه یا چایوز سیر",
+    "scientificName": "Allium tuberosum"
+  },
+  {
+    "id": "allium-chinense",
+    "persianName": "پیاز ترشی چینی",
+    "scientificName": "Allium chinense"
+  },
+  {
+    "id": "eryngium-foetidum",
+    "persianName": "گشنیز مکزیکی",
+    "scientificName": "Eryngium foetidum"
+  },
+  {
+    "id": "lepidium-sativum",
+    "persianName": "شاهی",
+    "scientificName": "Lepidium sativum"
+  },
+  {
+    "id": "eruca-vesicaria",
+    "persianName": "روکولا یا شابانک",
+    "scientificName": "Eruca vesicaria"
+  },
+  {
+    "id": "cichorium-endivia",
+    "persianName": "اندیو",
+    "scientificName": "Cichorium endivia"
+  },
+  {
+    "id": "cucurbita-moschata",
+    "persianName": "کدو حلوایی",
+    "scientificName": "Cucurbita moschata"
+  },
+  {
+    "id": "cucurbita-maxima",
+    "persianName": "کدو تنبل بزرگ",
+    "scientificName": "Cucurbita maxima"
+  },
+  {
+    "id": "capsicum-frutescens",
+    "persianName": "فلفل تند ریز",
+    "scientificName": "Capsicum frutescens"
+  },
+  {
+    "id": "solanum-torvum",
+    "persianName": "بادنجان وحشی یا نخودی",
+    "scientificName": "Solanum torvum"
+  },
+  {
+    "id": "artocarpus-integer",
+    "persianName": "چمپی‌دک",
+    "scientificName": "Artocarpus integer"
+  },
+  {
+    "id": "durio-zibethinus",
+    "persianName": "دوریان",
+    "scientificName": "Durio zibethinus"
+  },
+  {
+    "id": "lansium-domesticum",
+    "persianName": "لانگسات یا دوکو",
+    "scientificName": "Lansium domesticum"
+  },
+  {
+    "id": "salacca-zalacca",
+    "persianName": "سالاکا یا میوهٔ مار",
+    "scientificName": "Salacca zalacca"
+  },
+  {
+    "id": "averrhoa-carambola",
+    "persianName": "کارامبولا یا میوهٔ ستاره‌ای",
+    "scientificName": "Averrhoa carambola"
+  },
+  {
+    "id": "averrhoa-bilimbi",
+    "persianName": "بیلیمبی",
+    "scientificName": "Averrhoa bilimbi"
+  },
+  {
+    "id": "cinnamomum-porrectum",
+    "persianName": "دارچین جنگلی",
+    "scientificName": "Cinnamomum porrectum"
+  },
+  {
+    "id": "ocimum-americanum",
+    "persianName": "ریحان لیمویی",
+    "scientificName": "Ocimum americanum"
+  },
+  {
+    "id": "ocimum-gratissimum",
+    "persianName": "ریحان آفریقایی",
+    "scientificName": "Ocimum gratissimum"
+  },
+  {
+    "id": "mimosa-pudica",
+    "persianName": "گل قهر و آشتی",
+    "scientificName": "Mimosa pudica"
+  },
+  {
+    "id": "lepidium-meyenii",
+    "persianName": "ماکا",
+    "scientificName": "Lepidium meyenii"
+  },
+  {
+    "id": "armoracia-rusticana",
+    "persianName": "ترب کوهی",
+    "scientificName": "Armoracia rusticana"
+  },
+  {
+    "id": "wasabia-japonica",
+    "persianName": "واسابی",
+    "scientificName": "Wasabia japonica"
+  },
+  {
+    "id": "amomum-kravanh",
+    "persianName": "هل سفید کامبوجی",
+    "scientificName": "Amomum kravanh"
+  },
+  {
+    "id": "curcuma-heyneana",
+    "persianName": "تمو گلی",
+    "scientificName": "Curcuma heyneana"
+  },
+  {
+    "id": "pandanus-tectorius",
+    "persianName": "پاندان ساحلی",
+    "scientificName": "Pandanus tectorius"
+  },
+  {
+    "id": "citrus-junos",
+    "persianName": "یوزو",
+    "scientificName": "Citrus junos"
+  },
+  {
+    "id": "citrus-australasica",
+    "persianName": "لایم انگشتی",
+    "scientificName": "Citrus australasica"
+  },
+  {
+    "id": "citrus-ichangensis",
+    "persianName": "مرکبات ایچانگ",
+    "scientificName": "Citrus ichangensis"
+  },
+  {
+    "id": "citrus-micrantha",
+    "persianName": "پاپدا میکرانتا",
+    "scientificName": "Citrus micrantha"
+  },
+  {
+    "id": "citrus-medica-var-sarcodactylis",
+    "persianName": "بالنگ انگشتی یا دست بودا",
+    "scientificName": "Citrus medica var. sarcodactylis"
+  },
+  {
+    "id": "dioscorea-opposita",
+    "persianName": "یام چینی",
+    "scientificName": "Dioscorea opposita"
+  },
+  {
+    "id": "dioscorea-japonica",
+    "persianName": "یام ژاپنی",
+    "scientificName": "Dioscorea japonica"
+  },
+  {
+    "id": "citrus-hystrix",
+    "persianName": "پاپدای کافیر",
+    "scientificName": "Citrus hystrix"
+  },
+  {
+    "id": "citrus-trifoliata",
+    "persianName": "نارنج سه‌برگ",
+    "scientificName": "Citrus trifoliata"
+  },
+  {
+    "id": "piper-sarmentosum",
+    "persianName": "فلفل برگ‌دار ویتنامی",
+    "scientificName": "Piper sarmentosum"
+  },
+  {
+    "id": "cinnamomum-iners",
+    "persianName": "دارچین وحشی جنوب‌شرقی آسیا",
+    "scientificName": "Cinnamomum iners"
+  },
+  {
+    "id": "lycium-barbarum",
+    "persianName": "گوجی‌بری",
+    "scientificName": "Lycium barbarum"
+  },
+  {
+    "id": "hippophae-rhamnoides",
+    "persianName": "سنجد دریایی",
+    "scientificName": "Hippophae rhamnoides"
+  },
+  {
+    "id": "elaeagnus-angustifolia",
+    "persianName": "سنجد",
+    "scientificName": "Elaeagnus angustifolia"
+  },
+  {
+    "id": "cydonia-oblonga",
+    "persianName": "به",
+    "scientificName": "Cydonia oblonga"
+  },
+  {
+    "id": "eriobotrya-japonica",
+    "persianName": "ازگیل ژاپنی",
+    "scientificName": "Eriobotrya japonica"
+  },
+  {
+    "id": "diospyros-lotus",
+    "persianName": "خرمالوی قفقازی",
+    "scientificName": "Diospyros lotus"
+  },
+  {
+    "id": "diospyros-virginiana",
+    "persianName": "خرمالوی آمریکایی",
+    "scientificName": "Diospyros virginiana"
+  },
+  {
+    "id": "corylus-avellana",
+    "persianName": "فندق",
+    "scientificName": "Corylus avellana"
+  },
+  {
+    "id": "castanea-sativa",
+    "persianName": "شاه‌بلوط اروپایی",
+    "scientificName": "Castanea sativa"
+  },
+  {
+    "id": "pinus-pinea",
+    "persianName": "کاج چتری یا کاج دانه‌خور",
+    "scientificName": "Pinus pinea"
+  },
+  {
+    "id": "pistacia-atlantica",
+    "persianName": "بنه یا پستهٔ کوهی",
+    "scientificName": "Pistacia atlantica"
+  },
+  {
+    "id": "pistacia-terebinthus",
+    "persianName": "بنهٔ مدیترانه‌ای",
+    "scientificName": "Pistacia terebinthus"
+  },
+  {
+    "id": "crataegus-monogyna",
+    "persianName": "زالزالک",
+    "scientificName": "Crataegus monogyna"
+  },
+  {
+    "id": "rosa-canina",
+    "persianName": "نسترن وحشی",
+    "scientificName": "Rosa canina"
+  },
+  {
+    "id": "sambucus-nigra",
+    "persianName": "آقطی سیاه",
+    "scientificName": "Sambucus nigra"
+  },
+  {
+    "id": "vaccinium-macrocarpon",
+    "persianName": "کرنبری",
+    "scientificName": "Vaccinium macrocarpon"
+  },
+  {
+    "id": "aronia-melanocarpa",
+    "persianName": "آرونیا یا چوک‌بری سیاه",
+    "scientificName": "Aronia melanocarpa"
+  },
+  {
+    "id": "prunus-cerasifera",
+    "persianName": "آلوچهٔ جنگلی",
+    "scientificName": "Prunus cerasifera"
+  },
+  {
+    "id": "ribes-nigrum",
+    "persianName": "انگورفرنگی سیاه",
+    "scientificName": "Ribes nigrum"
+  },
+  {
+    "id": "ribes-uva-crispa",
+    "persianName": "انگورفرنگی خاردار",
+    "scientificName": "Ribes uva-crispa"
+  },
+  {
+    "id": "malus-sieversii",
+    "persianName": "سیب وحشی آسیای مرکزی",
+    "scientificName": "Malus sieversii"
+  },
+  {
+    "id": "crataegus-azarolus",
+    "persianName": "زالزالک مدیترانه‌ای",
+    "scientificName": "Crataegus azarolus"
+  },
+  {
+    "id": "berberis-aristata",
+    "persianName": "زرشک هندی",
+    "scientificName": "Berberis aristata"
+  },
+  {
+    "id": "schisandra-chinensis",
+    "persianName": "شیزاندرا یا توت پنج‌مزه",
+    "scientificName": "Schisandra chinensis"
+  },
+  {
+    "id": "ginkgo-biloba",
+    "persianName": "جینکو",
+    "scientificName": "Ginkgo biloba"
+  },
+  {
+    "id": "urtica-dioica",
+    "persianName": "گزنه",
+    "scientificName": "Urtica dioica"
+  },
+  {
+    "id": "taraxacum-officinale",
+    "persianName": "قاصدک",
+    "scientificName": "Taraxacum officinale"
+  },
+  {
+    "id": "plantago-major",
+    "persianName": "بارهنگ پهن‌برگ",
+    "scientificName": "Plantago major"
+  },
+  {
+    "id": "plantago-lanceolata",
+    "persianName": "بارهنگ نیزه‌ای",
+    "scientificName": "Plantago lanceolata"
+  },
+  {
+    "id": "calendula-officinalis",
+    "persianName": "همیشه‌بهار",
+    "scientificName": "Calendula officinalis"
+  },
+  {
+    "id": "hypericum-perforatum",
+    "persianName": "علف چای یا گل راعی",
+    "scientificName": "Hypericum perforatum"
+  },
+  {
+    "id": "achillea-millefolium",
+    "persianName": "بومادران",
+    "scientificName": "Achillea millefolium"
+  },
+  {
+    "id": "althaea-officinalis",
+    "persianName": "ختمی دارویی",
+    "scientificName": "Althaea officinalis"
+  },
+  {
+    "id": "malva-sylvestris",
+    "persianName": "پنیرک",
+    "scientificName": "Malva sylvestris"
+  },
+  {
+    "id": "verbascum-thapsus",
+    "persianName": "خرگوشک",
+    "scientificName": "Verbascum thapsus"
+  },
+  {
+    "id": "echinacea-purpurea",
+    "persianName": "سرخارگل",
+    "scientificName": "Echinacea purpurea"
+  },
+  {
+    "id": "artemisia-vulgaris",
+    "persianName": "درمنه یا برنجاسف",
+    "scientificName": "Artemisia vulgaris"
+  },
+  {
+    "id": "valeriana-officinalis",
+    "persianName": "سنبل‌الطیب",
+    "scientificName": "Valeriana officinalis"
+  },
+  {
+    "id": "panax-quinquefolius",
+    "persianName": "جینسینگ آمریکایی",
+    "scientificName": "Panax quinquefolius"
+  },
+  {
+    "id": "eleutherococcus-senticosus",
+    "persianName": "جینسینگ سیبری",
+    "scientificName": "Eleutherococcus senticosus"
+  },
+  {
+    "id": "gymnema-sylvestre",
+    "persianName": "گورمار یا گیمنما",
+    "scientificName": "Gymnema sylvestre"
+  },
+  {
+    "id": "stevia-rebaudiana",
+    "persianName": "استویا",
+    "scientificName": "Stevia rebaudiana"
+  },
+  {
+    "id": "melaleuca-alternifolia",
+    "persianName": "درخت چای استرالیایی",
+    "scientificName": "Melaleuca alternifolia"
+  },
+  {
+    "id": "silybum-marianum",
+    "persianName": "خارمریم",
+    "scientificName": "Silybum marianum"
+  },
+  {
+    "id": "tribulus-terrestris",
+    "persianName": "خارخاسک",
+    "scientificName": "Tribulus terrestris"
+  },
+  {
+    "id": "gynostemma-pentaphyllum",
+    "persianName": "جیاگولان",
+    "scientificName": "Gynostemma pentaphyllum"
+  },
+  {
+    "id": "glycyrrhiza-uralensis",
+    "persianName": "شیرین‌بیان چینی",
+    "scientificName": "Glycyrrhiza uralensis"
+  },
+  {
+    "id": "scutellaria-baicalensis",
+    "persianName": "اسکوتلاریا یا کلاهک چینی",
+    "scientificName": "Scutellaria baicalensis"
+  },
+  {
+    "id": "sophora-flavescens",
+    "persianName": "سوفورا زرد",
+    "scientificName": "Sophora flavescens"
+  },
+  {
+    "id": "angelica-sinensis",
+    "persianName": "دانگ‌گوای چینی",
+    "scientificName": "Angelica sinensis"
+  },
+  {
+    "id": "astragalus-membranaceus",
+    "persianName": "گون چینی",
+    "scientificName": "Astragalus membranaceus"
+  },
+  {
+    "id": "rehmannia-glutinosa",
+    "persianName": "ره‌مانیا",
+    "scientificName": "Rehmannia glutinosa"
+  },
+  {
+    "id": "paeonia-lactiflora",
+    "persianName": "گل صدتومانی چینی",
+    "scientificName": "Paeonia lactiflora"
+  },
+  {
+    "id": "bupleurum-chinense",
+    "persianName": "بپلوروم چینی",
+    "scientificName": "Bupleurum chinense"
+  },
+  {
+    "id": "codonopsis-pilosula",
+    "persianName": "کودونوپسیس",
+    "scientificName": "Codonopsis pilosula"
+  },
+  {
+    "id": "houttuynia-cordata",
+    "persianName": "هوتوینیا یا برگ ماهی",
+    "scientificName": "Houttuynia cordata"
+  },
+  {
+    "id": "polygonum-multiflorum",
+    "persianName": "فو تی یا هی شو وو",
+    "scientificName": "Polygonum multiflorum"
+  },
+  {
+    "id": "salvia-miltiorrhiza",
+    "persianName": "دان‌شن",
+    "scientificName": "Salvia miltiorrhiza"
+  },
+  {
+    "id": "coptis-chinensis",
+    "persianName": "کوپتیس چینی",
+    "scientificName": "Coptis chinensis"
+  },
+  {
+    "id": "epimedium-sagittatum",
+    "persianName": "اپیمدیوم یا علف بز شاخدار",
+    "scientificName": "Epimedium sagittatum"
+  },
+  {
+    "id": "pueraria-montana-var-lobata",
+    "persianName": "کودزو",
+    "scientificName": "Pueraria montana var. lobata"
+  },
+  {
+    "id": "camellia-oleifera",
+    "persianName": "کاملیای روغنی",
+    "scientificName": "Camellia oleifera"
+  },
+  {
+    "id": "rhodiola-rosea",
+    "persianName": "رودیولا یا ریشهٔ طلایی",
+    "scientificName": "Rhodiola rosea"
+  },
+  {
+    "id": "cinnamomum-camphora",
+    "persianName": "درخت کافور",
+    "scientificName": "Cinnamomum camphora"
+  },
+  {
+    "id": "equisetum-arvense",
+    "persianName": "دم‌اسبی صحرایی",
+    "scientificName": "Equisetum arvense"
+  },
+  {
+    "id": "camellia-japonica",
+    "persianName": "کاملیای ژاپنی",
+    "scientificName": "Camellia japonica"
+  },
+  {
+    "id": "macleaya-cordata",
+    "persianName": "خشخاش پر",
+    "scientificName": "Macleaya cordata"
+  },
+  {
+    "id": "passiflora-incarnata",
+    "persianName": "گل‌ساعتی بنفش",
+    "scientificName": "Passiflora incarnata"
+  },
+  {
+    "id": "citrus-aurantium",
+    "persianName": "نارنج",
+    "scientificName": "Citrus × aurantium"
+  },
+  {
+    "id": "citrus-paradisi",
+    "persianName": "گریپ‌فروت",
+    "scientificName": "Citrus × paradisi"
+  },
+  {
+    "id": "citrus-clementina",
+    "persianName": "کلمنتین",
+    "scientificName": "Citrus × clementina"
+  },
+  {
+    "id": "piper-chaba",
+    "persianName": "چوی یا فلفل بنگالی",
+    "scientificName": "Piper chaba"
+  },
+  {
+    "id": "camellia-sasanqua",
+    "persianName": "کاملیای ساسانکوا",
+    "scientificName": "Camellia sasanqua"
+  },
+  {
+    "id": "salvia-divinorum",
+    "persianName": "مریم‌گلی روان‌گردان",
+    "scientificName": "Salvia divinorum"
+  },
+  {
+    "id": "musa-balbisiana",
+    "persianName": "موز پختنی",
+    "scientificName": "Musa balbisiana"
+  },
+  {
+    "id": "saccharum-officinarum",
+    "persianName": "نیشکر",
+    "scientificName": "Saccharum officinarum"
+  },
+  {
+    "id": "amorphophallus-paeoniifolius",
+    "persianName": "یام فیل‌پا",
+    "scientificName": "Amorphophallus paeoniifolius"
+  },
+  {
+    "id": "sesbania-grandiflora",
+    "persianName": "آگاستی یا درخت گل‌نخودی",
+    "scientificName": "Sesbania grandiflora"
+  },
+  {
+    "id": "parkia-speciosa",
+    "persianName": "لوبیای بدبو یا پتای",
+    "scientificName": "Parkia speciosa"
+  },
+  {
+    "id": "psophocarpus-tetragonolobus",
+    "persianName": "لوبیای بال‌دار",
+    "scientificName": "Psophocarpus tetragonolobus"
+  },
+  {
+    "id": "macrotyloma-uniflorum",
+    "persianName": "لوبیای اسب یا کولتی",
+    "scientificName": "Macrotyloma uniflorum"
+  },
+  {
+    "id": "brassica-carinata",
+    "persianName": "خردل اتیوپیایی",
+    "scientificName": "Brassica carinata"
+  },
+  {
+    "id": "amaranthus-caudatus",
+    "persianName": "تاج‌خروس دانه‌ای",
+    "scientificName": "Amaranthus caudatus"
+  },
+  {
+    "id": "chenopodium-album",
+    "persianName": "سلمه‌تره",
+    "scientificName": "Chenopodium album"
+  },
+  {
+    "id": "basella-alba",
+    "persianName": "اسفناج مالاباری",
+    "scientificName": "Basella alba"
+  },
+  {
+    "id": "ipomoea-aquatica",
+    "persianName": "کانگ‌کونگ یا اسفناج آبی",
+    "scientificName": "Ipomoea aquatica"
+  },
+  {
+    "id": "talinum-fruticosum",
+    "persianName": "تالینوم برگی",
+    "scientificName": "Talinum fruticosum"
+  },
+  {
+    "id": "celosia-argentea",
+    "persianName": "تاج‌خروس نقره‌ای",
+    "scientificName": "Celosia argentea"
+  },
+  {
+    "id": "abelmoschus-manihot",
+    "persianName": "هیبیسکوس خوراکی",
+    "scientificName": "Abelmoschus manihot"
+  },
+  {
+    "id": "telfairia-occidentalis",
+    "persianName": "کدو فلوتی",
+    "scientificName": "Telfairia occidentalis"
+  },
+  {
+    "id": "hibiscus-cannabinus",
+    "persianName": "کنف هندی یا کنف روزل",
+    "scientificName": "Hibiscus cannabinus"
+  },
+  {
+    "id": "citrullus-colocynthis",
+    "persianName": "حنظل یا هندوانهٔ ابوجهل",
+    "scientificName": "Citrullus colocynthis"
+  },
+  {
+    "id": "lathyrus-sativus",
+    "persianName": "خلر",
+    "scientificName": "Lathyrus sativus"
+  },
+  {
+    "id": "cucumis-anguria",
+    "persianName": "خیار شاخدار آفریقایی",
+    "scientificName": "Cucumis anguria"
+  },
+  {
+    "id": "cucumis-metuliferus",
+    "persianName": "کیوانو یا خیار شاخدار",
+    "scientificName": "Cucumis metuliferus"
+  },
+  {
+    "id": "solanum-betaceum",
+    "persianName": "تاماریلو یا گوجه‌درختی",
+    "scientificName": "Solanum betaceum"
+  },
+  {
+    "id": "physalis-peruviana",
+    "persianName": "عروسک پشت‌پرده یا گلدن‌بری",
+    "scientificName": "Physalis peruviana"
+  },
+  {
+    "id": "melissa-officinalis",
+    "persianName": "بادرنجبویه",
+    "scientificName": "Melissa officinalis"
+  },
+  {
+    "id": "artemisia-dracunculus",
+    "persianName": "ترخون",
+    "scientificName": "Artemisia dracunculus"
+  },
+  {
+    "id": "tanacetum-parthenium",
+    "persianName": "بابونه گاوی یا فیورفیو",
+    "scientificName": "Tanacetum parthenium"
+  },
+  {
+    "id": "tilia-cordata",
+    "persianName": "زیرفون برگ‌کوچک",
+    "scientificName": "Tilia cordata"
+  },
+  {
+    "id": "origanum-majorana",
+    "persianName": "مرزنجوش",
+    "scientificName": "Origanum majorana"
+  },
+  {
+    "id": "satureja-hortensis",
+    "persianName": "مرزه",
+    "scientificName": "Satureja hortensis"
+  },
+  {
+    "id": "hyssopus-officinalis",
+    "persianName": "زوفا",
+    "scientificName": "Hyssopus officinalis"
+  },
+  {
+    "id": "nepeta-cataria",
+    "persianName": "نعناع گربه‌ای",
+    "scientificName": "Nepeta cataria"
+  },
+  {
+    "id": "mentha-longifolia",
+    "persianName": "پونهٔ کوهی برگ‌دراز",
+    "scientificName": "Mentha longifolia"
+  },
+  {
+    "id": "mentha-arvensis",
+    "persianName": "نعناع صحرایی",
+    "scientificName": "Mentha arvensis"
+  },
+  {
+    "id": "salvia-sclarea",
+    "persianName": "مریم‌گلی اسکلاریا",
+    "scientificName": "Salvia sclarea"
+  },
+  {
+    "id": "salvia-fruticosa",
+    "persianName": "مریم‌گلی یونانی",
+    "scientificName": "Salvia fruticosa"
+  },
+  {
+    "id": "lavandula-stoechas",
+    "persianName": "اسطوخودوس پروانه‌ای",
+    "scientificName": "Lavandula stoechas"
+  },
+  {
+    "id": "lavandula-dentata",
+    "persianName": "اسطوخودوس دندانه‌دار",
+    "scientificName": "Lavandula dentata"
+  },
+  {
+    "id": "pelargonium-graveolens",
+    "persianName": "شمعدانی عطری",
+    "scientificName": "Pelargonium graveolens"
+  },
+  {
+    "id": "cymbopogon-flexuosus",
+    "persianName": "علف لیموی هندی",
+    "scientificName": "Cymbopogon flexuosus"
+  },
+  {
+    "id": "corymbia-citriodora",
+    "persianName": "اکالیپتوس لیمویی",
+    "scientificName": "Corymbia citriodora"
+  },
+  {
+    "id": "borago-officinalis",
+    "persianName": "گاوزبان اروپایی",
+    "scientificName": "Borago officinalis"
+  },
+  {
+    "id": "aegle-marmelos",
+    "persianName": "بِل یا سیب بنگالی",
+    "scientificName": "Aegle marmelos"
+  },
+  {
+    "id": "phyllanthus-niruri",
+    "persianName": "فیلانتوس یا قاصدک سنگ‌شکن",
+    "scientificName": "Phyllanthus niruri"
+  },
+  {
+    "id": "justicia-adhatoda",
+    "persianName": "واساکا یا آدهاتودا",
+    "scientificName": "Justicia adhatoda"
+  },
+  {
+    "id": "cissus-quadrangularis",
+    "persianName": "سیسوس چهارگوش",
+    "scientificName": "Cissus quadrangularis"
+  },
+  {
+    "id": "boerhavia-diffusa",
+    "persianName": "پونارنوا",
+    "scientificName": "Boerhavia diffusa"
+  },
+  {
+    "id": "eclipta-prostrata",
+    "persianName": "برینگراج",
+    "scientificName": "Eclipta prostrata"
+  },
+  {
+    "id": "lawsonia-inermis",
+    "persianName": "حنا",
+    "scientificName": "Lawsonia inermis"
+  },
+  {
+    "id": "indigofera-tinctoria",
+    "persianName": "نیل",
+    "scientificName": "Indigofera tinctoria"
+  },
+  {
+    "id": "acacia-senegal",
+    "persianName": "اقاقیای صمغ عربی",
+    "scientificName": "Senegalia senegal"
+  },
+  {
+    "id": "senegalia-catechu",
+    "persianName": "کاتچو یا کَت",
+    "scientificName": "Senegalia catechu"
+  },
+  {
+    "id": "acacia-concinna",
+    "persianName": "شیکاکای",
+    "scientificName": "Acacia concinna"
+  },
+  {
+    "id": "bixa-orellana",
+    "persianName": "آناتو یا رنگ دانهٔ آناتو",
+    "scientificName": "Bixa orellana"
+  },
+  {
+    "id": "achyranthes-aspera",
+    "persianName": "آپا‌مارگا",
+    "scientificName": "Achyranthes aspera"
+  },
+  {
+    "id": "oroxylum-indicum",
+    "persianName": "درخت شیپور هندی",
+    "scientificName": "Oroxylum indicum"
+  },
+  {
+    "id": "clerodendrum-serratum",
+    "persianName": "بهارنگ یا بهارنگی",
+    "scientificName": "Clerodendrum serratum"
+  },
+  {
+    "id": "vitex-negundo",
+    "persianName": "پنج‌انگشت هندی",
+    "scientificName": "Vitex negundo"
+  },
+  {
+    "id": "saponaria-officinalis",
+    "persianName": "صابونی",
+    "scientificName": "Saponaria officinalis"
+  },
+  {
+    "id": "arnica-montana",
+    "persianName": "آرنیکا",
+    "scientificName": "Arnica montana"
+  },
+  {
+    "id": "gentiana-lutea",
+    "persianName": "جنتیانا یا ژنسیان زرد",
+    "scientificName": "Gentiana lutea"
+  },
+  {
+    "id": "humulus-lupulus",
+    "persianName": "رازک",
+    "scientificName": "Humulus lupulus"
+  },
+  {
+    "id": "oenothera-biennis",
+    "persianName": "گل مغربی",
+    "scientificName": "Oenothera biennis"
+  },
+  {
+    "id": "primula-veris",
+    "persianName": "گل پامچال بهاری",
+    "scientificName": "Primula veris"
+  },
+  {
+    "id": "filipendula-ulmaria",
+    "persianName": "عروس چمنزار",
+    "scientificName": "Filipendula ulmaria"
+  },
+  {
+    "id": "betula-pendula",
+    "persianName": "توس نقره‌ای",
+    "scientificName": "Betula pendula"
+  },
+  {
+    "id": "betula-utilis",
+    "persianName": "توس هیمالیایی",
+    "scientificName": "Betula utilis"
+  },
+  {
+    "id": "alnus-glutinosa",
+    "persianName": "توسکای سیاه",
+    "scientificName": "Alnus glutinosa"
+  },
+  {
+    "id": "carpinus-betulus",
+    "persianName": "ممرز اروپایی",
+    "scientificName": "Carpinus betulus"
+  },
+  {
+    "id": "quercus-robur",
+    "persianName": "بلوط انگلیسی",
+    "scientificName": "Quercus robur"
+  },
+  {
+    "id": "fagus-sylvatica",
+    "persianName": "راش اروپایی",
+    "scientificName": "Fagus sylvatica"
+  },
+  {
+    "id": "acer-palmatum",
+    "persianName": "افرا ژاپنی",
+    "scientificName": "Acer palmatum"
+  },
+  {
+    "id": "acer-saccharum",
+    "persianName": "افرا قندی",
+    "scientificName": "Acer saccharum"
+  },
+  {
+    "id": "ulmus-minor",
+    "persianName": "نارون کوچک‌برگ",
+    "scientificName": "Ulmus minor"
+  },
+  {
+    "id": "fraxinus-excelsior",
+    "persianName": "زبان‌گنجشک اروپایی",
+    "scientificName": "Fraxinus excelsior"
+  },
+  {
+    "id": "populus-tremula",
+    "persianName": "سپیدار لرزان",
+    "scientificName": "Populus tremula"
+  },
+  {
+    "id": "pinus-wallichiana",
+    "persianName": "کاج آبی هیمالیا",
+    "scientificName": "Pinus wallichiana"
+  },
+  {
+    "id": "picea-abies",
+    "persianName": "نوئل نروژی",
+    "scientificName": "Picea abies"
+  },
+  {
+    "id": "abies-alba",
+    "persianName": "نراد نقره‌ای",
+    "scientificName": "Abies alba"
+  },
+  {
+    "id": "osmanthus-fragrans",
+    "persianName": "اسمانتوس معطر",
+    "scientificName": "Osmanthus fragrans"
+  },
+  {
+    "id": "magnolia-grandiflora",
+    "persianName": "ماگنولیای همیشه‌سبز",
+    "scientificName": "Magnolia grandiflora"
+  },
+  {
+    "id": "magnolia-officinalis",
+    "persianName": "ماگنولیای دارویی",
+    "scientificName": "Magnolia officinalis"
+  },
+  {
+    "id": "rhododendron-arboreum",
+    "persianName": "لاله‌درخت هیمالیا",
+    "scientificName": "Rhododendron arboreum"
+  },
+  {
+    "id": "pouteria-campechiana",
+    "persianName": "کانستل یا میوهٔ زرد تخم‌مرغی",
+    "scientificName": "Pouteria campechiana"
+  },
+  {
+    "id": "manilkara-zapota",
+    "persianName": "ساپودیلا یا چیکو",
+    "scientificName": "Manilkara zapota"
+  },
+  {
+    "id": "syzygium-malaccense",
+    "persianName": "سیب مالایی",
+    "scientificName": "Syzygium malaccense"
+  },
+  {
+    "id": "syzygium-samarangense",
+    "persianName": "سیب آبی یا واکس اپل",
+    "scientificName": "Syzygium samarangense"
+  },
+  {
+    "id": "artocarpus-camansi",
+    "persianName": "نان‌میوهٔ دانه‌دار",
+    "scientificName": "Artocarpus camansi"
+  },
+  {
+    "id": "spondias-purpurea",
+    "persianName": "آلو مکزیکی",
+    "scientificName": "Spondias purpurea"
+  },
+  {
+    "id": "annona-muricata",
+    "persianName": "گراویولا یا گوانابانا",
+    "scientificName": "Annona muricata"
+  },
+  {
+    "id": "annona-cherimola",
+    "persianName": "چریمویا",
+    "scientificName": "Annona cherimola"
+  },
+  {
+    "id": "annona-reticulata",
+    "persianName": "سیب کاستارد",
+    "scientificName": "Annona reticulata"
+  },
+  {
+    "id": "sechium-edule",
+    "persianName": "چایوت یا کدو مکزیکی",
+    "scientificName": "Sechium edule"
+  },
+  {
+    "id": "momordica-dioica",
+    "persianName": "کدو خاردار هندی",
+    "scientificName": "Momordica dioica"
+  },
+  {
+    "id": "trichosanthes-dioica",
+    "persianName": "پَرَوَل یا کدوی نوک‌تیز",
+    "scientificName": "Trichosanthes dioica"
+  },
+  {
+    "id": "trichosanthes-cucumerina",
+    "persianName": "کدوی ماری",
+    "scientificName": "Trichosanthes cucumerina"
+  },
+  {
+    "id": "benincasa-hispida",
+    "persianName": "کدوی مومی یا کدو زمستانی",
+    "scientificName": "Benincasa hispida"
+  },
+  {
+    "id": "solanum-macrocarpon",
+    "persianName": "بادنجان آفریقایی",
+    "scientificName": "Solanum macrocarpon"
+  },
+  {
+    "id": "capsicum-chinense",
+    "persianName": "فلفل هابانرو",
+    "scientificName": "Capsicum chinense"
+  },
+  {
+    "id": "brassica-napus",
+    "persianName": "کلزا یا شلغم روغنی",
+    "scientificName": "Brassica napus"
+  },
+  {
+    "id": "guizotia-abyssinica",
+    "persianName": "نیجر یا نیجرسید",
+    "scientificName": "Guizotia abyssinica"
+  },
+  {
+    "id": "dioscorea-esculenta",
+    "persianName": "یام کوچک",
+    "scientificName": "Dioscorea esculenta"
+  },
+  {
+    "id": "xanthosoma-sagittifolium",
+    "persianName": "تانییا یا یوتیا",
+    "scientificName": "Xanthosoma sagittifolium"
+  },
+  {
+    "id": "amorphophallus-konjac",
+    "persianName": "کنجاک",
+    "scientificName": "Amorphophallus konjac"
+  },
+  {
+    "id": "alocasia-macrorrhizos",
+    "persianName": "گوش‌فیل یا آلوکازیا بزرگ",
+    "scientificName": "Alocasia macrorrhizos"
+  },
+  {
+    "id": "tacca-leontopetaloides",
+    "persianName": "پیکان‌ریشهٔ اقیانوسی",
+    "scientificName": "Tacca leontopetaloides"
+  },
+  {
+    "id": "canna-indica",
+    "persianName": "کانای خوراکی",
+    "scientificName": "Canna indica"
+  },
+  {
+    "id": "etlingera-elatior",
+    "persianName": "زنجبیل مشعلی",
+    "scientificName": "Etlingera elatior"
+  },
+  {
+    "id": "hedychium-coronarium",
+    "persianName": "زنجبیل سفید معطر",
+    "scientificName": "Hedychium coronarium"
+  },
+  {
+    "id": "zingiber-zerumbet",
+    "persianName": "زنجبیل شامپو",
+    "scientificName": "Zingiber zerumbet"
+  },
+  {
+    "id": "zingiber-cassumunar",
+    "persianName": "پلای یا زنجبیل تایلندی",
+    "scientificName": "Zingiber cassumunar"
+  },
+  {
+    "id": "costus-speciosus",
+    "persianName": "کستوس یا کرپ‌جینجر",
+    "scientificName": "Costus speciosus"
+  },
+  {
+    "id": "atractylodes-macrocephala",
+    "persianName": "آترکتیلودس چینی",
+    "scientificName": "Atractylodes macrocephala"
+  },
+  {
+    "id": "platycodon-grandiflorus",
+    "persianName": "گل بادکنکی",
+    "scientificName": "Platycodon grandiflorus"
+  },
+  {
+    "id": "asparagus-officinalis",
+    "persianName": "مارچوبه",
+    "scientificName": "Asparagus officinalis"
+  },
+  {
+    "id": "panicum-sumatrense",
+    "persianName": "ارزن کوچک",
+    "scientificName": "Panicum sumatrense"
+  },
+  {
+    "id": "digitaria-exilis",
+    "persianName": "فونیوی سفید",
+    "scientificName": "Digitaria exilis"
+  },
+  {
+    "id": "eragrostis-tef",
+    "persianName": "تِف",
+    "scientificName": "Eragrostis tef"
+  },
+  {
+    "id": "pennisetum-glaucum",
+    "persianName": "ارزن مرواریدی",
+    "scientificName": "Pennisetum glaucum"
+  },
+  {
+    "id": "origanum-syriacum",
+    "persianName": "زعتر شامی",
+    "scientificName": "Origanum syriacum"
+  },
+  {
+    "id": "thymus-serpyllum",
+    "persianName": "آویشن خزنده",
+    "scientificName": "Thymus serpyllum"
+  },
+  {
+    "id": "cymbopogon-nardus",
+    "persianName": "علف لیموی سیترونلا",
+    "scientificName": "Cymbopogon nardus"
+  },
+  {
+    "id": "mentha-aquatica",
+    "persianName": "نعناع آبی",
+    "scientificName": "Mentha aquatica"
+  },
+  {
+    "id": "artemisia-absinthium",
+    "persianName": "افسنطین تلخ",
+    "scientificName": "Artemisia absinthium"
+  },
+  {
+    "id": "eucalyptus-radiata",
+    "persianName": "اکالیپتوس باریک‌برگ",
+    "scientificName": "Eucalyptus radiata"
+  },
+  {
+    "id": "eucalyptus-camaldulensis",
+    "persianName": "اکالیپتوس قرمز رودخانه‌ای",
+    "scientificName": "Eucalyptus camaldulensis"
+  },
+  {
+    "id": "melaleuca-quinquenervia",
+    "persianName": "ملالوکا یا درخت کاغذپوست",
+    "scientificName": "Melaleuca quinquenervia"
+  },
+  {
+    "id": "melaleuca-leucadendra",
+    "persianName": "ملالوکای سفید",
+    "scientificName": "Melaleuca leucadendra"
+  },
+  {
+    "id": "myrtus-communis",
+    "persianName": "مورد",
+    "scientificName": "Myrtus communis"
+  },
+  {
+    "id": "laurus-nobilis",
+    "persianName": "برگ بو",
+    "scientificName": "Laurus nobilis"
+  },
+  {
+    "id": "populus-alba",
+    "persianName": "سپیدار سفید",
+    "scientificName": "Populus alba"
+  },
+  {
+    "id": "betula-pubescens",
+    "persianName": "توس کرک‌دار",
+    "scientificName": "Betula pubescens"
+  },
+  {
+    "id": "quercus-suber",
+    "persianName": "بلوط چوب‌پنبه‌ای",
+    "scientificName": "Quercus suber"
+  },
+  {
+    "id": "pinus-sylvestris",
+    "persianName": "کاج اسکاتلندی",
+    "scientificName": "Pinus sylvestris"
+  },
+  {
+    "id": "taxodium-distichum",
+    "persianName": "سرو باتلاقی",
+    "scientificName": "Taxodium distichum"
+  },
+  {
+    "id": "sequoia-sempervirens",
+    "persianName": "سکویا ساحلی",
+    "scientificName": "Sequoia sempervirens"
+  },
+  {
+    "id": "sequoiadendron-giganteum",
+    "persianName": "سکویا غول‌پیکر",
+    "scientificName": "Sequoiadendron giganteum"
+  },
+  {
+    "id": "larix-decidua",
+    "persianName": "لارچ اروپایی",
+    "scientificName": "Larix decidua"
+  },
+  {
+    "id": "pseudotsuga-menziesii",
+    "persianName": "داگلاس‌فیر",
+    "scientificName": "Pseudotsuga menziesii"
+  },
+  {
+    "id": "chamaecyparis-obtusa",
+    "persianName": "سرو هینوکی ژاپنی",
+    "scientificName": "Chamaecyparis obtusa"
+  },
+  {
+    "id": "cupressus-sempervirens",
+    "persianName": "سرو مدیترانه‌ای",
+    "scientificName": "Cupressus sempervirens"
+  },
+  {
+    "id": "juniperus-phoenicea",
+    "persianName": "ارس فینیقی",
+    "scientificName": "Juniperus phoenicea"
+  },
+  {
+    "id": "juniperus-oxycedrus",
+    "persianName": "ارس اکسی‌سدروس",
+    "scientificName": "Juniperus oxycedrus"
+  },
+  {
+    "id": "malus-sylvestris",
+    "persianName": "سیب وحشی اروپایی",
+    "scientificName": "Malus sylvestris"
+  },
+  {
+    "id": "pyrus-pyraster",
+    "persianName": "گلابی وحشی اروپایی",
+    "scientificName": "Pyrus pyraster"
+  },
+  {
+    "id": "prunus-spinosa",
+    "persianName": "آلوچهٔ وحشی یا اسلو",
+    "scientificName": "Prunus spinosa"
+  },
+  {
+    "id": "cornus-mas",
+    "persianName": "زغال‌اخته",
+    "scientificName": "Cornus mas"
+  },
+  {
+    "id": "cornus-officinalis",
+    "persianName": "زغال‌اختهٔ چینی",
+    "scientificName": "Cornus officinalis"
+  },
+  {
+    "id": "rubus-chamaemorus",
+    "persianName": "کلادبری یا تمشک قطبی",
+    "scientificName": "Rubus chamaemorus"
+  },
+  {
+    "id": "vaccinium-vitis-idaea",
+    "persianName": "لینگون‌بری",
+    "scientificName": "Vaccinium vitis-idaea"
+  },
+  {
+    "id": "vaccinium-myrtillus",
+    "persianName": "بیل‌بری اروپایی",
+    "scientificName": "Vaccinium myrtillus"
+  },
+  {
+    "id": "vaccinium-oxycoccos",
+    "persianName": "کرنبری کوچک",
+    "scientificName": "Vaccinium oxycoccos"
+  },
+  {
+    "id": "ribes-rubrum",
+    "persianName": "انگورفرنگی قرمز",
+    "scientificName": "Ribes rubrum"
+  },
+  {
+    "id": "ribes-aureum",
+    "persianName": "انگورفرنگی طلایی",
+    "scientificName": "Ribes aureum"
+  },
+  {
+    "id": "actinidia-arguta",
+    "persianName": "کیوی مقاوم یا کیوی انگوری",
+    "scientificName": "Actinidia arguta"
+  },
+  {
+    "id": "aronia-arbutifolia",
+    "persianName": "چوک‌بری قرمز",
+    "scientificName": "Aronia arbutifolia"
+  },
+  {
+    "id": "sambucus-canadensis",
+    "persianName": "آقطی آمریکایی",
+    "scientificName": "Sambucus canadensis"
+  },
+  {
+    "id": "crataegus-pinnatifida",
+    "persianName": "زالزالک چینی",
+    "scientificName": "Crataegus pinnatifida"
+  },
+  {
+    "id": "lycium-chinense",
+    "persianName": "گوجی‌بری چینی",
+    "scientificName": "Lycium chinense"
+  },
+  {
+    "id": "morus-rubra",
+    "persianName": "توت قرمز آمریکایی",
+    "scientificName": "Morus rubra"
+  }
+]

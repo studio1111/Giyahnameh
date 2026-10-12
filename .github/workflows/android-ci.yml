@@ -17,9 +17,30 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up Python for open-license image packaging
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Cache previously verified plant image assets
+        uses: actions/cache@v4
+        with:
+          path: |
+            app/src/main/assets/plants
+            app/src/main/assets/plant-image-manifest.json
+          key: giyahnameh-plant-images-${{ github.run_id }}
+          restore-keys: |
+            giyahnameh-plant-images-
+          save-always: true
+      - name: Install image processor
+        run: python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+      - name: Test plant image source and licence filters
+        run: python -m unittest tools.test_fetch_plant_images -v
+      - name: Package open-licensed plant images for offline use
+        run: python tools/fetch_plant_images.py --allow-missing
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
