@@ -412,7 +412,7 @@ object PlantMonographOverrides {
             faq = "آیا زنجبیل برای همه انواع تهوع مؤثر است؟ خیر؛ شواهد به علت تهوع و نوع فرآورده وابسته است. آیا ریزوم همان ریشه است؟ از نظر گیاه‌شناسی خیر؛ بخش خوراکی ریزوم زیرزمینی است. آیا مکمل با زنجبیل تازه یکی است؟ خیر، غلظت و فرآوری تفاوت دارند.",
             bibliography = "NCCIH، Ginger: Usefulness and Safety: https://www.nccih.nih.gov/health/ginger ؛ Kew POWO، Zingiber officinale: https://powo.science.kew.org/results?q=Zingiber%20officinale. منبع NCCIH برای شواهد و هشدارهای مکمل و POWO برای هویت گونه استفاده شده است.",
             sourceUrl = "https://www.nccih.nih.gov/health/ginger"
-        )
+        ),
         "lavandula-angustifolia" to Article(
             description = "اسطوخودوس باریک‌برگ، Lavandula angustifolia، بوته‌ای چندساله از خانواده نعناعیان با برگ‌های باریک خاکستری‌ـ‌سبز و سنبله‌های گل بنفش است. گل و اندام هوایی آن در عطرسازی و محصولات آرایشی کاربرد دارد. روغن اسانسی غلیظ با گل خشک یا دمنوش یکسان نیست.",
             habitat = "این گونه بومی نواحی مدیترانه‌ای است و در اقلیم معتدل، تابستان آفتابی و خاک سبک بهتر رشد می‌کند. ارقام آن از نظر اندازه بوته و رایحه تفاوت دارند.",
