@@ -542,6 +542,31 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "panax-ginseng" }.bibliography.contains("nccih.nih.gov/health/asian-ginseng"))
     }
 
+
+    @Test fun commonHerbMonographsHaveFullSectionsAndSpecificSafetySources() {
+        val ids = setOf("lavandula-angustifolia", "matricaria-chamomilla", "aloe-vera", "salvia-rosmarinus", "zingiber-officinale")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map { PlantMonographOverrides.apply(it) }
+        assertTrue(articles.all {
+            it.description.length >= 400 &&
+                it.habitat.length >= 150 &&
+                it.care.length >= 300 &&
+                it.traditionalUses.length >= 200 &&
+                it.evidence.length >= 200 &&
+                it.cautions.length >= 200 &&
+                it.interactions.length >= 120 &&
+                it.partsUsed.length >= 150 &&
+                it.preparation.length >= 150 &&
+                it.specialPopulations.length >= 120 &&
+                it.faq.length >= 120 &&
+                it.bibliography.contains("https://")
+        })
+        assertTrue(articles.first { it.id == "aloe-vera" }.cautions.contains("لاتکس"))
+        assertTrue(articles.first { it.id == "matricaria-chamomilla" }.interactions.contains("وارفارین"))
+        assertTrue(articles.first { it.id == "zingiber-officinale" }.bibliography.contains("nccih.nih.gov/health/ginger"))
+    }
+
     @Test fun newMedicinalMonographsHaveDepthSpeciesSpecificSourcesAndSafety() {
         val ids = setOf(
             "panax-quinquefolius",
