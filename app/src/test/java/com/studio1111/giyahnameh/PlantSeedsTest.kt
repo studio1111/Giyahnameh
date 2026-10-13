@@ -444,8 +444,6 @@ class PlantSeedsTest {
         assertTrue(loquat.cautions.contains("هسته"))
         assertTrue(loquat.bibliography.contains("ask.ifas.ufl.edu/publication/MG050"))
     }
-}
-
 
     @Test fun aromaticAndTraditionalPlantMonographsIncludeSpecificEvidenceAndWarnings() {
         val ids = setOf("passiflora-incarnata", "melaleuca-alternifolia", "citrus-aurantium", "gymnema-sylvestre")
