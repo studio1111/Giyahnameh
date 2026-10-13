@@ -417,4 +417,17 @@ class PlantSeedsTest {
                 it.bibliography.contains("https://")
         })
     }
+
+    @Test
+    fun gojiBerryArticleIncludesBotanyCultivationTraditionalMedicineAndSafetySources() {
+        val goji = allSeedPlants.first { it.id == "lycium-barbarum" }
+        assertTrue(goji.description.length > 250)
+        assertTrue(goji.habitat.contains("چین"))
+        assertTrue(goji.care.contains("قلمه"))
+        assertTrue(goji.traditionalUses.contains("گوجی"))
+        assertTrue(goji.preparation.contains("جوشانده"))
+        assertTrue(goji.specialPopulations.contains("وارفارین"))
+        assertTrue(goji.bibliography.contains("pubmed.ncbi.nlm.nih.gov/19844860"))
+        assertTrue(goji.bibliography.contains("extension.usu.edu"))
+    }
 }
