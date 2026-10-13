@@ -517,6 +517,21 @@ class PlantSeedsTest {
     }
 
 
+    @Test fun coreHerbMonographsHaveAllRequiredArticleSections() {
+        val ids = setOf("lavandula-angustifolia", "mentha-spicata", "aloe-vera", "matricaria-chamomilla")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map { PlantMonographOverrides.apply(it) }
+        assertTrue(articles.all {
+            it.description.length >= 300 && it.habitat.length >= 150 && it.care.length >= 250 &&
+                it.traditionalUses.length >= 150 && it.evidence.length >= 150 && it.cautions.length >= 150 &&
+                it.interactions.length >= 100 && it.partsUsed.length >= 100 && it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 && it.faq.length >= 80 && it.bibliography.contains("https://")
+        })
+        assertTrue(articles.first { it.id == "aloe-vera" }.cautions.contains("لاتکس"))
+        assertTrue(articles.first { it.id == "matricaria-chamomilla" }.cautions.contains("کاسنیان"))
+    }
+
     @Test fun ashwagandhaGinsengSennaAndPsylliumMonographsMeetSafetyChecks() {
         val ids = setOf("withania-somnifera", "panax-ginseng", "senna-alexandrina", "plantago-ovata")
         val originals = allSeedPlants.filter { it.id in ids }
