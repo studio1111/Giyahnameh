@@ -1094,4 +1094,23 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "acacia-concinna" }.cautions.contains("چشم"))
         assertTrue(articles.first { it.id == "bixa-orellana" }.cautions.contains("حساسیتی"))
     }
+
+    @Test fun fourAsianMedicinalShrubMonographsHaveSpecificCautions() {
+        val ids = setOf("achyranthes-aspera", "oroxylum-indicum", "clerodendrum-serratum", "vitex-negundo")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
+        assertTrue(articles.all {
+            it.description.length >= 300 && it.habitat.length >= 150 &&
+                it.care.length >= 250 && it.traditionalUses.length >= 150 &&
+                it.evidence.length >= 150 && it.cautions.length >= 150 &&
+                it.interactions.length >= 100 && it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 && it.specialPopulations.length >= 100 &&
+                it.faq.length >= 80 && it.bibliography.contains("wikipedia.org") &&
+                it.sourceUrl.startsWith("https://")
+        })
+        assertTrue(articles.first { it.id == "clerodendrum-serratum" }.cautions.contains("آسم"))
+        assertTrue(articles.first { it.id == "vitex-negundo" }.cautions.contains("بارداری"))
+    }
 }
