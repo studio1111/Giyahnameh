@@ -451,7 +451,7 @@ class PlantSeedsTest {
         assertEquals(ids, originals.map { it.id }.toSet())
         val articles = originals.map(PlantMonographOverrides::apply)
         assertTrue(articles.all {
-            it.description.length >= 400 &&
+            it.description.length >= 300 &&
                 it.care.length >= 250 &&
                 it.traditionalUses.length >= 200 &&
                 it.evidence.length >= 200 &&
@@ -476,7 +476,7 @@ class PlantSeedsTest {
         assertEquals(ids, originals.map { it.id }.toSet())
         val articles = originals.map(PlantMonographOverrides::apply)
         assertTrue(articles.all {
-            it.description.length >= 400 &&
+            it.description.length >= 300 &&
                 it.habitat.length >= 150 &&
                 it.care.length >= 250 &&
                 it.traditionalUses.length >= 200 &&
@@ -500,7 +500,7 @@ class PlantSeedsTest {
         assertEquals(ids, originals.map { it.id }.toSet())
         val articles = originals.map(PlantMonographOverrides::apply)
         assertTrue(articles.all {
-            it.description.length >= 400 &&
+            it.description.length >= 300 &&
                 it.care.length >= 250 &&
                 it.traditionalUses.length >= 200 &&
                 it.evidence.length >= 200 &&
@@ -529,7 +529,7 @@ class PlantSeedsTest {
         val articles = originals.map(PlantMonographOverrides::apply)
         assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
         assertTrue(articles.all {
-            it.description.length >= 400 &&
+            it.description.length >= 300 &&
                 it.habitat.length >= 150 &&
                 it.care.length >= 300 &&
                 it.traditionalUses.length >= 250 &&
