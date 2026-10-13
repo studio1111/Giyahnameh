@@ -446,6 +446,31 @@ class PlantSeedsTest {
     }
 }
 
+
+    @Test fun aromaticAndTraditionalPlantMonographsIncludeSpecificEvidenceAndWarnings() {
+        val ids = setOf("passiflora-incarnata", "melaleuca-alternifolia", "citrus-aurantium", "gymnema-sylvestre")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertTrue(articles.all {
+            it.description.length >= 400 &&
+                it.care.length >= 250 &&
+                it.traditionalUses.length >= 200 &&
+                it.evidence.length >= 200 &&
+                it.cautions.length >= 200 &&
+                it.interactions.length >= 120 &&
+                it.partsUsed.length >= 120 &&
+                it.preparation.length >= 120 &&
+                it.specialPopulations.length >= 120 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+        assertTrue(articles.first { it.id == "passiflora-incarnata" }.cautions.contains("خواب‌آلودگی"))
+        assertTrue(articles.first { it.id == "melaleuca-alternifolia" }.cautions.contains("نباید خورد"))
+        assertTrue(articles.first { it.id == "citrus-aurantium" }.evidence.contains("کاهش وزن"))
+        assertTrue(articles.first { it.id == "gymnema-sylvestre" }.interactions.contains("قند خون"))
+    }
+
     @Test fun newMedicinalMonographsHaveDepthSpeciesSpecificSourcesAndSafety() {
         val ids = setOf(
             "panax-quinquefolius",
