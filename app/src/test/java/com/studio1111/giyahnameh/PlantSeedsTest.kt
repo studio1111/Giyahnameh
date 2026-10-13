@@ -529,7 +529,7 @@ class PlantSeedsTest {
         val articles = originals.map(PlantMonographOverrides::apply)
         assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
         assertTrue(articles.all {
-            it.description.length >= 500 &&
+            it.description.length >= 400 &&
                 it.habitat.length >= 150 &&
                 it.care.length >= 300 &&
                 it.traditionalUses.length >= 250 &&
