@@ -471,6 +471,30 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "gymnema-sylvestre" }.interactions.contains("قند خون"))
     }
 
+
+    @Test fun coldClimateAndTraditionalRootMonographsHaveSpecificSafetySections() {
+        val ids = setOf("rhodiola-rosea", "angelica-sinensis", "eleutherococcus-senticosus", "equisetum-arvense")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertTrue(articles.all {
+            it.description.length >= 400 &&
+                it.habitat.length >= 150 &&
+                it.care.length >= 250 &&
+                it.traditionalUses.length >= 200 &&
+                it.evidence.length >= 200 &&
+                it.cautions.length >= 200 &&
+                it.interactions.length >= 120 &&
+                it.partsUsed.length >= 120 &&
+                it.preparation.length >= 120 &&
+                it.specialPopulations.length >= 120 &&
+                it.bibliography.contains("https://")
+        })
+        assertTrue(articles.first { it.id == "rhodiola-rosea" }.bibliography.contains("nccih.nih.gov/health/rhodiola"))
+        assertTrue(articles.first { it.id == "angelica-sinensis" }.interactions.contains("وارفارین"))
+        assertTrue(articles.first { it.id == "equisetum-arvense" }.cautions.contains("کلیه"))
+    }
+
     @Test fun newMedicinalMonographsHaveDepthSpeciesSpecificSourcesAndSafety() {
         val ids = setOf(
             "panax-quinquefolius",
