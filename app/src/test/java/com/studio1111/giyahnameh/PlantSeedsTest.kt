@@ -864,7 +864,7 @@ class PlantSeedsTest {
                 it.faq.length >= 80 && it.bibliography.contains("wikipedia.org") &&
                 it.sourceUrl.startsWith("https://")
         })
-        assertTrue(articles.first { it.id == "bupleurum-chinense" }.cautions.contains("سمی"))
+        assertTrue(articles.first { it.id == "bupleurum-chinense" }.cautions.contains("کبدی"))
     }
 
     @Test fun fourAsianMedicinalPlantsHaveDetailedSafetyAndSources() {
