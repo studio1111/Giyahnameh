@@ -472,7 +472,7 @@ object PlantMonographOverrides {
             faq = "آیا همه بابونه‌ها یک گونه‌اند؟ خیر. آیا درمان قطعی اضطراب است؟ خیر، شواهد محدود است. چه چیزی گل خشک را خراب می‌کند؟ رطوبت و کپک.",
             bibliography = "NCCIH Chamomile: https://www.nccih.nih.gov/health/chamomile ؛ Kew POWO: https://powo.science.kew.org/results?q=Matricaria%20chamomilla",
             sourceUrl = "https://www.nccih.nih.gov/health/chamomile"
-        )
+        ),
         "zingiber-officinale" to Article(
             description = "زنجبیل، Zingiber officinale، گیاهی چندساله با ریزوم گوشتی و ساقه‌های برگ‌دار است. بخش خوراکی آن ریزوم زیرزمینی است، نه ریشه واقعی. عطر و تندی زنجبیل از ترکیباتی مانند جینجرول‌ها و شوگاول‌ها می‌آید و با خشک‌کردن یا حرارت تغییر می‌کند.",
             habitat = "خاستگاه آن جنوب و جنوب‌شرق آسیاست و در مناطق گرم و مرطوب کشت می‌شود. خاک غنی، رطوبت یکنواخت و زهکشی خوب برای تشکیل ریزوم لازم است.",
