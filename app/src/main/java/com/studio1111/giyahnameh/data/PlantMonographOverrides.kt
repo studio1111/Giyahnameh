@@ -350,7 +350,7 @@ object PlantMonographOverrides {
             preparation = "برای مصرف غذایی، فقط از گل خوراکیِ مطمئن و در مقدار آشپزی استفاده کنید. گل خشک را برای عطر و کیسه‌های خوشبو در محیط خشک نگه دارید. دمنوش یا اسانس درمانی با مصرف آشپزی برابر نیست؛ برای فرآورده‌های دارویی از برچسب محصول معتبر پیروی کنید و این مدخل را نسخه یا تعیین دوز تلقی نکنید.",
             specialPopulations = "در بارداری و شیردهی، ایمنی بسیاری از فرآورده‌های دارویی اسطوخودوس روشن نیست؛ مصرف دارویی را بدون نظر متخصص آغاز نکنید. برای کودکان از بلع اسانس یا استفاده غلیظ روی پوست پرهیز کنید. افراد دارای حساسیت به عطرها، آسم تحریک‌شونده با بو یا مصرف‌کنندگان داروهای آرام‌بخش نیز باید احتیاط کنند.",
             faq = "آیا اسطوخودوس اضطراب را قطعاً درمان می‌کند؟ خیر؛ شواهد به نوع فرآورده و کیفیت پژوهش بستگی دارد. آیا اسانس خوراکی همان گل خشک است؟ خیر، غلظت آن بسیار بیشتر است. چرا بو و عطر بوته‌ها فرق می‌کند؟ رقم، اقلیم، زمان برداشت و روش استخراج ترکیب رایحه را تغییر می‌دهند.",
-            bibliography = "NCCIH، Lavender: Usefulness and Safety: https://www.nccih.nih.gov/health/lavender ؛ Kew POWO، Lavandula angustifolia: https://powo.science.kew.org/results?q=Lavandula%20angustifolia. منبع NCCIH برای مرور شواهد و ایمنی و POWO برای نام و هویت گیاه‌شناختی استفاده شده است.",
+            bibliography = "NCCIH، Lavender: Usefulness and Safety: https://www.nccih.nih.gov/health/lavender ؛ Kew POWO، Lavandula angustifolia: https://powo.science.kew.org/results?q=Lavandula%20angustifolia. منبع NCCIH برای مرور شواهد و ایمنی و POWO برای نام و هویت گیاه‌شناختی استفاده شده است. ؛ ویکی‌پدیا، «lavandula-angustifolia» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Lavandula_angustifolia",
             sourceUrl = "https://www.nccih.nih.gov/health/lavender"
         ),
         "matricaria-chamomilla" to Article(
@@ -365,7 +365,7 @@ object PlantMonographOverrides {
             preparation = "در کاربرد غذایی، گل خشک به‌صورت دمنوش ملایم استفاده می‌شود، اما غلظت دمنوش خانگی ثابت و استاندارد نیست. فرآورده موضعی، دهان‌شویه و مکمل خوراکی از نظر ترکیب و مقدار مصرف تفاوت دارند. این توضیح دستور درمانی یا دوز شخصی نیست؛ برای استفاده دارویی از محصول استاندارد و راهنمای متخصص پیروی کنید.",
             specialPopulations = "اطلاعات ایمنی در بارداری و شیردهی محدود است. کودکان، افراد دارای سابقه حساسیت شدید، مصرف‌کنندگان وارفارین یا داروهای آرام‌بخش و مبتلایان به بیماری‌های حساس به هورمون باید پیش از مصرف دارویی مشورت بگیرند. در صورت کهیر گسترده، تورم لب یا زبان یا دشواری تنفس، کمک فوری لازم است.",
             faq = "آیا همه بابونه‌ها یک گونه‌اند؟ خیر؛ بابونه آلمانی و رومی متفاوت‌اند. آیا بابونه بی‌خوابی را درمان می‌کند؟ شواهد کافی برای نتیجه قطعی وجود ندارد. چه کسانی باید محتاط باشند؟ افراد دارای آلرژی به کاسنیان و کسانی که داروهای خاص، به‌ویژه رقیق‌کننده خون، مصرف می‌کنند.",
-            bibliography = "NCCIH، Chamomile: Usefulness and Safety: https://www.nccih.nih.gov/health/chamomile ؛ Kew POWO، Matricaria chamomilla: https://powo.science.kew.org/results?q=Matricaria%20chamomilla. منبع NCCIH برای شواهد و هشدارها و POWO برای هویت گونه استفاده شده است.",
+            bibliography = "NCCIH، Chamomile: Usefulness and Safety: https://www.nccih.nih.gov/health/chamomile ؛ Kew POWO، Matricaria chamomilla: https://powo.science.kew.org/results?q=Matricaria%20chamomilla. منبع NCCIH برای شواهد و هشدارها و POWO برای هویت گونه استفاده شده است. ؛ ویکی‌پدیا، «matricaria-chamomilla» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Matricaria_chamomilla",
             sourceUrl = "https://www.nccih.nih.gov/health/chamomile"
         ),
         "aloe-vera" to Article(
@@ -380,7 +380,7 @@ object PlantMonographOverrides {
             preparation = "برای استفاده پوستی، محصول آماده‌ای را انتخاب کنید که برای همان کاربرد ساخته شده و دستور مصرف روشنی دارد. اگر برگ تازه را صرفاً برای کاربری آرایشی می‌برید، از بخش زرد لاتکس دوری کنید و ابتدا حساسیت پوستی را در ناحیه کوچکی بررسی کنید. از تهیه نوشیدنی یا ملین خانگی با برگ خام خودداری کنید؛ مقدار لاتکس و آلودگی احتمالی قابل‌کنترل نیست.",
             specialPopulations = "مصرف خوراکی آلوئه، به‌ویژه لاتکس یا برگ کامل، در بارداری و شیردهی مناسب نیست و برای کودکان نیز نباید خودسرانه استفاده شود. افراد مبتلا به دیابت، بیماری کلیه یا قلب و مصرف‌کنندگان داروهای مؤثر بر قند و پتاسیم باید پیش از هر فرآورده خوراکی مشورت بگیرند. برای زخم یا سوختگی جدی کمک پزشکی بگیرید.",
             faq = "آیا ژل و لاتکس آلوئه یکی هستند؟ خیر؛ ترکیب و خطرشان متفاوت است. آیا می‌توان برگ تازه را خورد؟ مصرف خوراکی خانگی توصیه نمی‌شود. آیا ژل آلوئه هر سوختگی را درمان می‌کند؟ خیر؛ شواهد محدود و وابسته به نوع آسیب و فرآورده است.",
-            bibliography = "NCCIH، Aloe Vera: Usefulness and Safety: https://www.nccih.nih.gov/health/aloe-vera ؛ Kew POWO، Aloe vera: https://powo.science.kew.org/results?q=Aloe%20vera. منبع NCCIH برای تمایز ژل و لاتکس و هشدارهای ایمنی استفاده شده است.",
+            bibliography = "NCCIH، Aloe Vera: Usefulness and Safety: https://www.nccih.nih.gov/health/aloe-vera ؛ Kew POWO، Aloe vera: https://powo.science.kew.org/results?q=Aloe%20vera. منبع NCCIH برای تمایز ژل و لاتکس و هشدارهای ایمنی استفاده شده است. ؛ ویکی‌پدیا، «aloe-vera» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Aloe_vera",
             sourceUrl = "https://www.nccih.nih.gov/health/aloe-vera"
         ),
         "salvia-rosmarinus" to Article(
@@ -410,7 +410,7 @@ object PlantMonographOverrides {
             preparation = "برای آشپزی، ریزوم تازه را بشویید و خرد یا رنده کنید؛ پودر خشک را نیز در مقدار معمول غذایی به کار ببرید. فرآورده مکمل را فقط مطابق برچسب معتبر مصرف کنید و مقدار دارویی عمومی را از روی دستورهای خانگی حدس نزنید. برای تهوع شدید، پایدار یا همراه با علائم کم‌آبی، بررسی پزشکی از افزایش مصرف زنجبیل مهم‌تر است.",
             specialPopulations = "در بارداری، زنجبیل برای تهوع در بعضی مطالعات بررسی شده، اما مصرف مکمل باید با پزشک یا ماما هماهنگ شود، به‌خصوص در صورت خون‌ریزی، خطر بارداری یا مصرف دارو. درباره شیردهی و مصرف غلیظ اطلاعات محدود است. کودکان، افراد مبتلا به سنگ صفرا و مصرف‌کنندگان داروهای ضدانعقاد یا دیابت باید پیش از مصرف مکمل مشورت بگیرند.",
             faq = "آیا زنجبیل برای همه انواع تهوع مؤثر است؟ خیر؛ شواهد به علت تهوع و نوع فرآورده وابسته است. آیا ریزوم همان ریشه است؟ از نظر گیاه‌شناسی خیر؛ بخش خوراکی ریزوم زیرزمینی است. آیا مکمل با زنجبیل تازه یکی است؟ خیر، غلظت و فرآوری تفاوت دارند.",
-            bibliography = "NCCIH، Ginger: Usefulness and Safety: https://www.nccih.nih.gov/health/ginger ؛ Kew POWO، Zingiber officinale: https://powo.science.kew.org/results?q=Zingiber%20officinale. منبع NCCIH برای شواهد و هشدارهای مکمل و POWO برای هویت گونه استفاده شده است.",
+            bibliography = "NCCIH، Ginger: Usefulness and Safety: https://www.nccih.nih.gov/health/ginger ؛ Kew POWO، Zingiber officinale: https://powo.science.kew.org/results?q=Zingiber%20officinale. منبع NCCIH برای شواهد و هشدارهای مکمل و POWO برای هویت گونه استفاده شده است. ؛ ویکی‌پدیا، «zingiber-officinale» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Zingiber_officinale",
             sourceUrl = "https://www.nccih.nih.gov/health/ginger"
         ),
         "lavandula-angustifolia" to Article(
@@ -425,7 +425,7 @@ object PlantMonographOverrides {
             preparation = "در سنت‌ها از گل خشک و دم‌کرده استفاده شده است. این شرح تاریخی دوز درمانی نیست؛ روغن اسانسی را برای مصرف خوراکی خانگی به کار نبرید.",
             specialPopulations = "اطلاعات بارداری و شیردهی محدود است؛ مصرف دارویی را بدون نظر متخصص شروع نکنید. کودکان نباید به روغن اسانسی دسترسی داشته باشند و مصرف‌کنندگان داروهای خواب‌آور باید احتیاط کنند.",
             faq = "آیا درمان قطعی اضطراب است؟ خیر، شواهد محدود است. آیا روغن را می‌توان نوشید؟ مصرف خوراکی خودسرانه توصیه نمی‌شود. چرا گیاه می‌پوسد؟ معمولاً زهکشی ضعیف.",
-            bibliography = "NCCIH Lavender: https://www.nccih.nih.gov/health/lavender ؛ Kew POWO: https://powo.science.kew.org/results?q=Lavandula%20angustifolia",
+            bibliography = "NCCIH Lavender: https://www.nccih.nih.gov/health/lavender ؛ Kew POWO: https://powo.science.kew.org/results?q=Lavandula%20angustifolia ؛ ویکی‌پدیا، «lavandula-angustifolia» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Lavandula_angustifolia",
             sourceUrl = "https://www.nccih.nih.gov/health/lavender"
         ),
         "mentha-spicata" to Article(
@@ -440,7 +440,7 @@ object PlantMonographOverrides {
             preparation = "برگ تازه یا خشک برای غذا و دمنوش معمولی کاربرد دارد. اسانس غلیظ جایگزین برگ نیست و نباید خودسرانه خورده شود.",
             specialPopulations = "در بارداری و شیردهی، مقدار غذایی با مصرف مکمل غلیظ متفاوت است؛ برای عصاره با پزشک مشورت کنید. اسانس را برای کودکان خودسرانه استفاده نکنید.",
             faq = "آیا همان نعناع فلفلی است؟ خیر. چطور گسترشش را مهار کنم؟ در گلدان بکارید. آیا درمان قطعی بیماری هورمونی است؟ خیر، شواهد کافی نیست.",
-            bibliography = "Kew POWO: https://powo.science.kew.org/results?q=Mentha%20spicata ؛ NCCIH peppermint oil: https://www.nccih.nih.gov/health/peppermint-oil (منبع مربوط به گونه‌ای دیگر است و فقط برای تفاوت فرآورده‌های نعناعی استفاده شده است).",
+            bibliography = "Kew POWO: https://powo.science.kew.org/results?q=Mentha%20spicata ؛ NCCIH peppermint oil: https://www.nccih.nih.gov/health/peppermint-oil (منبع مربوط به گونه‌ای دیگر است و فقط برای تفاوت فرآورده‌های نعناعی استفاده شده است). ؛ ویکی‌پدیا، «mentha-spicata» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Mentha_spicata",
             sourceUrl = "https://powo.science.kew.org/results?q=Mentha%20spicata"
         ),
         "aloe-vera" to Article(
@@ -455,7 +455,7 @@ object PlantMonographOverrides {
             preparation = "برای پوست از محصولی با برچسب روشن استفاده کنید. لاتکس زرد را ملین خانگی نکنید و ژل خوراکی یا عصاره کل برگ را بدون مشورت مصرف نکنید.",
             specialPopulations = "مصرف خوراکی در بارداری و شیردهی نامناسب است، به‌ویژه لاتکس و عصاره کل برگ. افراد مبتلا به دیابت، بیماری کلیه یا اختلال الکترولیت باید از مصرف خوراکی خودسرانه پرهیز کنند.",
             faq = "آیا ژل و لاتکس یکی‌اند؟ خیر. آیا لاتکس را می‌توان نوشید؟ توصیه نمی‌شود. آیا برای هر سوختگی مناسب است؟ خیر، سوختگی شدید نیازمند بررسی است.",
-            bibliography = "NCCIH Aloe Vera: https://www.nccih.nih.gov/health/aloe-vera ؛ NCBI LiverTox/Bookshelf Aloe: https://www.ncbi.nlm.nih.gov/books/NBK548634/ ؛ Kew POWO: https://powo.science.kew.org/results?q=Aloe%20vera",
+            bibliography = "NCCIH Aloe Vera: https://www.nccih.nih.gov/health/aloe-vera ؛ NCBI LiverTox/Bookshelf Aloe: https://www.ncbi.nlm.nih.gov/books/NBK548634/ ؛ Kew POWO: https://powo.science.kew.org/results?q=Aloe%20vera ؛ ویکی‌پدیا، «aloe-vera» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Aloe_vera",
             sourceUrl = "https://www.nccih.nih.gov/health/aloe-vera"
         ),
         "matricaria-chamomilla" to Article(
@@ -470,7 +470,7 @@ object PlantMonographOverrides {
             preparation = "در سنت‌ها گل خشک به شکل دم‌کرده یا فرآورده موضعی استفاده شده است. از گیاه ناشناس کنار جاده یا زمین سم‌پاشی‌شده استفاده نکنید و دوز درمانی را خودسرانه تعیین نکنید.",
             specialPopulations = "اطلاعات ایمنی مکمل‌ها در بارداری و شیردهی محدود است. افراد دارای آلرژی به کاسنیان و مصرف‌کنندگان وارفارین باید احتیاط کنند؛ برای کودکان از فرآورده غلیظ بدون راهنمایی حرفه‌ای استفاده نشود.",
             faq = "آیا همه بابونه‌ها یک گونه‌اند؟ خیر. آیا درمان قطعی اضطراب است؟ خیر، شواهد محدود است. چه چیزی گل خشک را خراب می‌کند؟ رطوبت و کپک.",
-            bibliography = "NCCIH Chamomile: https://www.nccih.nih.gov/health/chamomile ؛ Kew POWO: https://powo.science.kew.org/results?q=Matricaria%20chamomilla",
+            bibliography = "NCCIH Chamomile: https://www.nccih.nih.gov/health/chamomile ؛ Kew POWO: https://powo.science.kew.org/results?q=Matricaria%20chamomilla ؛ ویکی‌پدیا، «matricaria-chamomilla» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Matricaria_chamomilla",
             sourceUrl = "https://www.nccih.nih.gov/health/chamomile"
         ),
         "zingiber-officinale" to Article(
@@ -485,7 +485,7 @@ object PlantMonographOverrides {
             preparation = "از ریزوم به‌صورت تازه، خشک، پودر یا دم‌کرده خوراکی استفاده می‌شود. این شرح کاربرد معمول، دوز درمانی نیست؛ برای تهوع شدید یا بارداری از توصیه متخصص پیروی کنید.",
             specialPopulations = "در بارداری، شیردهی، اختلال خون‌ریزی، سنگ صفرا یا مصرف داروهای مزمن، مکمل غلیظ را بدون مشورت شروع نکنید. کودکان نباید فرآورده‌های غلیظ نامشخص مصرف کنند.",
             faq = "آیا زنجبیل همه تهوع‌ها را درمان می‌کند؟ خیر. آیا ریزوم همان ریشه است؟ از نظر گیاه‌شناسی نه. چرا ریزوم می‌پوسد؟ خاک سرد و غرقاب از علت‌های مهم‌اند.",
-            bibliography = "NCCIH Ginger: https://www.nccih.nih.gov/health/ginger ؛ Kew POWO: https://powo.science.kew.org/results?q=Zingiber%20officinale",
+            bibliography = "NCCIH Ginger: https://www.nccih.nih.gov/health/ginger ؛ Kew POWO: https://powo.science.kew.org/results?q=Zingiber%20officinale ؛ ویکی‌پدیا، «zingiber-officinale» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Zingiber_officinale",
             sourceUrl = "https://www.nccih.nih.gov/health/ginger"
         ),
         "curcuma-longa" to Article(
@@ -500,7 +500,7 @@ object PlantMonographOverrides {
             preparation = "برای غذا از پودر ادویه خوراکی استفاده می‌شود؛ مکمل غلیظ را فقط طبق توصیه معتبر به کار ببرید. این مقاله دوز درمانی تعیین نمی‌کند و مصرف مکمل برای درمان بیماری باید با متخصص بررسی شود.",
             specialPopulations = "افراد مبتلا به بیماری کبدی یا صفراوی، باردار یا شیرده و کسانی که داروهای ضدانعقاد یا دیابت مصرف می‌کنند باید پیش از مکمل غلیظ مشورت کنند. در صورت زردی یا ادرار تیره، مصرف را قطع و ارزیابی پزشکی بگیرید.",
             faq = "آیا زردچوبه غذایی با مکمل کورکومین یکسان است؟ خیر. آیا درمان قطعی التهاب است؟ خیر. آیا افزایش جذب همیشه بی‌خطر است؟ نه؛ ممکن است خطر را تغییر دهد.",
-            bibliography = "NCCIH Turmeric: https://www.nccih.nih.gov/health/turmeric ؛ LiverTox: https://www.ncbi.nlm.nih.gov/books/NBK548561/ ؛ Kew POWO: https://powo.science.kew.org/results?q=Curcuma%20longa",
+            bibliography = "NCCIH Turmeric: https://www.nccih.nih.gov/health/turmeric ؛ LiverTox: https://www.ncbi.nlm.nih.gov/books/NBK548561/ ؛ Kew POWO: https://powo.science.kew.org/results?q=Curcuma%20longa ؛ ویکی‌پدیا، «curcuma-longa» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Turmeric",
             sourceUrl = "https://www.nccih.nih.gov/health/turmeric"
         ),
         "allium-sativum" to Article(
@@ -515,7 +515,7 @@ object PlantMonographOverrides {
             preparation = "در غذا می‌توان از حبه تازه یا خشک استفاده کرد. مکمل دارویی را با مقدار غذایی یکی ندانید و برای کنترل بیماری مقدار مصرف را خودسرانه افزایش ندهید.",
             specialPopulations = "افراد دارای اختلال خون‌ریزی، مصرف‌کنندگان داروهای ضدانعقاد، افراد پیش از جراحی و کسانی که داروی دیابت مصرف می‌کنند باید درباره مکمل غلیظ مشورت کنند. در بارداری و شیردهی، مقدار غذایی با مکمل فرق دارد.",
             faq = "آیا سیر جایگزین داروی فشار خون است؟ خیر. آیا همه مکمل‌ها یکسان‌اند؟ خیر. چرا پیاز سیر کپک می‌زند؟ رطوبت و نگهداری بدون تهویه از علت‌های مهم‌اند.",
-            bibliography = "NCCIH Garlic: https://www.nccih.nih.gov/health/garlic ؛ Kew POWO: https://powo.science.kew.org/results?q=Allium%20sativum",
+            bibliography = "NCCIH Garlic: https://www.nccih.nih.gov/health/garlic ؛ Kew POWO: https://powo.science.kew.org/results?q=Allium%20sativum ؛ ویکی‌پدیا، «allium-sativum» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Garlic",
             sourceUrl = "https://www.nccih.nih.gov/health/garlic"
         ),
         "crocus-sativus" to Article(
@@ -530,7 +530,7 @@ object PlantMonographOverrides {
             preparation = "برای غذا از مقدار ادویه‌ای معمول استفاده می‌شود. مکمل‌های غلیظ یا عصاره‌ها را بدون راهنمایی تخصصی مصرف نکنید؛ این متن دوز درمانی ارائه نمی‌کند.",
             specialPopulations = "در بارداری از مصرف دارویی یا مقدار زیاد زعفران اجتناب کنید. افراد دارای اختلال خون‌ریزی، مصرف‌کنندگان داروهای مزمن و افراد دارای بیماری زمینه‌ای باید پیش از مکمل مشورت کنند.",
             faq = "آیا زعفران درمان قطعی افسردگی است؟ خیر. آیا همه بخش‌های گل همان ادویه‌اند؟ خیر. چرا خشک‌کردن مهم است؟ برای حفظ عطر و جلوگیری از فساد.",
-            bibliography = "Kew POWO: https://powo.science.kew.org/results?q=Crocus%20sativus ؛ MedlinePlus Herbs and Supplements (اطلاعات کلی مکمل‌ها): https://medlineplus.gov/druginfo/herb_All.html ؛ برای ادعاهای درمانی، شواهد انسانی محدود و ناهمگون است.",
+            bibliography = "Kew POWO: https://powo.science.kew.org/results?q=Crocus%20sativus ؛ MedlinePlus Herbs and Supplements (اطلاعات کلی مکمل‌ها): https://medlineplus.gov/druginfo/herb_All.html ؛ برای ادعاهای درمانی، شواهد انسانی محدود و ناهمگون است. ؛ ویکی‌پدیا، «crocus-sativus» (برای مرور مقدماتی رده‌بندی، پراکندگی و ویژگی‌های گیاه؛ نه اثبات اثربخشی درمانی): https://en.wikipedia.org/wiki/Crocus_sativus",
             sourceUrl = "https://powo.science.kew.org/results?q=Crocus%20sativus"
         )
     )
