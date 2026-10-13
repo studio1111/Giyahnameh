@@ -999,4 +999,23 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "lathyrus-sativus" }.cautions.contains("لاتیریسم"))
         assertTrue(articles.first { it.id == "cucumis-anguria" }.cautions.contains("تلخ"))
     }
+
+    @Test fun fourMintAndSageSpeciesHaveSpecificSafetyAndSources() {
+        val ids = setOf("mentha-longifolia", "mentha-arvensis", "salvia-sclarea", "salvia-fruticosa")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
+        assertTrue(articles.all {
+            it.description.length >= 300 && it.habitat.length >= 150 &&
+                it.care.length >= 250 && it.traditionalUses.length >= 150 &&
+                it.evidence.length >= 150 && it.cautions.length >= 150 &&
+                it.interactions.length >= 100 && it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 && it.specialPopulations.length >= 100 &&
+                it.faq.length >= 80 && it.bibliography.contains("wikipedia.org") &&
+                it.sourceUrl.startsWith("https://")
+        })
+        assertTrue(articles.first { it.id == "mentha-arvensis" }.cautions.contains("منتول"))
+        assertTrue(articles.first { it.id == "salvia-fruticosa" }.cautions.contains("اسانس"))
+    }
 }
