@@ -1037,4 +1037,23 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "lavandula-stoechas" }.cautions.contains("کافور"))
         assertTrue(articles.first { it.id == "pelargonium-graveolens" }.cautions.contains("حساسیت"))
     }
+
+    @Test fun fourMedicinalPlantMonographsSeparateTraditionFromSafetyEvidence() {
+        val ids = setOf("corymbia-citriodora", "aegle-marmelos", "phyllanthus-niruri", "justicia-adhatoda")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
+        assertTrue(articles.all {
+            it.description.length >= 300 && it.habitat.length >= 150 &&
+                it.care.length >= 250 && it.traditionalUses.length >= 150 &&
+                it.evidence.length >= 150 && it.cautions.length >= 150 &&
+                it.interactions.length >= 100 && it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 && it.specialPopulations.length >= 100 &&
+                it.faq.length >= 80 && it.bibliography.contains("wikipedia.org") &&
+                it.sourceUrl.startsWith("https://")
+        })
+        assertTrue(articles.first { it.id == "justicia-adhatoda" }.cautions.contains("بارداری"))
+        assertTrue(articles.first { it.id == "corymbia-citriodora" }.cautions.contains("نخورید"))
+    }
 }
