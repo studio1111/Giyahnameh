@@ -1129,7 +1129,7 @@ class PlantSeedsTest {
                 it.faq.length >= 80 && it.bibliography.contains("wikipedia.org") &&
                 it.sourceUrl.startsWith("https://")
         })
-        assertTrue(articles.first { it.id == "citrullus-colocynthis" }.cautions.contains("سمیت"))
+        assertTrue(articles.first { it.id == "citrullus-colocynthis" }.cautions.contains("اسهال شدید"))
         assertTrue(articles.first { it.id == "physalis-peruviana" }.cautions.contains("نارس"))
     }
 
