@@ -516,6 +516,32 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "coptis-chinensis" }.interactions.contains("تداخل"))
     }
 
+
+    @Test fun ashwagandhaGinsengSennaAndPsylliumMonographsMeetSafetyChecks() {
+        val ids = setOf("withania-somnifera", "panax-ginseng", "senna-alexandrina", "plantago-ovata")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map { PlantMonographOverrides.apply(it) }
+        assertTrue(articles.all {
+            it.description.length >= 300 &&
+                it.habitat.length >= 150 &&
+                it.care.length >= 250 &&
+                it.traditionalUses.length >= 200 &&
+                it.evidence.length >= 200 &&
+                it.cautions.length >= 200 &&
+                it.interactions.length >= 120 &&
+                it.partsUsed.length >= 120 &&
+                it.preparation.length >= 120 &&
+                it.specialPopulations.length >= 120 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://")
+        })
+        assertTrue(articles.first { it.id == "withania-somnifera" }.cautions.contains("آسیب کبدی"))
+        assertTrue(articles.first { it.id == "senna-alexandrina" }.cautions.contains("پتاسیم"))
+        assertTrue(articles.first { it.id == "plantago-ovata" }.cautions.contains("خفگی"))
+        assertTrue(articles.first { it.id == "panax-ginseng" }.bibliography.contains("nccih.nih.gov/health/asian-ginseng"))
+    }
+
     @Test fun newMedicinalMonographsHaveDepthSpeciesSpecificSourcesAndSafety() {
         val ids = setOf(
             "panax-quinquefolius",
