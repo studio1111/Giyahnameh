@@ -659,4 +659,35 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "salvia-officinalis" }.cautions.contains("توجون"))
         assertTrue(articles.first { it.id == "cuminum-cyminum" }.partsUsed.contains("میوه خشک"))
     }
+
+    @Test fun seedOilAndBeveragePlantMonographsHaveSpecificSourcesAndSafety() {
+        val ids = setOf(
+            "foeniculum-vulgare", "trigonella-foenum-graecum", "nigella-sativa",
+            "allium-cepa", "piper-nigrum", "camellia-sinensis",
+            "sesamum-indicum", "linum-usitatissimum"
+        )
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
+        assertTrue(articles.all {
+            it.description.length >= 300 &&
+                it.habitat.length >= 150 &&
+                it.care.length >= 250 &&
+                it.traditionalUses.length >= 150 &&
+                it.evidence.length >= 150 &&
+                it.cautions.length >= 150 &&
+                it.interactions.length >= 100 &&
+                it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 &&
+                it.specialPopulations.length >= 100 &&
+                it.faq.length >= 80 &&
+                it.bibliography.contains("wikipedia.org") &&
+                it.sourceUrl.startsWith("https://")
+        })
+        assertTrue(articles.first { it.id == "trigonella-foenum-graecum" }.cautions.contains("قند خون"))
+        assertTrue(articles.first { it.id == "piper-nigrum" }.interactions.contains("پیپرین"))
+        assertTrue(articles.first { it.id == "camellia-sinensis" }.cautions.contains("کافئین"))
+        assertTrue(articles.first { it.id == "linum-usitatissimum" }.cautions.contains("بلع"))
+    }
 }
