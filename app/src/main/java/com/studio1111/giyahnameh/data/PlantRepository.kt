@@ -16,7 +16,7 @@ import java.net.URL
 
 class PlantRepository(private val dao: PlantDao, private val context: Context) {
     private companion object {
-        const val CATALOG_VERSION = 24
+        const val CATALOG_VERSION = 25
         val catalogSyncMutex = Mutex()
     }
 
