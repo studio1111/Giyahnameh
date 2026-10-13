@@ -430,4 +430,17 @@ class PlantSeedsTest {
         assertTrue(goji.bibliography.contains("pubmed.ncbi.nlm.nih.gov/19844860"))
         assertTrue(goji.bibliography.contains("extension.usu.edu"))
     }
+
+    @Test
+    fun seaBuckthornAndLoquatArticlesIncludeTraditionCultivationAndSafety() {
+        val seaBuckthorn = allSeedPlants.first { it.id == "hippophae-rhamnoides" }
+        val loquat = allSeedPlants.first { it.id == "eriobotrya-japonica" }
+        assertTrue(seaBuckthorn.care.contains("دوپایه"))
+        assertTrue(seaBuckthorn.traditionalUses.contains("طب سنتی"))
+        assertTrue(seaBuckthorn.bibliography.contains("pubmed.ncbi.nlm.nih.gov/36930583"))
+        assertTrue(loquat.care.contains("پیوند"))
+        assertTrue(loquat.traditionalUses.contains("Pi Pa Ye"))
+        assertTrue(loquat.cautions.contains("هسته"))
+        assertTrue(loquat.bibliography.contains("ask.ifas.ufl.edu/publication/MG050"))
+    }
 }
