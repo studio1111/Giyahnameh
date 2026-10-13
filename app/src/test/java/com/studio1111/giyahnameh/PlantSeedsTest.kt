@@ -720,4 +720,28 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "triticum-aestivum" }.cautions.contains("گلوتن"))
         assertTrue(articles.first { it.id == "oryza-sativa" }.cautions.contains("یخچال"))
     }
+
+    @Test fun additionalEuropeanHerbsHaveDetailedMonographsAndPlantSpecificSafety() {
+        val ids = setOf(
+            "melissa-officinalis", "artemisia-dracunculus", "tanacetum-parthenium",
+            "origanum-majorana", "satureja-hortensis", "hyssopus-officinalis",
+            "nepeta-cataria", "borago-officinalis"
+        )
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
+        assertTrue(articles.all {
+            it.description.length >= 300 && it.habitat.length >= 150 &&
+                it.care.length >= 250 && it.traditionalUses.length >= 150 &&
+                it.evidence.length >= 150 && it.cautions.length >= 150 &&
+                it.interactions.length >= 100 && it.partsUsed.length >= 100 &&
+                it.preparation.length >= 100 && it.specialPopulations.length >= 100 &&
+                it.faq.length >= 80 && it.bibliography.contains("wikipedia.org") &&
+                it.sourceUrl.startsWith("https://")
+        })
+        assertTrue(articles.first { it.id == "hyssopus-officinalis" }.cautions.contains("تشنج"))
+        assertTrue(articles.first { it.id == "borago-officinalis" }.cautions.contains("کبدی"))
+        assertTrue(articles.first { it.id == "tanacetum-parthenium" }.cautions.contains("خون‌ریزی"))
+    }
 }
