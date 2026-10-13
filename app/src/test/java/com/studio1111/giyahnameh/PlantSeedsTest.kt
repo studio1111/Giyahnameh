@@ -495,6 +495,29 @@ class PlantSeedsTest {
         assertTrue(articles.first { it.id == "equisetum-arvense" }.cautions.contains("کلیه"))
     }
 
+
+    @Test fun additionalTraditionalChineseMonographsDocumentInteractionsAndLimits() {
+        val ids = setOf("salvia-miltiorrhiza", "cinnamomum-camphora", "scutellaria-baicalensis", "coptis-chinensis")
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertTrue(articles.all {
+            it.description.length >= 400 &&
+                it.care.length >= 250 &&
+                it.traditionalUses.length >= 200 &&
+                it.evidence.length >= 200 &&
+                it.cautions.length >= 200 &&
+                it.interactions.length >= 120 &&
+                it.partsUsed.length >= 120 &&
+                it.preparation.length >= 120 &&
+                it.specialPopulations.length >= 120 &&
+                it.bibliography.contains("https://")
+        })
+        assertTrue(articles.first { it.id == "salvia-miltiorrhiza" }.interactions.contains("وارفارین"))
+        assertTrue(articles.first { it.id == "cinnamomum-camphora" }.cautions.contains("مسمومیت"))
+        assertTrue(articles.first { it.id == "coptis-chinensis" }.interactions.contains("تداخل"))
+    }
+
     @Test fun newMedicinalMonographsHaveDepthSpeciesSpecificSourcesAndSafety() {
         val ids = setOf(
             "panax-quinquefolius",
