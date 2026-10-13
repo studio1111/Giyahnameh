@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
@@ -73,6 +74,8 @@ class PlantViewModel(private val repo: PlantRepository) : ViewModel() {
     val plants = queryFlow.flatMapLatest { repo.plants(it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val favorites = repo.favorites().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val cachedImageCount = repo.cachedImageCount().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val totalPlantCount = repo.totalPlantCount().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     init { viewModelScope.launch { repo.seedIfNeeded() } }
 
@@ -133,6 +136,9 @@ private fun GiyahApp(vm: PlantViewModel) {
         else baseList.filter { it.category.contains(vm.selectedCategory, ignoreCase = true) }
     }
     val selected = vm.selectedId
+    val cachedImageCount by vm.cachedImageCount.collectAsState()
+    val totalPlantCount by vm.totalPlantCount.collectAsState()
+    val imageProgress = if (totalPlantCount > 0) (cachedImageCount.toFloat() / totalPlantCount).coerceIn(0f, 1f) else 0f
     Scaffold(
         containerColor = Paper,
         topBar = {
@@ -205,6 +211,30 @@ private fun GiyahApp(vm: PlantViewModel) {
                         }
                     }
                 }
+                Surface(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 6.dp),
+                    shape = RoundedCornerShape(15.dp),
+                    color = Color.White,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD8DED5)),
+                    shadowElevation = 0.dp
+                ) {
+                    Column(
+                        Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 9.dp),
+                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("تصاویر آفلاین", fontWeight = FontWeight.Bold, color = ForestDeep, style = MaterialTheme.typography.labelLarge)
+                            Spacer(Modifier.weight(1f))
+                            Text("$cachedImageCount از $totalPlantCount", fontWeight = FontWeight.Bold, color = Forest, style = MaterialTheme.typography.labelMedium)
+                        }
+                        LinearProgressIndicator(progress = imageProgress, modifier = Modifier.fillMaxWidth())
+                        Text(
+                            if (totalPlantCount > 0 && cachedImageCount >= totalPlantCount) "تصاویر دریافت‌شده در حافظهٔ برنامه ثبت شده‌اند." else "با اتصال اینترنت، تصاویر دارای مجوز به‌تدریج دریافت می‌شوند.",
+                            color = Muted,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
                 Row(
                     Modifier.fillMaxWidth().padding(start = 18.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -260,13 +290,7 @@ private fun PlantCard(plant: Plant, onClick: () -> Unit) {
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-                if (plant.imageUrl.isNotBlank()) {
-                    AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
-                } else {
-                    Text("🌿", style = MaterialTheme.typography.displaySmall)
-                }
-            }
+            PlantPhoto(plant = plant, modifier = Modifier.size(104.dp).clip(RoundedCornerShape(17.dp)), emoji = "🌿")
             Spacer(Modifier.width(13.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(plant.persianName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = Color(0xFF202820))
@@ -289,13 +313,7 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
         modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Box(Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)).background(Leaf), contentAlignment = Alignment.Center) {
-            if (plant.imageUrl.isNotBlank()) {
-                AsyncImage(model = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File) ?: plant.imageUrl, contentDescription = plant.persianName, modifier = Modifier.fillMaxSize())
-            } else {
-                Text("🌱", style = MaterialTheme.typography.displayLarge)
-            }
-        }
+        PlantPhoto(plant = plant, modifier = Modifier.fillMaxWidth().height(250.dp).clip(RoundedCornerShape(24.dp)), emoji = "🌱", large = true)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(plant.persianName, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = ForestDeep)
@@ -308,13 +326,19 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
                     contentDescription = "ذخیره در علاقه‌مندی‌ها", tint = Forest)
             }
         }
-        InfoSection("معرفی و ویژگی‌ها", plant.description)
-        InfoSection("زیستگاه و پراکندگی", plant.habitat)
-        InfoSection("پرورش و نگهداری", plant.care)
-        InfoSection("کاربردهای سنتی و شکل‌های رایج", plant.traditionalUses)
-        InfoSection("شواهد علمی و محدودیت دانسته‌ها", plant.evidence)
-        InfoSection("عوارض و هشدارهای ایمنی", plant.cautions, warning = true)
-        InfoSection("تداخلات دارویی و احتیاط‌ها", plant.interactions, warning = true)
+        InfoSection("۱. معرفی و ویژگی‌های گیاه", plant.description)
+        InfoSection("۲. نام علمی، خانواده و شناسایی درست", "نام علمی ثبت‌شده برای این گیاه «${plant.scientificName}» و خانوادهٔ گیاهی آن «${plant.family}» است. نام‌های محلی گاهی برای چند گیاه متفاوت به کار می‌روند؛ بنابراین برای شناسایی مطمئن، تنها به نام فارسی یا عکس اکتفا نکنید. شکل برگ، ساقه، گل، میوه، بوی گیاه و محل رویش باید در کنار هم بررسی شوند. اگر قرار است گیاه برای خوردن یا مصرف دارویی استفاده شود، در صورت تردید از کارشناس گیاه‌شناسی یا داروساز کمک بگیرید.")
+        InfoSection("۳. زیستگاه و پراکندگی", plant.habitat)
+        InfoSection("۴. شرایط رشد و نگهداری", plant.care + "\n\nبرای نگهداری بهتر، تغییرات گیاه را در طول زمان بررسی کنید: وضعیت برگ‌ها، رشد تازه، زهکشی خاک و نشانه‌های آفت یا پوسیدگی را ببینید. نیاز واقعی گیاه به نور و آب به اقلیم، فصل، گلدان و بافت خاک هم وابسته است؛ برنامهٔ آبیاری ثابت برای همهٔ گیاهان مناسب نیست. از ماندن آب در زیرگلدانی و تغییر ناگهانی شرایط محیطی پرهیز کنید.")
+        InfoSection("۵. بخش‌های مورد استفاده و کاربردهای سنتی", plant.traditionalUses + plant.partsUsed.takeIf { it.isNotBlank() }?.let { "\n\n" + it }.orEmpty() + "\n\nدر منابع گیاهان دارویی، «کاربرد سنتی» به معنای استفاده‌ای است که در یک فرهنگ یا نظام درمانی رواج داشته؛ این عبارت به‌تنهایی ثابت نمی‌کند که آن کاربرد مؤثر یا بی‌خطر است. برگ، گل، ریشه، پوست، دانه و اسانس یک گیاه می‌توانند ترکیب و خطرهای متفاوتی داشته باشند. اطلاعات مربوط به یک بخش گیاه یا یک فرآورده را نباید خودکار به بخش‌ها و فرآورده‌های دیگر تعمیم داد.")
+        InfoSection("۶. روش استفاده و آماده‌سازی", plant.preparation.ifBlank { "روش مصرف باید با گونه، بخش گیاه و فرآورده هماهنگ باشد. در نبود منبع معتبر و اطلاعات اختصاصی، مقدار مصرف یا دستور درمان خانگی پیشنهاد نمی‌شود. دمنوش، عصاره، کپسول و اسانس غلیظ از نظر قدرت و ایمنی یکسان نیستند؛ برای مصرف دارویی از پزشک یا داروساز راهنمایی بگیرید." })
+        InfoSection("۷. شواهد علمی و میزان اطمینان", plant.evidence + "\n\nوجود ترکیبات شیمیایی یا نتیجهٔ یک آزمایش آزمایشگاهی، به‌تنهایی اثربخشی در انسان را ثابت نمی‌کند. ارزیابی علمی به نوع مطالعه، تعداد شرکت‌کنندگان، کیفیت فرآورده، مقدار مصرف و تکرار نتایج وابسته است. نتیجهٔ مربوط به یک گونه یا محصول را نمی‌توان بدون بررسی به گونهٔ مشابه یا محصول دیگر تعمیم داد.")
+        InfoSection("۸. عوارض، هشدارها و زمان مراجعه", plant.cautions + "\n\nدر صورت بروز علائم شدید یا سریع مانند دشواری تنفس، تورم زبان یا گلو، غش، تشنج، استفراغ مداوم یا واکنش حساسیتی گسترده، مصرف را متوقف کنید و فوراً کمک پزشکی بگیرید. اگر پس از تماس یا مصرف گیاه علائم غیرعادی ایجاد شد، نام گیاه و شکل فرآورده را نگه دارید تا بررسی آن آسان‌تر شود.", warning = true)
+        InfoSection("۹. تداخلات دارویی", plant.interactions + "\n\nتداخل فقط به قرص‌ها محدود نیست و می‌تواند با مکمل‌ها، گیاهان دیگر و داروهای بیهوشی یا آرام‌بخش هم مطرح شود. پیش از مصرف دارویی، فهرست داروها و مکمل‌های خود را با پزشک یا داروساز مرور کنید؛ به‌ویژه اگر داروی منظم مصرف می‌کنید یا قرار است جراحی انجام دهید.", warning = true)
+        InfoSection("۱۰. کودکان، بارداری، شیردهی و سالمندان", plant.specialPopulations.ifBlank { "ایمنی این گیاه برای همهٔ گروه‌های حساس از اطلاعات عمومی قابل نتیجه‌گیری نیست. کودکان، افراد باردار یا شیرده، سالمندان و کسانی که بیماری زمینه‌ای یا مصرف داروی منظم دارند، پیش از مصرف دارویی یا اسانس غلیظ باید از پزشک یا داروساز راهنمایی بگیرند." }, warning = true)
+        InfoSection("۱۱. نگهداری و کیفیت فرآورده", "برای گیاه خوراکی یا دارویی، هویت گونه و کیفیت محصول اهمیت زیادی دارد. از گیاه ناشناس، کپک‌زده، آلوده یا جمع‌آوری‌شده از کنار جاده و محل‌های آلوده استفاده نکنید. فرآورده را طبق برچسب و دور از دسترس کودکان نگه دارید. خشک‌کردن یا نگهداری نامناسب می‌تواند کیفیت گیاه را تغییر دهد و ظاهر سالم به‌تنهایی تضمین‌کنندهٔ ایمنی نیست.")
+        InfoSection("۱۲. پرسش‌های پرتکرار", plant.faq.ifBlank { "آیا این گیاه درمان قطعی بیماری است؟ خیر؛ کاربرد سنتی به‌تنهایی اثربخشی را ثابت نمی‌کند. آیا مصرف طبیعی همیشه بی‌خطر است؟ خیر؛ حساسیت، عارضه و تداخل دارویی ممکن است رخ دهد. آیا می‌توان مقدار مصرف را از تجربهٔ دیگران تعیین کرد؟ خیر؛ گونه، بخش گیاه و نوع فرآورده اهمیت دارد." })
+        if (plant.bibliography.isNotBlank()) InfoSection("منابع علمی تکمیلی", plant.bibliography)
         if (plant.imageUrl.isNotBlank()) {
             InfoSection("اعتبار تصویر", "دارنده حقوق: ${plant.imageAttribution}\nمجوز: ${plant.imageLicense}\nمنبع تصویر: ${plant.imageSourceUrl}")
         }
@@ -329,6 +353,34 @@ private fun PlantDetails(plant: Plant, modifier: Modifier, onFavorite: (Plant) -
             )
         }
         Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun PlantPhoto(plant: Plant, modifier: Modifier, emoji: String, large: Boolean = false) {
+    var useRemoteFallback by remember(plant.id, plant.imageUrl, plant.imageLocalPath) { mutableStateOf(false) }
+    val localFile = plant.imageLocalPath.takeIf { it.isNotBlank() }?.let(::File)?.takeIf { it.isFile && it.length() > 0L }
+    val remoteUrl = plant.imageUrl.takeIf { it.startsWith("https://") }
+    val imageModel: Any? = if (!useRemoteFallback && localFile != null) localFile else remoteUrl
+    Box(modifier.background(Leaf), contentAlignment = Alignment.Center) {
+        if (imageModel != null) {
+            AsyncImage(
+                model = imageModel,
+                contentDescription = "تصویر ${plant.persianName}",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                onError = {
+                    if (!useRemoteFallback && localFile != null && remoteUrl != null) useRemoteFallback = true
+                    else useRemoteFallback = true
+                },
+                onSuccess = { }
+            )
+        } else {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(emoji, style = if (large) MaterialTheme.typography.displayLarge else MaterialTheme.typography.displaySmall)
+                if (large) Text("برای این گیاه هنوز عکس قابل‌نمایشی پیدا نشده است؛ با اتصال اینترنت دوباره تلاش می‌شود.", color = ForestDeep, style = MaterialTheme.typography.bodySmall)
+            }
+        }
     }
 }
 
