@@ -16,6 +16,7 @@ import com.studio1111.giyahnameh.data.PlantCatalogAsia13
 import com.studio1111.giyahnameh.data.PlantCatalogAsia14
 import com.studio1111.giyahnameh.data.PlantCatalogAsia15
 import com.studio1111.giyahnameh.data.PlantSeeds
+import com.studio1111.giyahnameh.data.PlantMonographOverrides
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -442,5 +443,43 @@ class PlantSeedsTest {
         assertTrue(loquat.traditionalUses.contains("Pi Pa Ye"))
         assertTrue(loquat.cautions.contains("هسته"))
         assertTrue(loquat.bibliography.contains("ask.ifas.ufl.edu/publication/MG050"))
+    }
+}
+
+    @Test fun newMedicinalMonographsHaveDepthSpeciesSpecificSourcesAndSafety() {
+        val ids = setOf(
+            "panax-quinquefolius",
+            "silybum-marianum",
+            "glycyrrhiza-uralensis",
+            "stevia-rebaudiana",
+            "polygonum-multiflorum"
+        )
+        val originals = allSeedPlants.filter { it.id in ids }
+        assertEquals(ids, originals.map { it.id }.toSet())
+        val articles = originals.map(PlantMonographOverrides::apply)
+        assertEquals(ids, PlantMonographOverrides.coveredSpecies().intersect(ids))
+        assertTrue(articles.all {
+            it.description.length >= 500 &&
+                it.habitat.length >= 150 &&
+                it.care.length >= 300 &&
+                it.traditionalUses.length >= 250 &&
+                it.evidence.length >= 250 &&
+                it.cautions.length >= 250 &&
+                it.interactions.length >= 150 &&
+                it.partsUsed.length >= 150 &&
+                it.preparation.length >= 150 &&
+                it.specialPopulations.length >= 150 &&
+                it.faq.length >= 100 &&
+                it.bibliography.contains("https://") &&
+                it.sourceUrl.startsWith("https://")
+        })
+        val licorice = articles.first { it.id == "glycyrrhiza-uralensis" }
+        assertTrue(licorice.cautions.contains("فشار خون"))
+        assertTrue(licorice.cautions.contains("پتاسیم"))
+        val foTi = articles.first { it.id == "polygonum-multiflorum" }
+        assertTrue(foTi.cautions.contains("آسیب کبدی"))
+        assertTrue(foTi.bibliography.contains("NBK548795"))
+        val milkThistle = articles.first { it.id == "silybum-marianum" }
+        assertTrue(milkThistle.bibliography.contains("nccih.nih.gov/health/milk-thistle"))
     }
 }
